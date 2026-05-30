@@ -6,8 +6,16 @@ import { usePathname, useSearchParams } from "next/navigation";
 // Define the sub-menus for each module
 const moduleMenus: Record<string, { title: string, id: string }[]> = {
   "/admissions": [
-    { title: "Overview & History", id: "overview" },
-    { title: "Admit New Student", id: "new" },
+    { title: "Dashboard & Analytics", id: "dashboard" },
+    { title: "Campaigns & Leads", id: "campaigns" },
+    { title: "Enquiry Management", id: "enquiry" },
+    { title: "Application Management", id: "applications" },
+    { title: "Document Verification", id: "documents" },
+    { title: "Entrance & Interviews", id: "assessments" },
+    { title: "Merit Lists & Approvals", id: "approvals" },
+    { title: "Fee Collection", id: "fees" },
+    { title: "Enrollment & Allocation", id: "enrollment" },
+    { title: "Reports & Configuration", id: "reports" },
   ],
   "/attendance": [
     { title: "My Attendance", id: "my" },
