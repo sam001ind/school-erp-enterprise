@@ -85,7 +85,7 @@ export default function LiveSitePage() {
 
   return (
     <div className="bg-white min-h-screen font-sans">
-      <div className="fixed top-4 right-4 z-[100] bg-white dark:bg-zinc-900 shadow-xl rounded-full border border-zinc-200 dark:border-zinc-800 p-1 flex items-center">
+      <div className="fixed bottom-6 left-6 z-[100] bg-white dark:bg-zinc-900 shadow-xl rounded-full border border-zinc-200 dark:border-zinc-800 p-1 flex items-center">
         <button onClick={() => setSiteLanguage('en')} className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${siteLanguage === 'en' ? 'bg-blue-600 text-white' : 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'}`}>EN</button>
         <button onClick={() => setSiteLanguage('ml')} className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${siteLanguage === 'ml' ? 'bg-blue-600 text-white' : 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'}`}>ML</button>
       </div>

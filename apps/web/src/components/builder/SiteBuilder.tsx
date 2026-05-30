@@ -701,11 +701,27 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
       <div className="flex-1 flex flex-col">
         {/* Topbar */}
         <div className="h-16 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-6 z-10 shadow-sm">
-           <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-lg">
-             <button onClick={() => setViewport('desktop')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'desktop' ? 'bg-white dark:bg-zinc-700 shadow-sm' : 'text-zinc-500'}`}>Desktop</button>
-             <button onClick={() => setViewport('tablet')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'tablet' ? 'bg-white dark:bg-zinc-700 shadow-sm' : 'text-zinc-500'}`}>Tablet</button>
-             <button onClick={() => setViewport('mobile')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'mobile' ? 'bg-white dark:bg-zinc-700 shadow-sm' : 'text-zinc-500'}`}>Mobile</button>
+           <div className="flex items-center gap-6">
+             <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-lg">
+               <button onClick={() => setViewport('desktop')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'desktop' ? 'bg-white dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}>Desktop</button>
+               <button onClick={() => setViewport('tablet')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'tablet' ? 'bg-white dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}>Tablet</button>
+               <button onClick={() => setViewport('mobile')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'mobile' ? 'bg-white dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}>Mobile</button>
+             </div>
+             
+             <div className="h-8 w-px bg-zinc-200 dark:bg-zinc-700 hidden md:block"></div>
+             
+             <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-lg">
+                <button 
+                  onClick={() => setBuilderLanguage("en")} 
+                  className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${builderLanguage === "en" ? "bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"}`}
+                >🇬🇧 English</button>
+                <button 
+                  onClick={() => setBuilderLanguage("ml")} 
+                  className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${builderLanguage === "ml" ? "bg-blue-600 shadow-sm text-white" : "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"}`}
+                >🇮🇳 Malayalam Mode</button>
+              </div>
            </div>
+           
            <button 
              onClick={handlePublish}
              disabled={isPublishing}
