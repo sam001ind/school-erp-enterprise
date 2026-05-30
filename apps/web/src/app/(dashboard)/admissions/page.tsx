@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default function AdmissionsDashboard() {
-  const [activeTab, setActiveTab] = useState("overview");
+function AdmissionsContent() {
+  const searchParams = useSearchParams();
+  const activeTab = searchParams.get("tab") || "overview";
 
   // Mock data for recent admissions
   const recentAdmissions = [
@@ -13,83 +15,61 @@ export default function AdmissionsDashboard() {
   ];
 
   return (
-    <div className="p-8">
+    <div className="p-8 max-w-6xl mx-auto">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Admissions Management</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          {activeTab === "overview" ? "Overview & History" : "Admit New Student"}
+        </h1>
         <p className="text-gray-500 mt-2">Manage student enrollments, applications, and profiles.</p>
       </header>
-
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200 dark:border-gray-800 mb-8">
-        <button
-          onClick={() => setActiveTab("overview")}
-          className={`py-3 px-6 font-medium text-sm border-b-2 transition-colors ${
-            activeTab === "overview" 
-              ? "border-red-500 text-red-600 dark:text-red-400" 
-              : "border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-          }`}
-        >
-          Overview & History
-        </button>
-        <button
-          onClick={() => setActiveTab("new")}
-          className={`py-3 px-6 font-medium text-sm border-b-2 transition-colors ${
-            activeTab === "new" 
-              ? "border-red-500 text-red-600 dark:text-red-400" 
-              : "border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-          }`}
-        >
-          Admit New Student
-        </button>
-      </div>
 
       {activeTab === "overview" && (
         <div className="space-y-6">
           {/* Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
-              <h3 className="text-gray-500 text-sm font-medium">Total Admissions (This Year)</h3>
-              <p className="text-3xl font-bold mt-2 dark:text-white">428</p>
-              <p className="text-sm text-green-500 mt-2">↑ 12% from last year</p>
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm">
+              <h3 className="text-gray-500 text-sm font-medium">Total Admissions</h3>
+              <p className="text-4xl font-extrabold mt-2 dark:text-white text-zinc-900">428</p>
+              <p className="text-sm text-green-500 mt-2 font-medium">↑ 12% from last year</p>
             </div>
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm">
               <h3 className="text-gray-500 text-sm font-medium">Pending Applications</h3>
-              <p className="text-3xl font-bold mt-2 dark:text-white">15</p>
-              <p className="text-sm text-yellow-500 mt-2">Requires review</p>
+              <p className="text-4xl font-extrabold mt-2 dark:text-white text-zinc-900">15</p>
+              <p className="text-sm text-yellow-500 mt-2 font-medium">Requires review</p>
             </div>
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm">
               <h3 className="text-gray-500 text-sm font-medium">Available Seats</h3>
-              <p className="text-3xl font-bold mt-2 dark:text-white">72</p>
-              <p className="text-sm text-gray-400 mt-2">Across all grades</p>
+              <p className="text-4xl font-extrabold mt-2 dark:text-white text-zinc-900">72</p>
+              <p className="text-sm text-gray-400 mt-2 font-medium">Across all grades</p>
             </div>
           </div>
 
           {/* Table */}
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm overflow-hidden">
+            <div className="px-6 py-5 border-b border-gray-100 dark:border-zinc-800 flex justify-between items-center bg-zinc-50/50 dark:bg-black/20">
               <h2 className="font-semibold text-lg dark:text-white">Recent Enrollments</h2>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-gray-50 dark:bg-gray-950/50 text-gray-500 text-sm">
-                    <th className="px-6 py-3 font-medium">Admission No</th>
-                    <th className="px-6 py-3 font-medium">Student Name</th>
-                    <th className="px-6 py-3 font-medium">DOB</th>
-                    <th className="px-6 py-3 font-medium">Gender</th>
-                    <th className="px-6 py-3 font-medium">Blood Group</th>
-                    <th className="px-6 py-3 font-medium">Enrollment Date</th>
+                  <tr className="bg-white dark:bg-zinc-900 text-gray-500 text-sm border-b border-gray-100 dark:border-zinc-800">
+                    <th className="px-6 py-4 font-semibold">Admission No</th>
+                    <th className="px-6 py-4 font-semibold">Student Name</th>
+                    <th className="px-6 py-4 font-semibold">DOB</th>
+                    <th className="px-6 py-4 font-semibold">Gender</th>
+                    <th className="px-6 py-4 font-semibold">Blood Group</th>
+                    <th className="px-6 py-4 font-semibold">Date</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-800 text-sm">
+                <tbody className="divide-y divide-gray-100 dark:divide-zinc-800 text-sm">
                   {recentAdmissions.map((student) => (
-                    <tr key={student.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                      <td className="px-6 py-4 font-medium text-red-600 dark:text-red-400">{student.admissionNo}</td>
-                      <td className="px-6 py-4 font-medium dark:text-white">{student.name}</td>
+                    <tr key={student.id} className="hover:bg-gray-50 dark:hover:bg-zinc-800/50 transition-colors">
+                      <td className="px-6 py-4 font-medium text-blue-600 dark:text-blue-400">{student.admissionNo}</td>
+                      <td className="px-6 py-4 font-semibold dark:text-white text-zinc-900">{student.name}</td>
                       <td className="px-6 py-4 text-gray-500 dark:text-gray-400">{student.dob}</td>
                       <td className="px-6 py-4 text-gray-500 dark:text-gray-400">{student.gender}</td>
-                      <td className="px-6 py-4 text-gray-500 dark:text-gray-400">
-                        <span className="px-2 py-1 rounded bg-gray-100 dark:bg-gray-800 text-xs font-semibold">
+                      <td className="px-6 py-4">
+                        <span className="px-2.5 py-1 rounded-md bg-gray-100 dark:bg-zinc-800 text-xs font-bold text-gray-600 dark:text-gray-300">
                           {student.bloodGroup}
                         </span>
                       </td>
@@ -104,88 +84,52 @@ export default function AdmissionsDashboard() {
       )}
 
       {activeTab === "new" && (
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-8 max-w-4xl">
-          <h2 className="text-2xl font-bold mb-6 dark:text-white">New Student Admission</h2>
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-8 max-w-4xl">
           <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
             
             {/* System Details */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-gray-800 pb-2">User Account (System Access)</h3>
+              <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4">User Account</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
-                  <input type="email" className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none" placeholder="student@school.edu" />
+                  <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Email Address</label>
+                  <input type="email" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-black px-4 py-3 text-zinc-900 dark:text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="student@school.edu" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Temporary Password</label>
-                  <input type="password" className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none" placeholder="••••••••" />
+                  <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Temporary Password</label>
+                  <input type="password" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-black px-4 py-3 text-zinc-900 dark:text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="••••••••" />
                 </div>
               </div>
             </div>
 
+            <hr className="border-zinc-100 dark:border-zinc-800" />
+
             {/* Profile Details */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-gray-800 pb-2">Student Profile</h3>
+              <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4">Student Profile</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
-                  <input type="text" className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none" placeholder="e.g. John Doe" />
+                  <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Full Name</label>
+                  <input type="text" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-black px-4 py-3 text-zinc-900 dark:text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="e.g. John Doe" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date of Birth</label>
-                  <input type="date" className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none" />
+                  <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Date of Birth</label>
+                  <input type="date" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-black px-4 py-3 text-zinc-900 dark:text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Gender</label>
-                  <select className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none">
+                  <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">Gender</label>
+                  <select className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-black px-4 py-3 text-zinc-900 dark:text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all">
                     <option>Select Gender</option>
                     <option>Male</option>
                     <option>Female</option>
                     <option>Other</option>
                   </select>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Blood Group</label>
-                  <select className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none">
-                    <option>Select Blood Group</option>
-                    <option>A+</option><option>A-</option>
-                    <option>B+</option><option>B-</option>
-                    <option>O+</option><option>O-</option>
-                    <option>AB+</option><option>AB-</option>
-                  </select>
-                </div>
               </div>
             </div>
 
-            {/* Guardian Details */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-gray-800 pb-2">Guardian Information</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Guardian Full Name</label>
-                  <input type="text" className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none" placeholder="e.g. Richard Doe" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Relationship to Student</label>
-                  <select className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none">
-                    <option>Father</option>
-                    <option>Mother</option>
-                    <option>Legal Guardian</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone Number</label>
-                  <input type="tel" className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-4 py-2.5 text-gray-900 dark:text-white focus:border-red-500 focus:ring-red-500 outline-none" placeholder="+1 (555) 000-0000" />
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4 flex justify-end gap-4">
-              <button type="button" onClick={() => setActiveTab("overview")} className="px-6 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                Cancel
-              </button>
-              <button type="submit" className="px-6 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium transition-colors shadow-sm">
+            <div className="pt-6 flex justify-end gap-4">
+              <button type="submit" className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors shadow-lg shadow-blue-500/30">
                 Complete Admission
               </button>
             </div>
@@ -194,4 +138,12 @@ export default function AdmissionsDashboard() {
       )}
     </div>
   );
+}
+
+export default function AdmissionsDashboard() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AdmissionsContent />
+    </Suspense>
+  )
 }
