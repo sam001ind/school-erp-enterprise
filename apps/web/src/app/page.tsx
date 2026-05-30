@@ -3,6 +3,7 @@ import Link from "next/link";
 export default function Home() {
   const modules = [
     { name: "Website Builder", path: "/website", icon: "🌐", color: "from-cyan-400 to-blue-600", stats: "3 Pages Live" },
+    { name: "Communications", path: "/communications", icon: "💬", color: "from-sky-400 to-blue-600", stats: "API Active" },
     { name: "Admissions", path: "/admissions", icon: "🎓", color: "from-red-500 to-rose-600", stats: "15 Pending" },
     { name: "Attendance", path: "/attendance", icon: "📅", color: "from-blue-500 to-indigo-600", stats: "92% Avg" },
     { name: "Examinations", path: "/examinations", icon: "📝", color: "from-indigo-500 to-purple-600", stats: "Mid-Terms Active" },

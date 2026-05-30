@@ -11,6 +11,14 @@ const moduleMenus: Record<string, { title: string, id: string }[]> = {
     { title: "Media Library", id: "media" },
     { title: "Site Settings", id: "settings" },
   ],
+  "/communications": [
+    { title: "Hub Dashboard", id: "dashboard" },
+    { title: "Shared Inbox", id: "inbox" },
+    { title: "Broadcasts", id: "broadcasts" },
+    { title: "Message Templates", id: "templates" },
+    { title: "Chatbots & Flows", id: "chatbots" },
+    { title: "API Settings", id: "settings" },
+  ],
   "/admissions": [
     { title: "Dashboard & Analytics", id: "dashboard" },
     { title: "Campaigns & Leads", id: "campaigns" },
