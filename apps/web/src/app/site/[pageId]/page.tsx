@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Blocks, getPageTemplate } from "../../../components/builder/SiteBuilder";
+import { Blocks, getPageTemplate, resolveSectionProps } from "../../../components/builder/SiteBuilder";
 
 interface Section {
   id: string;
@@ -18,6 +18,7 @@ export default function LiveSitePage() {
   const [loading, setLoading] = useState(true);
   const [isSitePublished, setIsSitePublished] = useState(true);
   const [isPagePublished, setIsPagePublished] = useState(true);
+  const [siteLanguage, setSiteLanguage] = useState<string>('en');
 
   useEffect(() => {
     // Check Global Site Published State
@@ -81,10 +82,15 @@ export default function LiveSitePage() {
 
   return (
     <div className="bg-white min-h-screen font-sans">
+      <div className="fixed bottom-4 right-4 z-50 bg-white dark:bg-zinc-900 shadow-xl rounded-full border border-zinc-200 dark:border-zinc-800 p-1 flex items-center">
+        <button onClick={() => setSiteLanguage('en')} className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${siteLanguage === 'en' ? 'bg-blue-600 text-white' : 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'}`}>EN</button>
+        <button onClick={() => setSiteLanguage('ml')} className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${siteLanguage === 'ml' ? 'bg-blue-600 text-white' : 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'}`}>ML</button>
+      </div>
       {sections.filter(s => !s.isHidden).map((section) => {
         const BlockComponent = Blocks[section.type];
         if (!BlockComponent) return null;
-        return <BlockComponent key={section.id} props={section.props} />;
+        const resolvedProps = resolveSectionProps(section.props, siteLanguage);
+        return <BlockComponent key={section.id} props={resolvedProps} />;
       })}
       
       {/* Floating Chatbot UI for the live site */}

@@ -411,7 +411,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
 };
 
 // --- Sortable Item Wrapper ---
-function SortableSection({ section, isActive, onSelect, onRemove, onToggleVisibility }: { section: Section, isActive: boolean, onSelect: () => void, onRemove: () => void, onToggleVisibility: () => void }) {
+function SortableSection({ section, isActive, onSelect, onRemove, onToggleVisibility, builderLanguage = "en" }: { section: Section, isActive: boolean, onSelect: () => void, onRemove: () => void, onToggleVisibility: () => void, builderLanguage?: string }) {
   const {
     attributes,
     listeners,
@@ -428,6 +428,7 @@ function SortableSection({ section, isActive, onSelect, onRemove, onToggleVisibi
   };
 
   const Component = Blocks[section.type];
+  const resolvedProps = typeof resolveSectionProps !== "undefined" ? resolveSectionProps(section.props, builderLanguage) : section.props;
 
   return (
     <div 
@@ -450,7 +451,7 @@ function SortableSection({ section, isActive, onSelect, onRemove, onToggleVisibi
       
       {/* Block Render */}
       <div className="pointer-events-none">
-         <Component props={section.props} />
+         <Component props={resolvedProps} />
       </div>
       
       {isActive && (
@@ -462,6 +463,46 @@ function SortableSection({ section, isActive, onSelect, onRemove, onToggleVisibi
   );
 }
 
+
+
+export function resolveLocalizedString(value: any, lang: string): string {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  if (typeof value === "object") {
+    return value[lang] || value["en"] || "";
+  }
+  return String(value);
+}
+
+export function updateLocalizedString(currentValue: any, lang: string, newValue: string): any {
+  if (!currentValue || typeof currentValue === "string") {
+    // Migrate string to object
+    const migrated: Record<string, any> = { en: currentValue || "", ml: "" };
+    migrated[lang] = newValue;
+    return migrated;
+  }
+  return { ...currentValue, [lang]: newValue };
+}
+
+// Resolve all text props for a section
+export function resolveSectionProps(props: any, lang: string) {
+  const resolved: any = {};
+  for (const key in props) {
+    if (key === "imageUrl" || key === "backgroundImage" || key === "image") {
+      resolved[key] = props[key]; // images dont need translation
+    } else if (Array.isArray(props[key])) {
+      // arrays like pricing features or lists
+      resolved[key] = props[key].map((item: any) => 
+        typeof item === "string" ? item : resolveSectionProps(item, lang)
+      );
+    } else if (typeof props[key] === "object" && props[key] !== null && ("en" in props[key] || "ml" in props[key])) {
+      resolved[key] = resolveLocalizedString(props[key], lang);
+    } else {
+      resolved[key] = props[key];
+    }
+  }
+  return resolved;
+}
 
 export function getPageTemplate(pageId: string): Section[] {
   const baseHeader: Section = { id: 'sec-header', type: 'HeaderNavigation', props: {} };
@@ -537,6 +578,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
   const [sections, setSections] = useState<Section[]>(getPageTemplate(pageId));
   const [activeId, setActiveId] = useState<string | null>(null);
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
+  const [builderLanguage, setBuilderLanguage] = useState<string>('en');
   const [viewport, setViewport] = useState<'desktop'|'tablet'|'mobile'>('desktop');
   const [isPublishing, setIsPublishing] = useState(false);
 
@@ -693,6 +735,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                         onToggleVisibility={() => {
                           setSections(sections.map(s => s.id === section.id ? { ...s, isHidden: !s.isHidden } : s));
                         }}
+                        builderLanguage={builderLanguage}
                       />
                     ))}
                   </SortableContext>
