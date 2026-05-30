@@ -5,6 +5,12 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 // Define the sub-menus for each module
 const moduleMenus: Record<string, { title: string, id: string }[]> = {
+  "/website": [
+    { title: "Pages & Routing", id: "pages" },
+    { title: "Theme & Appearance", id: "theme" },
+    { title: "Media Library", id: "media" },
+    { title: "Site Settings", id: "settings" },
+  ],
   "/admissions": [
     { title: "Dashboard & Analytics", id: "dashboard" },
     { title: "Campaigns & Leads", id: "campaigns" },
