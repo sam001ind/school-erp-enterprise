@@ -575,29 +575,38 @@ export function getPageTemplate(pageId: string): Section[] {
 
 // --- Main Builder Component ---
 export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () => void, pageId?: string }) {
-  const [sections, setSections] = useState<Section[]>(getPageTemplate(pageId));
+  const [sections, setSections] = useState<Section[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
-  const [builderLanguage, setBuilderLanguage] = useState<string>('en');
+  const [builderLanguage, setBuilderLanguage] = useState<string>("en");
   const [viewport, setViewport] = useState<'desktop'|'tablet'|'mobile'>('desktop');
   const [isPublishing, setIsPublishing] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Load from local storage based on pageId
   useEffect(() => {
-    const saved = localStorage.getItem(`builder_page_${pageId}`);
-    if (saved) {
+    async function fetchPageData() {
       try {
-        let parsed = JSON.parse(saved);
-        if (!parsed.some((s: Section) => s.type === 'HeaderNavigation')) {
-          parsed = [{ id: 'sec-header', type: 'HeaderNavigation', props: {} }, ...parsed];
+        const res = await fetch(`/api/pages?pageId=${pageId}`);
+        const data = await res.json();
+        if (data.page && data.page.sections) {
+          setSections(data.page.sections);
+        } else {
+          // Fall back to localStorage migration or template
+          const saved = localStorage.getItem(`builder_page_${pageId}`);
+          if (saved) {
+            setSections(JSON.parse(saved));
+          } else {
+            setSections(getPageTemplate(pageId));
+          }
         }
-        setSections(parsed);
-      } catch (e) {
-        console.error("Failed to parse saved page data");
+      } catch (err) {
+        console.error('Failed to fetch page', err);
+        setSections(getPageTemplate(pageId));
+      } finally {
+        setIsLoading(false);
       }
-    } else {
-      setSections(getPageTemplate(pageId));
     }
+    fetchPageData();
   }, [pageId]);
 
   const handlePublish = () => {

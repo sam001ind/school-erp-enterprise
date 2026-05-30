@@ -21,40 +21,43 @@ export default function LiveSitePage() {
   const [siteLanguage, setSiteLanguage] = useState<string>('en');
 
   useEffect(() => {
-    // Check Global Site Published State
-    const siteState = localStorage.getItem('site_published');
-    if (siteState !== null && siteState === 'false') {
-      setIsSitePublished(false);
-      setLoading(false);
-      return;
-    }
+    async function loadSite() {
+      // Check Global Site Published State
+      const siteState = localStorage.getItem('site_published');
+      if (siteState !== null && siteState === 'false') {
+        setIsSitePublished(false);
+        setLoading(false);
+        return;
+      }
 
-    // Check Per-Page Published State
-    const pageState = localStorage.getItem(`page_published_${pageId}`);
-    if (pageState !== null && pageState === 'false') {
-      setIsPagePublished(false);
-      setLoading(false);
-      return;
-    }
-
-    // Load published data from localStorage
-    const saved = localStorage.getItem(`builder_page_${pageId}`);
-    if (saved) {
       try {
-        let parsed = JSON.parse(saved);
-        if (!parsed.some((s: Section) => s.type === 'HeaderNavigation')) {
-          parsed = [{ id: 'sec-header', type: 'HeaderNavigation', props: {} }, ...parsed];
+        const res = await fetch(`/api/pages?pageId=${pageId}`);
+        const data = await res.json();
+        
+        if (data.page) {
+          if (data.page.isPublished === false) {
+             setIsPagePublished(false);
+             setLoading(false);
+             return;
+          }
+          
+          let parsed = data.page.sections || [];
+          if (!parsed.some((s: Section) => s.type === 'HeaderNavigation')) {
+            parsed = [{ id: 'sec-header', type: 'HeaderNavigation', props: {} }, ...parsed];
+          }
+          setSections(parsed);
+        } else {
+          // Fall back to template
+          setSections(getPageTemplate(pageId));
         }
-        setSections(parsed);
       } catch (e) {
-        console.error("Failed to parse published page data");
         setSections(getPageTemplate(pageId));
       }
-    } else {
-      // Automatically "publish" by showing the default template
-      setSections(getPageTemplate(pageId));
+      
+      setLoading(false);
     }
-    setLoading(false);
+    
+    loadSite();
   }, [pageId]);
 
   if (loading) {
