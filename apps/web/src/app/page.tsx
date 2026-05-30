@@ -2,6 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   const modules = [
+    { name: "Admissions", path: "/admissions", icon: "🎓", color: "bg-red-500" },
     { name: "Attendance", path: "/attendance", icon: "📅", color: "bg-blue-500" },
     { name: "Examinations", path: "/examinations", icon: "📝", color: "bg-indigo-500" },
     { name: "Fee Collection", path: "/fees", icon: "💰", color: "bg-green-500" },
