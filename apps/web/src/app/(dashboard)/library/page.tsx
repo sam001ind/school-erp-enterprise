@@ -1,24 +1,27 @@
+"use client";
+import React, { useState } from "react";
+
 export default function LibraryDashboard() {
+  const [activeTab, setActiveTab] = useState("borrowed");
+
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8 bg-gray-50 min-h-screen">
-      <header className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Library Circulation</h1>
-          <p className="text-gray-500 mt-2">Manage book inventory and checkouts.</p>
-        </div>
-        <div className="flex gap-3">
-          <button className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-5 py-2.5 rounded-lg font-medium shadow-sm transition-colors">
-            Add Book
-          </button>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium shadow-sm transition-colors">
-            Issue Book
-          </button>
-        </div>
+    <div className="p-8">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Library</h1>
+        <p className="text-gray-500 mt-2">Search catalogue, manage borrowed books, and track fines.</p>
       </header>
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">Active Checkouts</h2>
-        <div className="text-gray-500 italic">No active circulations.</div>
+
+      <div className="flex border-b border-gray-200 dark:border-gray-800 mb-8 overflow-x-auto">
+        <button onClick={() => setActiveTab("borrowed")} className={`py-3 px-6 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${activeTab === "borrowed" ? "border-purple-500 text-purple-600 dark:text-purple-400" : "border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"}`}>My Borrowed Books</button>
+        <button onClick={() => setActiveTab("search")} className={`py-3 px-6 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${activeTab === "search" ? "border-purple-500 text-purple-600 dark:text-purple-400" : "border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"}`}>Search Catalogue</button>
+        <button onClick={() => setActiveTab("fines")} className={`py-3 px-6 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${activeTab === "fines" ? "border-purple-500 text-purple-600 dark:text-purple-400" : "border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"}`}>Overdue Fines</button>
       </div>
+
+      {activeTab === "borrowed" && (
+        <div className="bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm p-6 text-center text-gray-500">
+          You currently have no borrowed books.
+        </div>
+      )}
     </div>
   );
 }
