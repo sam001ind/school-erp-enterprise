@@ -13,6 +13,7 @@ export default function Home() {
     { name: "Library", path: "/library", icon: "📚", color: "from-fuchsia-500 to-pink-600", stats: "0 Borrowed" },
     { name: "Payroll", path: "/payroll", icon: "💵", color: "from-lime-500 to-green-600", stats: "Next: Oct 30" },
     { name: "Transport", path: "/transport", icon: "🚌", color: "from-yellow-400 to-orange-500", stats: "Unallocated" },
+    { name: "SocialHub Enterprise", path: "http://localhost:3001", icon: "📱", color: "from-indigo-400 to-purple-600", stats: "SMMP Active" },
   ];
 
   return (
