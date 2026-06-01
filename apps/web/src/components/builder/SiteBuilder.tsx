@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
   DndContext, 
   closestCenter,
@@ -10,6 +10,7 @@ import {
   useSensors,
   DragOverlay
 } from '@dnd-kit/core';
+import { useRouter } from 'next/navigation';
 import {
   arrayMove,
   SortableContext,
@@ -18,6 +19,22 @@ import {
   useSortable
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import dynamic from 'next/dynamic';
+import 'react-quill-new/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+
+const quillModules = {
+  toolbar: [
+    [{ 'font': [] }],
+    [{ 'header': [1, 2, 3, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ 'color': [] }, { 'background': [] }],
+    [{ 'align': [] }],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    ['link', 'clean']
+  ]
+};
 
 // --- Types ---
 type SectionType = 'HeaderNavigation' | 'HeroBanner' | 'StatsRibbon' | 'AboutSection' | 'ProgramsGrid' | 'UpcomingEvents' | 'RecruiterLogos' | 'Testimonials' | 'LatestNews' | 'LeadCaptureForm' | 'Footer' | 'PricingTable' | 'TextContent';
@@ -46,52 +63,52 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
-          <a href="/site/home" className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors">Home</a>
+          <a href="/site/home" className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors">{props.navHome || "Home"}</a>
           
           <div className="relative group cursor-pointer py-8">
             <span className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
-              About Us <span className="text-[10px]">▼</span>
+              {props.navAbout || "About Us"} <span className="text-[10px]">▼</span>
             </span>
             <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
-              <a href="/site/about" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">Overview</a>
-              <a href="/site/about-leadership" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">Leadership Team</a>
-              <a href="/site/about-history" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">History & Mission</a>
+              <a href="/site/about" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAbout1 || "Overview"}</a>
+              <a href="/site/about-leadership" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAbout2 || "Leadership Team"}</a>
+              <a href="/site/about-history" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAbout3 || "History & Mission"}</a>
             </div>
           </div>
 
           <div className="relative group cursor-pointer py-8">
             <span className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
-              Academics <span className="text-[10px]">▼</span>
+              {props.navAcad || "Academics"} <span className="text-[10px]">▼</span>
             </span>
             <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
-              <a href="/site/academics" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">Overview</a>
-              <a href="/site/academics-programs" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">Programs & Courses</a>
-              <a href="/site/academics-faculty" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">Faculty</a>
+              <a href="/site/academics" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAcad1 || "Overview"}</a>
+              <a href="/site/academics-programs" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAcad2 || "Programs & Courses"}</a>
+              <a href="/site/academics-faculty" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAcad3 || "Faculty"}</a>
             </div>
           </div>
 
           <div className="relative group cursor-pointer py-8">
             <span className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
-              Admissions <span className="text-[10px]">▼</span>
+              {props.navAdm || "Admissions"} <span className="text-[10px]">▼</span>
             </span>
             <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
-              <a href="/site/admissions-info" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">Overview</a>
-              <a href="/site/admissions-fees" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">Fee Structure</a>
-              <a href="/site/admissions-apply" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">Apply Now</a>
+              <a href="/site/admissions-info" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAdm1 || "Overview"}</a>
+              <a href="/site/admissions-fees" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAdm2 || "Fee Structure"}</a>
+              <a href="/site/admissions-apply" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAdm3 || "Apply Now"}</a>
             </div>
           </div>
 
           <div className="relative group cursor-pointer py-8">
             <span className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
-              Campus Life <span className="text-[10px]">▼</span>
+              {props.navCampus || "Campus Life"} <span className="text-[10px]">▼</span>
             </span>
             <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
-              <a href="/site/campus-life" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">Overview</a>
-              <a href="/site/campus-events" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">Events & News</a>
+              <a href="/site/campus-life" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navCampus1 || "Overview"}</a>
+              <a href="/site/campus-events" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navCampus2 || "Events & News"}</a>
             </div>
           </div>
           
-          <a href="/site/student-services" className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors">Student Services</a>
+          <a href="/site/student-services" className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors">{props.navStudent || "Student Services"}</a>
         </nav>
 
         {/* CTA & Mobile Menu */}
@@ -110,7 +127,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
   ),
   HeroBanner: ({ props }: { props: any }) => (
     <div 
-      className="relative bg-black text-white min-h-[600px] flex flex-col items-center justify-center text-center overflow-hidden"
+      className={`relative bg-black text-white min-h-[600px] flex flex-col items-center justify-center text-center overflow-hidden ${props.typographyClass || ''}`}
       style={{
         backgroundImage: props.bgVideoUrl 
           ? 'none' 
@@ -133,9 +150,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
       <div className="absolute inset-0 bg-black" style={{ opacity: props.overlayOpacity || 0.6 }} />
       <div className="relative z-10 text-center px-4 max-w-4xl">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">{props.title || "Excellence in Education."}</h1>
-        <p className="text-lg md:text-2xl text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed">
-          {props.subtitle || "A world-class curriculum designed to shape the innovators and leaders of tomorrow."}
-        </p>
+        <div className="text-lg md:text-2xl text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed" dangerouslySetInnerHTML={{ __html: props.subtitle || "A world-class curriculum designed to shape the innovators and leaders of tomorrow." }} />
         <a 
           href="/site/admissions-apply"
           className="mt-8 px-8 py-4 bg-white text-black rounded-full font-semibold text-sm hover:scale-105 transition-transform inline-block"
@@ -146,7 +161,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   StatsRibbon: ({ props }: { props: any }) => (
-    <div className="py-12 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black">
+    <div className={`py-12 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black ${props.typographyClass || ''}`}>
       <div className="max-w-6xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x-0 md:divide-x divide-y md:divide-y-0 divide-zinc-100 dark:divide-zinc-900">
         {[
           { label: props.stat1Label || "Students Trained", value: props.stat1Value || "10,000+" },
@@ -163,18 +178,16 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   AboutSection: ({ props }: { props: any }) => (
-    <div className="py-24 bg-white dark:bg-black">
+    <div className={`py-24 bg-white dark:bg-black ${props.typographyClass || ''}`}>
       <div className="max-w-6xl mx-auto px-8 flex flex-col md:flex-row gap-16 items-center">
         <div className="flex-1">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">{props.title || "Our Vision & Mission"}</h2>
-          <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8">
-            {props.content || "We are dedicated to providing an enriching environment that fosters intellectual curiosity, emotional intelligence, and a strong sense of community."}
-          </p>
+          <div className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: props.content || "We are dedicated to providing an enriching environment that fosters intellectual curiosity, emotional intelligence, and a strong sense of community." }} />
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-xl">🏆</div>
             <div>
-              <h4 className="font-bold">Award Winning Institution</h4>
-              <p className="text-sm text-zinc-500">Ranked #1 in Regional Excellence</p>
+              <h4 className="font-bold">{props.awardTitle || "Award Winning Institution"}</h4>
+              <p className="text-sm text-zinc-500">{props.awardSubtitle || "Ranked #1 in Regional Excellence"}</p>
             </div>
           </div>
         </div>
@@ -212,12 +225,10 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   Testimonials: ({ props }: { props: any }) => (
-    <div className="py-24 bg-white dark:bg-black">
+    <div className={`py-24 bg-white dark:bg-black ${props.typographyClass || ''}`}>
       <div className="max-w-4xl mx-auto px-8 text-center">
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-16">{props.title || "Student Voices"}</h2>
-        <div className="text-xl md:text-3xl font-serif italic text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8">
-          "{props.quote || "The faculty and facilities here are unparalleled. It truly prepared me for my career in ways I couldn't have imagined."}"
-        </div>
+        <div className="text-xl md:text-3xl font-serif italic text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: props.quote ? `"${props.quote}"` : "\"The faculty and facilities here are unparalleled. It truly prepared me for my career in ways I couldn't have imagined.\"" }} />
         <div className="font-bold text-lg">{props.author || "Jane Doe, Class of '24"}</div>
       </div>
     </div>
@@ -227,30 +238,30 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
       <div className="max-w-4xl mx-auto px-8 flex flex-col lg:flex-row gap-16 items-center">
         <div className="flex-1 text-center lg:text-left">
            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{props.title || "Ready to Join Us?"}</h2>
-           <p className="text-zinc-500 dark:text-zinc-400 font-light text-lg">{props.subtitle || "Provide your details and our admissions team will be in touch shortly."}</p>
+           <div className="text-zinc-500 dark:text-zinc-400 font-light text-lg" dangerouslySetInnerHTML={{ __html: props.subtitle || "Provide your details and our admissions team will be in touch shortly." }} />
         </div>
         <div className="flex-1 w-full space-y-5 bg-white dark:bg-zinc-900 p-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl">
           <div>
-            <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">Full Name</label>
+            <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">{props.labelName || "Full Name"}</label>
             <input type="text" className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors" />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">Email Address</label>
+            <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">{props.labelEmail || "Email Address"}</label>
             <input type="email" className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors" />
           </div>
           <div>
-             <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">Program of Interest</label>
+             <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">{props.labelProgram || "Program of Interest"}</label>
              <select className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors text-zinc-700 dark:text-zinc-300">
-                <option>Primary School</option>
-                <option>Middle School</option>
-                <option>High School</option>
+                <option>{props.opt1 || "Primary School"}</option>
+                <option>{props.opt2 || "Middle School"}</option>
+                <option>{props.opt3 || "High School"}</option>
              </select>
           </div>
           <button 
             className="w-full text-white font-medium py-4 rounded-xl mt-4 transition-opacity hover:opacity-90 shadow-lg"
             style={{ backgroundColor: props.primaryColor || '#000000' }}
           >
-            Submit Inquiry
+            {props.btnText || "Submit Inquiry"}
           </button>
         </div>
       </div>
@@ -284,7 +295,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   RecruiterLogos: ({ props }: { props: any }) => (
-    <div className="py-16 bg-white dark:bg-black border-y border-zinc-100 dark:border-zinc-900 overflow-hidden">
+    <div className={`py-16 bg-white dark:bg-black border-y border-zinc-100 dark:border-zinc-900 overflow-hidden ${props.typographyClass || ''}`}>
       <div className="max-w-6xl mx-auto px-8 text-center mb-8">
         <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">{props.title || "Our Top Recruiters"}</h3>
       </div>
@@ -323,7 +334,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   Footer: ({ props }: { props: any }) => (
-    <footer className="bg-black text-white py-16 border-t border-zinc-900">
+    <footer className={`bg-black text-white py-16 border-t border-zinc-900 ${props.typographyClass || ''}`}>
       <div className="max-w-5xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="col-span-1 md:col-span-2">
           <h2 className="text-2xl font-bold mb-4">{props.schoolName || "Institution Name"}</h2>
@@ -350,7 +361,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
         </div>
       </div>
       <div className="max-w-6xl mx-auto px-8 mt-16 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center text-xs text-zinc-500">
-         <p>© {new Date().getFullYear()} {props.schoolName || "Institution Name"}. All rights reserved.</p>
+         <p>© {new Date().getFullYear()} {props.schoolName || "Institution Name"}. {props.copyrightText || "All rights reserved."}</p>
          <div className="flex gap-4 mt-4 md:mt-0">
            <a href="#" className="hover:text-white">Privacy Policy</a>
            <a href="#" className="hover:text-white">Terms of Service</a>
@@ -359,13 +370,11 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </footer>
   ),
   PricingTable: ({ props }: { props: any }) => (
-    <div className="py-24 bg-zinc-50 dark:bg-zinc-950 px-6">
+    <div className={`py-24 bg-zinc-50 dark:bg-zinc-950 px-6 ${props.typographyClass || ''}`}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 dark:text-white">{props.title || "Fee Structure"}</h2>
-          <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            {props.subtitle || "Transparent pricing with no hidden costs. Invest in a world-class education."}
-          </p>
+          <div className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed" dangerouslySetInnerHTML={{ __html: props.subtitle || "Transparent pricing with no hidden costs. Invest in a world-class education." }} />
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {[1, 2, 3].map((tier) => (
@@ -398,7 +407,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   TextContent: ({ props }: { props: any }) => (
-    <div className="py-24 bg-white dark:bg-black px-6">
+    <div className={`py-24 bg-white dark:bg-black px-6 ${props.typographyClass || ''}`}>
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-5xl font-bold mb-8 dark:text-white">{props.title || "Our Story"}</h2>
         <div className="prose prose-lg dark:prose-invert max-w-none text-zinc-600 dark:text-zinc-400">
@@ -429,6 +438,7 @@ function SortableSection({ section, isActive, onSelect, onRemove, onToggleVisibi
 
   const Component = Blocks[section.type];
   const resolvedProps = typeof resolveSectionProps !== "undefined" ? resolveSectionProps(section.props, builderLanguage) : section.props;
+
 
   return (
     <div 
@@ -504,9 +514,26 @@ export function resolveSectionProps(props: any, lang: string) {
   return resolved;
 }
 
+
+export const DEFAULT_PROPS: Record<string, any> = {
+  HeaderNavigation: { logoIcon: "🏛️", logoText: "Institution", ctaText: "Apply Now", navHome: "Home", navAbout: "About Us", navAbout1: "Overview", navAbout2: "Leadership Team", navAbout3: "History & Mission", navAcad: "Academics", navAcad1: "Overview", navAcad2: "Programs & Courses", navAcad3: "Faculty", navAdm: "Admissions", navAdm1: "Overview", navAdm2: "Fee Structure", navAdm3: "Apply Now", navCampus: "Campus Life", navCampus1: "Overview", navCampus2: "Events & News", navStudent: "Student Services" },
+  HeroBanner: { title: "Excellence in Education.", subtitle: "A world-class curriculum designed to shape the innovators and leaders of tomorrow.", ctaText: "Apply Now" },
+  StatsRibbon: { stat1Label: "Students Trained", stat1Value: "10,000+", stat2Label: "Courses Offered", stat2Value: "50+", stat3Label: "Placement Percentage", stat3Value: "95%", stat4Label: "Industry Partners", stat4Value: "200+" },
+  AboutSection: { title: "Our Vision & Mission", content: "We are dedicated to providing an enriching environment that fosters intellectual curiosity, emotional intelligence, and a strong sense of community.", awardTitle: "Award Winning Institution", awardSubtitle: "Ranked #1 in Regional Excellence" },
+  ProgramsGrid: { title: "Featured Courses & Programs", prog1Name: "Computer Science B.Tech", prog1Duration: "4 Years", prog1Fee: "$15,000/yr", prog1Seats: "120 Seats", prog2Name: "MBA in Finance", prog2Duration: "2 Years", prog2Fee: "$25,000/yr", prog2Seats: "60 Seats", prog3Name: "Data Science Bootcamp", prog3Duration: "6 Months", prog3Fee: "$5,000", prog3Seats: "30 Seats" },
+  Testimonials: { title: "Student Voices", quote: "The faculty here goes above and beyond...", author: "Jane Doe, Class of '24", role: "Software Engineer at Google" },
+  LeadCaptureForm: { title: "Ready to Join Us?", subtitle: "Provide your details and our admissions team will be in touch shortly.", labelName: "Full Name", labelEmail: "Email Address", labelProgram: "Program of Interest", opt1: "Primary School", opt2: "Middle School", opt3: "High School", btnText: "Submit Inquiry" },
+  UpcomingEvents: { btnText: "View All Events →", title: "Upcoming Events", event1Title: "Open House 2026", event1Date: "June 15, 2026", event1Venue: "Main Auditorium", event2Title: "Alumni Meet", event2Date: "July 22, 2026", event2Venue: "Virtual", event3Title: "Tech Symposium", event3Date: "August 10, 2026", event3Venue: "Innovation Center" },
+  RecruiterLogos: { title: "Our Top Recruiters" },
+  LatestNews: { btnText: "Read More →", title: "Latest News & Announcements", news1Title: "Institution receives Grade A++ Accreditation", news1Date: "May 28, 2026", news2Title: "New AI Research Lab inaugurated by the Chief Minister", news2Date: "May 15, 2026", news3Title: "Admissions open for Fall 2026 Batch", news3Date: "May 10, 2026" },
+  Footer: { schoolName: "Institution Name", link1: "About Us", link2: "Academics", link3: "Admissions", link4: "Contact Us", address: "123 University Avenue, Knowledge City, ST 12345", phone: "(555) 123-4567", email: "admissions@institution.edu", copyrightText: "All rights reserved." },
+  PricingTable: { title: "Fee Structure", subtitle: "Transparent pricing with no hidden costs. Invest in a world-class education.", tier1Name: "Basic", tier1Desc: "Perfect for standard enrollment.", tier1Price: "$5,000", tier1Feature1: "Access to all online resources", tier1Feature2: "Basic Library Access", tier1Feature3: "Standard Placement Support", tier2Name: "Premium", tier2Desc: "Advanced features and mentorship.", tier2Price: "$8,500", tier2Feature1: "1-on-1 Mentorship", tier2Feature2: "Premium Library Access", tier2Feature3: "Guaranteed Placement Support", ctaText: "Apply Now" },
+  TextContent: { title: "Our Story", paragraph1: "Founded with a vision to redefine education, we have consistently pushed the boundaries of what is possible. Our commitment to excellence is reflected in our state-of-the-art facilities, world-class faculty, and innovative curriculum.", paragraph2: "We believe in fostering an environment where curiosity thrives and potential is realized. Our graduates go on to become leaders in their respective fields, equipped with the knowledge and skills necessary to make a lasting impact on the world." }
+};
+
 export function getPageTemplate(pageId: string): Section[] {
-  const baseHeader: Section = { id: 'sec-header', type: 'HeaderNavigation', props: {} };
-  const baseFooter: Section = { id: 'sec-footer', type: 'Footer', props: {} };
+  const baseHeader: Section = { id: 'sec-header', type: 'HeaderNavigation', props: { ...DEFAULT_PROPS['HeaderNavigation'] } };
+  const baseFooter: Section = { id: 'sec-footer', type: 'Footer', props: { ...DEFAULT_PROPS['Footer'] } };
 
   switch (pageId) {
     case 'about':
@@ -514,9 +541,9 @@ export function getPageTemplate(pageId: string): Section[] {
     case 'about-history':
       return [
         baseHeader,
-        { id: 'sec-hero', type: 'HeroBanner', props: { title: 'About Our Institution.', subtitle: 'Discover our history, mission, and the leadership driving us forward.' } },
-        { id: 'sec-text', type: 'TextContent', props: {} },
-        { id: 'sec-test', type: 'Testimonials', props: {} },
+        { id: 'sec-hero', type: 'HeroBanner', props: { title: {"en":"About Our Institution.","ml":"ഞങ്ങളുടെ സ്ഥാപനത്തെക്കുറിച്ച്."}, subtitle: {"en":"Discover our history, mission, and the leadership driving us forward.","ml":"ഞങ്ങളുടെ ചരിത്രം, ദൗത്യം, നമ്മെ മുന്നോട്ട് നയിക്കുന്ന നേതൃത്വം എന്നിവ കണ്ടെത്തുക."} } },
+        { id: 'sec-text', type: 'TextContent', props: { ...DEFAULT_PROPS['TextContent'] } },
+        { id: 'sec-test', type: 'Testimonials', props: { ...DEFAULT_PROPS['Testimonials'] } },
         baseFooter
       ];
     case 'academics':
@@ -524,8 +551,8 @@ export function getPageTemplate(pageId: string): Section[] {
     case 'academics-faculty':
       return [
         baseHeader,
-        { id: 'sec-hero', type: 'HeroBanner', props: { title: 'Academic Excellence.', subtitle: 'Explore our diverse range of programs and meet our world-class faculty.' } },
-        { id: 'sec-progs', type: 'ProgramsGrid', props: {} },
+        { id: 'sec-hero', type: 'HeroBanner', props: { title: {"en":"Academic Excellence.","ml":"അക്കാദമിക് മികവ്."}, subtitle: {"en":"Explore our diverse range of programs and meet our world-class faculty.","ml":"ഞങ്ങളുടെ വൈവിധ്യമാർന്ന പ്രോഗ്രാമുകൾ പര്യവേക്ഷണം ചെയ്യുകയും ഞങ്ങളുടെ ലോകോത്തര ഫാക്കൽറ്റിയെ കണ്ടുമുട്ടുകയും ചെയ്യുക."} } },
+        { id: 'sec-progs', type: 'ProgramsGrid', props: { ...DEFAULT_PROPS['ProgramsGrid'] } },
         baseFooter
       ];
     case 'admissions':
@@ -534,9 +561,9 @@ export function getPageTemplate(pageId: string): Section[] {
     case 'admissions-apply':
       return [
         baseHeader,
-        { id: 'sec-hero', type: 'HeroBanner', props: { title: 'Join Our Community.', subtitle: 'Start your journey with us today. Find out about admissions and fee structures.' } },
-        { id: 'sec-fees', type: 'PricingTable', props: {} },
-        { id: 'sec-lead', type: 'LeadCaptureForm', props: {} },
+        { id: 'sec-hero', type: 'HeroBanner', props: { title: {"en":"Join Our Community.","ml":"ഞങ്ങളുടെ കമ്മ്യൂണിറ്റിയിൽ ചേരുക."}, subtitle: {"en":"Start your journey with us today. Find out about admissions and fee structures.","ml":"ഇന്ന് ഞങ്ങളോടൊപ്പം നിങ്ങളുടെ യാത്ര ആരംഭിക്കുക. പ്രവേശനത്തെക്കുറിച്ചും ഫീസ് ഘടനകളെക്കുറിച്ചും കണ്ടെത്തുക."} } },
+        { id: 'sec-fees', type: 'PricingTable', props: { ...DEFAULT_PROPS['PricingTable'] } },
+        { id: 'sec-lead', type: 'LeadCaptureForm', props: { ...DEFAULT_PROPS['LeadCaptureForm'] } },
         baseFooter
       ];
     case 'campus-life':
@@ -544,8 +571,8 @@ export function getPageTemplate(pageId: string): Section[] {
       return [
         baseHeader,
         { id: 'sec-hero', type: 'HeroBanner', props: { title: 'Life on Campus.', subtitle: 'Experience a vibrant campus life full of events, clubs, and culture.' } },
-        { id: 'sec-events', type: 'UpcomingEvents', props: {} },
-        { id: 'sec-news', type: 'LatestNews', props: {} },
+        { id: 'sec-events', type: 'UpcomingEvents', props: { ...DEFAULT_PROPS['UpcomingEvents'] } },
+        { id: 'sec-news', type: 'LatestNews', props: { ...DEFAULT_PROPS['LatestNews'] } },
         baseFooter
       ];
     case 'student-services':
@@ -560,14 +587,14 @@ export function getPageTemplate(pageId: string): Section[] {
       return [
         baseHeader,
         { id: '1', type: 'HeroBanner', props: { title: 'Excellence in Education.', subtitle: 'A world-class curriculum designed to shape the innovators and leaders of tomorrow.' } },
-        { id: '2', type: 'StatsRibbon', props: {} },
-        { id: '3', type: 'AboutSection', props: {} },
-        { id: '4', type: 'ProgramsGrid', props: {} },
-        { id: '5', type: 'RecruiterLogos', props: {} },
-        { id: '6', type: 'UpcomingEvents', props: {} },
-        { id: '7', type: 'LatestNews', props: {} },
-        { id: '8', type: 'Testimonials', props: {} },
-        { id: '9', type: 'LeadCaptureForm', props: {} },
+        { id: '2', type: 'StatsRibbon', props: { ...DEFAULT_PROPS['StatsRibbon'] } },
+        { id: '3', type: 'AboutSection', props: { ...DEFAULT_PROPS['AboutSection'] } },
+        { id: '4', type: 'ProgramsGrid', props: { ...DEFAULT_PROPS['ProgramsGrid'] } },
+        { id: '5', type: 'RecruiterLogos', props: { ...DEFAULT_PROPS['RecruiterLogos'] } },
+        { id: '6', type: 'UpcomingEvents', props: { ...DEFAULT_PROPS['UpcomingEvents'] } },
+        { id: '7', type: 'LatestNews', props: { ...DEFAULT_PROPS['LatestNews'] } },
+        { id: '8', type: 'Testimonials', props: { ...DEFAULT_PROPS['Testimonials'] } },
+        { id: '9', type: 'LeadCaptureForm', props: { ...DEFAULT_PROPS['LeadCaptureForm'] } },
         baseFooter,
       ];
   }
@@ -575,22 +602,143 @@ export function getPageTemplate(pageId: string): Section[] {
 
 // --- Main Builder Component ---
 export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () => void, pageId?: string }) {
+  const router = useRouter();
   const [sections, setSections] = useState<Section[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
-  const [builderLanguage, setBuilderLanguage] = useState<string>("en");
-  const [viewport, setViewport] = useState<'desktop'|'tablet'|'mobile'>('desktop');
+  const [siteLanguage, setSiteLanguage] = useState<string>('en');
+  const translationAttempts = useRef<Record<string, number>>({});
+
+  useEffect(() => {
+    const storedLang = localStorage.getItem('site_language');
+    if (storedLang) setSiteLanguage(storedLang);
+  }, []);
+
+  const changeLanguage = (lang: string) => {
+    setSiteLanguage(lang);
+    localStorage.setItem('site_language', lang);
+  };
   const [isPublishing, setIsPublishing] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const [viewport, setViewport] = useState<'desktop'|'tablet'|'mobile'>('desktop');
+
+  // Auto-save effect
+  useEffect(() => {
+    if (isLoading || sections.length === 0) return;
+    const timeout = setTimeout(() => {
+      localStorage.setItem(`builder_page_${pageId}`, JSON.stringify(sections));
+      fetch('/api/pages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pageId, sections, isPublished: true })
+      }).catch(console.error);
+    }, 1500);
+    return () => clearTimeout(timeout);
+  }, [sections, isLoading, pageId]);
+
+  // Global Auto-Translate effect (for new templates and blocks)
+  useEffect(() => {
+    if (isLoading || sections.length === 0 || isTranslating) return;
+
+    let hasUntranslated = false;
+    const newSections = JSON.parse(JSON.stringify(sections));
+    const textsToTranslate: { ref: any, text: string }[] = [];
+
+    const extractTexts = (obj: any) => {
+      for (const key in obj) {
+        const nonLocalizableKeys = ['imageUrl', 'bgImageUrl', 'bgVideoUrl', 'image', 'primaryColor', 'overlayOpacity', 'logoIcon', 'id', 'type'];
+        if (nonLocalizableKeys.includes(key)) continue;
+        
+        if (Array.isArray(obj[key])) {
+          obj[key].forEach((item: any, i: number) => {
+             if (typeof item === "string") {
+                obj[key][i] = { en: item, ml: "" };
+                const attemptCount = translationAttempts.current[item] || 0;
+                if (attemptCount < 3) {
+                    translationAttempts.current[item] = attemptCount + 1;
+                    textsToTranslate.push({ ref: obj[key][i], text: item });
+                    hasUntranslated = true;
+                }
+             } else if (typeof item === "object" && item !== null) {
+                extractTexts(item);
+             }
+          });
+        } else if (typeof obj[key] === "object" && obj[key] !== null) {
+          if ("en" in obj[key]) {
+             if (obj[key].en && (!obj[key].ml || obj[key].en === obj[key].ml)) {
+               const attemptCount = translationAttempts.current[obj[key].en] || 0;
+               if (attemptCount < 3) {
+                 translationAttempts.current[obj[key].en] = attemptCount + 1;
+                 textsToTranslate.push({ ref: obj[key], text: obj[key].en });
+                 hasUntranslated = true;
+               }
+             }
+          } else {
+             extractTexts(obj[key]);
+          }
+        } else if (typeof obj[key] === "string") {
+           obj[key] = { en: obj[key], ml: "" };
+           if (obj[key].en) {
+             const attemptCount = translationAttempts.current[obj[key].en] || 0;
+             if (attemptCount < 3) {
+                 translationAttempts.current[obj[key].en] = attemptCount + 1;
+                 textsToTranslate.push({ ref: obj[key], text: obj[key].en });
+                 hasUntranslated = true;
+             }
+           }
+        }
+      }
+    };
+
+    newSections.forEach((s: any) => extractTexts(s.props));
+
+    if (hasUntranslated && textsToTranslate.length > 0) {
+       const doTranslation = async () => {
+         setIsTranslating(true);
+         try {
+            const translateRes = await fetch('/api/translate', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ texts: textsToTranslate.map(t => t.text) })
+            });
+            const translateData = await translateRes.json();
+            if (translateData.translated) {
+               textsToTranslate.forEach((item, index) => {
+                 item.ref.ml = translateData.translated[index];
+               });
+               setSections(newSections);
+            }
+         } catch (e) {
+           console.error("Global auto-translate failed:", e);
+           // Fallback to prevent infinite retry loop on failure: populate with English
+           textsToTranslate.forEach((item) => {
+             item.ref.ml = item.ref.en;
+           });
+           setSections(newSections);
+         } finally {
+           setIsTranslating(false);
+         }
+       };
+       // Slight delay to avoid firing repeatedly on rapid state changes
+       const timeout = setTimeout(doTranslation, 500);
+       return () => clearTimeout(timeout);
+    }
+  }, [sections, isLoading, isTranslating]);
+
+
   useEffect(() => {
     async function fetchPageData() {
       try {
-        const res = await fetch(`/api/pages?pageId=${pageId}`);
-        const data = await res.json();
-        if (data.page && data.page.sections) {
-          setSections(data.page.sections);
+        const pageRes = await fetch(`/api/pages?pageId=${pageId}`);
+        const pageData = await pageRes.json();
+        if (pageData.page && pageData.page.sections) {
+          const merged = pageData.page.sections.map((s: Section) => ({
+            ...s,
+            props: { ...DEFAULT_PROPS[s.type], ...s.props }
+          }));
+          setSections(merged);
         } else {
           // Fall back to localStorage migration or template
           const saved = localStorage.getItem(`builder_page_${pageId}`);
@@ -618,11 +766,17 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
 
       const extractTexts = (obj: any) => {
         for (const key in obj) {
-          if (key === "imageUrl" || key === "backgroundImage" || key === "image" || key === "id" || key === "type") continue;
+          const nonLocalizableKeys = ['imageUrl', 'bgImageUrl', 'bgVideoUrl', 'image', 'primaryColor', 'overlayOpacity', 'logoIcon', 'id', 'type'];
+          if (nonLocalizableKeys.includes(key)) continue;
           
           if (Array.isArray(obj[key])) {
-            obj[key].forEach((item: any) => {
-               if (typeof item === "object" && item !== null) extractTexts(item);
+            obj[key].forEach((item: any, i: number) => {
+               if (typeof item === "string") {
+                  obj[key][i] = { en: item, ml: "" };
+                  textsToTranslate.push({ ref: obj[key][i], text: item });
+               } else if (typeof item === "object" && item !== null) {
+                  extractTexts(item);
+               }
             });
           } else if (typeof obj[key] === "object" && obj[key] !== null) {
             if ("en" in obj[key]) {
@@ -633,6 +787,12 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
             } else {
                extractTexts(obj[key]);
             }
+          } else if (typeof obj[key] === "string") {
+             // Migrate string to localized object
+             obj[key] = { en: obj[key], ml: "" };
+             if (obj[key].en) {
+               textsToTranslate.push({ ref: obj[key], text: obj[key].en });
+             }
           }
         }
       };
@@ -645,19 +805,28 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
         return;
       }
 
-      const res = await fetch('/api/translate', {
+      const translateRes = await fetch('/api/translate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ texts: textsToTranslate.map(t => t.text) })
       });
-      const data = await res.json();
-      
-      if (data.translated) {
+      const translateData = await translateRes.json();
+
+      if (translateData.translated) {
         textsToTranslate.forEach((item, index) => {
-          item.ref.ml = data.translated[index];
+          item.ref.ml = translateData.translated[index];
         });
         setSections(newSections);
-        alert("✨ Successfully auto-translated to Malayalam!");
+        // Persist translated sections locally and to backend
+        localStorage.setItem(`builder_page_${pageId}`, JSON.stringify(newSections));
+localStorage.setItem('site_language', 'ml');
+        await fetch('/api/pages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pageId, sections: newSections, isPublished: true })
+        });
+        router.refresh();
+        alert("✨ Successfully auto-translated to Malayalam and saved!");
       } else {
         alert("Translation failed.");
       }
@@ -713,16 +882,110 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
   const selectedSection = sections.find(s => s.id === selectedSectionId);
 
   const addSection = (type: SectionType) => {
-    setSections([...sections, { id: Math.random().toString(36).substr(2, 9), type, props: {} }]);
+    setSections([...sections, { id: Math.random().toString(36).substr(2, 9), type, props: { ...DEFAULT_PROPS[type] } }]);
+  };
+
+
+  const translateTimeouts = useRef<{ [key: string]: NodeJS.Timeout }>({});
+
+  const autoTranslateField = async (sectionId: string, key: string, englishText: string) => {
+    try {
+      const res = await fetch('/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texts: [englishText], targetLang: 'ml' })
+      });
+      const data = await res.json();
+      if (data.translated && data.translated[0]) {
+         setSections(currentSections => currentSections.map(s => {
+           if (s.id === sectionId) {
+             const existing = s.props[key];
+             const finalValue = { 
+               en: typeof existing === 'object' ? existing.en : existing, 
+               ml: data.translated[0] 
+             };
+             return { ...s, props: { ...s.props, [key]: finalValue } };
+           }
+           return s;
+         }));
+      }
+    } catch (e) {
+      console.error("Auto-translate failed for field", key, e);
+    }
+  };
+
+  const getPropValue = (key: string) => {
+
+    if (!selectedSection) return "";
+    return resolveLocalizedString(selectedSection.props[key], siteLanguage);
   };
 
   const updateSectionProp = (key: string, value: string) => {
     if (!selectedSectionId) return;
-    setSections(sections.map(s => s.id === selectedSectionId ? { ...s, props: { ...s.props, [key]: value } } : s));
+    setSections(sections.map(s => {
+      if (s.id === selectedSectionId) {
+        let finalValue: any = value;
+        const nonLocalizableKeys = ['imageUrl', 'bgImageUrl', 'bgVideoUrl', 'image', 'primaryColor', 'overlayOpacity', 'logoIcon'];
+        if (!nonLocalizableKeys.includes(key)) {
+           finalValue = updateLocalizedString(s.props[key], siteLanguage, value);
+           
+           if (siteLanguage === 'en' && value.trim()) {
+             const timeoutKey = `${s.id}-${key}`;
+             if (translateTimeouts.current[timeoutKey]) {
+               clearTimeout(translateTimeouts.current[timeoutKey]);
+             }
+             translateTimeouts.current[timeoutKey] = setTimeout(() => {
+               autoTranslateField(s.id, key, value);
+             }, 1000);
+           }
+        }
+        return { ...s, props: { ...s.props, [key]: finalValue } };
+      }
+      return s;
+    }));
   };
 
   return (
     <div className="flex h-screen bg-zinc-100 dark:bg-black overflow-hidden font-sans">
+      <style>{`
+        .quill-builder-wrapper {
+          background: #fafafa;
+          color: #111;
+          border: 1px solid #e4e4e7;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+        .dark .quill-builder-wrapper {
+          background: #000;
+          color: #fff;
+          border: 1px solid #27272a;
+        }
+        .quill-builder-wrapper .ql-toolbar {
+          background: rgba(0,0,0,0.02);
+          border: none !important;
+          border-bottom: 1px solid #e4e4e7 !important;
+        }
+        .dark .quill-builder-wrapper .ql-toolbar {
+          background: rgba(255,255,255,0.05) !important;
+          border-bottom: 1px solid #27272a !important;
+        }
+        .quill-builder-wrapper .ql-container {
+          border: none !important;
+          font-family: inherit !important;
+        }
+        .dark .quill-builder-wrapper .ql-editor {
+          color: #fff !important;
+        }
+        .dark .quill-builder-wrapper .ql-stroke {
+          stroke: #999 !important;
+        }
+        .dark .quill-builder-wrapper .ql-fill {
+          fill: #999 !important;
+        }
+        .dark .quill-builder-wrapper .ql-picker-label {
+          color: #999 !important;
+        }
+      `}</style>
       {/* LEFT SIDEBAR: Layers / Sections */}
       <div className="w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col z-10">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center gap-3">
@@ -782,15 +1045,15 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
              <div className="h-8 w-px bg-zinc-200 dark:bg-zinc-700 hidden md:block"></div>
              
              <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-lg">
-                <button 
-                  onClick={() => setBuilderLanguage("en")} 
-                  className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${builderLanguage === "en" ? "bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"}`}
-                >🇬🇧 English</button>
-                <button 
-                  onClick={() => setBuilderLanguage("ml")} 
-                  className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${builderLanguage === "ml" ? "bg-blue-600 shadow-sm text-white" : "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"}`}
-                >🇮🇳 Malayalam Mode</button>
-              </div>
+  <button
+    onClick={() => { setSiteLanguage('en'); localStorage.setItem('site_language', 'en'); }}
+    className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${siteLanguage === "en" ? "bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"}`}
+  >🇬🇧 English</button>
+  <button
+    onClick={() => { setSiteLanguage('ml'); localStorage.setItem('site_language', 'ml'); }}
+    className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${siteLanguage === 'ml' ? 'bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
+  >🇮🇳 Malayalam Mode</button>
+</div>
            </div>
            
            <button 
@@ -810,10 +1073,10 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
         </div>
 
         {/* Live Preview Area */}
-        <div className="flex-1 overflow-y-auto p-8 flex justify-center bg-[url('https://raw.githubusercontent.com/tailwindlabs/tailwindcss/master/.github/logo.svg')] bg-[length:100px] bg-center bg-repeat bg-opacity-5">
+        <div className="flex-1 overflow-y-auto p-4 lg:p-8 flex justify-center bg-[url('https://raw.githubusercontent.com/tailwindlabs/tailwindcss/master/.github/logo.svg')] bg-[length:100px] bg-center bg-repeat bg-opacity-5">
            <div 
              className={`bg-white dark:bg-zinc-950 shadow-2xl rounded-2xl overflow-hidden flex flex-col transition-all duration-500 mx-auto h-[calc(100vh-140px)] ${
-               viewport === 'desktop' ? 'w-full max-w-5xl' : viewport === 'tablet' ? 'w-[768px]' : 'w-[375px]'
+               viewport === 'desktop' ? 'w-full max-w-5xl' : viewport === 'tablet' ? 'w-[768px] shrink-0' : 'w-[375px] shrink-0'
              }`}
            >
              {/* Mock Browser Header */}
@@ -838,7 +1101,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                         onToggleVisibility={() => {
                           setSections(sections.map(s => s.id === section.id ? { ...s, isHidden: !s.isHidden } : s));
                         }}
-                        builderLanguage={builderLanguage}
+                        builderLanguage={siteLanguage}
                       />
                     ))}
                   </SortableContext>
@@ -880,7 +1143,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
       </div>
 
       {/* RIGHT SIDEBAR: Property Inspector */}
-      <div className="w-80 bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-800 z-10 flex flex-col">
+      <div className="w-[420px] shrink-0 bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-800 z-20 flex flex-col shadow-xl">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
            <h2 className="font-bold text-lg">Inspector</h2>
         </div>
@@ -903,7 +1166,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                     <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Title</label>
                     <input 
                       type="text" 
-                      value={selectedSection.props.title || ""} 
+                      value={getPropValue('title')} 
                       onChange={(e) => updateSectionProp('title', e.target.value)}
                       placeholder="Enter title..."
                       className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
@@ -915,32 +1178,40 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                 {(selectedSection.type === 'HeroBanner' || selectedSection.type === 'LeadCaptureForm') && (
                   <div>
                     <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Subtitle</label>
-                    <textarea 
-                      value={selectedSection.props.subtitle || ""} 
-                      onChange={(e) => updateSectionProp('subtitle', e.target.value)}
-                      placeholder="Enter subtitle..."
-                      className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none h-20" 
-                    />
+                    <div className="quill-builder-wrapper">
+                      <ReactQuill theme="snow" value={getPropValue('subtitle')} onChange={(val) => updateSectionProp('subtitle', val)} modules={quillModules} />
+                    </div>
                   </div>
                 )}
 
                 {/* About Section Description & Image */}
-                {selectedSection.type === 'AboutSection' && (
+                
+                {selectedSection.type === 'LeadCaptureForm' && (
+                  <details className="mt-4">
+                    <summary className="text-xs font-bold text-zinc-600 dark:text-zinc-400 cursor-pointer mb-2">Edit Form Labels</summary>
+                    <div className="space-y-2">
+                      {['labelName', 'labelEmail', 'labelProgram', 'opt1', 'opt2', 'opt3', 'btnText'].map(key => (
+                         <div key={key}>
+                           <label className="block text-[10px] uppercase text-zinc-500 mb-1">{key}</label>
+                           <input type="text" value={getPropValue(key)} onChange={(e) => updateSectionProp(key, e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
+                         </div>
+                      ))}
+                    </div>
+                  </details>
+                )}
+{selectedSection.type === 'AboutSection' && (
                   <>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Description</label>
-                      <textarea 
-                        value={selectedSection.props.description || ""} 
-                        onChange={(e) => updateSectionProp('description', e.target.value)}
-                        placeholder="Enter description..."
-                        className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none h-32" 
-                      />
+                      <div className="quill-builder-wrapper">
+                        <ReactQuill theme="snow" value={getPropValue('description')} onChange={(val) => updateSectionProp('description', val)} modules={quillModules} />
+                      </div>
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Image URL</label>
                       <input 
                         type="url" 
-                        value={selectedSection.props.imageUrl || ""} 
+                        value={getPropValue('imageUrl')} 
                         onChange={(e) => updateSectionProp('imageUrl', e.target.value)}
                         placeholder="https://images.unsplash.com/..."
                         className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
@@ -956,7 +1227,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Logo Text</label>
                       <input 
                         type="text" 
-                        value={selectedSection.props.logoText || ""} 
+                        value={getPropValue('logoText')} 
                         onChange={(e) => updateSectionProp('logoText', e.target.value)}
                         placeholder="e.g. Institution"
                         className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none mb-3" 
@@ -966,7 +1237,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Logo Icon / Emoji</label>
                       <input 
                         type="text" 
-                        value={selectedSection.props.logoIcon || ""} 
+                        value={getPropValue('logoIcon')} 
                         onChange={(e) => updateSectionProp('logoIcon', e.target.value)}
                         placeholder="e.g. 🏛️"
                         className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none mb-3" 
@@ -976,7 +1247,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">CTA Button Text</label>
                       <input 
                         type="text" 
-                        value={selectedSection.props.ctaText || ""} 
+                        value={getPropValue('ctaText')} 
                         onChange={(e) => updateSectionProp('ctaText', e.target.value)}
                         placeholder="e.g. Apply Now"
                         className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
@@ -995,7 +1266,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                           <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Tier {tier} Name</label>
                           <input 
                             type="text" 
-                            value={selectedSection.props[`tier${tier}Name`] || ""} 
+                            value={getPropValue(`tier${tier}Name`)} 
                             onChange={(e) => updateSectionProp(`tier${tier}Name`, e.target.value)}
                             placeholder={`e.g. Tier ${tier}`}
                             className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-1.5 text-sm outline-none mb-2" 
@@ -1003,7 +1274,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                           <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Price</label>
                           <input 
                             type="text" 
-                            value={selectedSection.props[`tier${tier}Price`] || ""} 
+                            value={getPropValue(`tier${tier}Price`)} 
                             onChange={(e) => updateSectionProp(`tier${tier}Price`, e.target.value)}
                             placeholder="e.g. $5,000"
                             className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-1.5 text-sm outline-none" 
@@ -1019,21 +1290,15 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                   <>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Paragraph 1</label>
-                      <textarea 
-                        value={selectedSection.props.paragraph1 || ""} 
-                        onChange={(e) => updateSectionProp('paragraph1', e.target.value)}
-                        placeholder="Enter first paragraph..."
-                        className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none h-24 mb-3" 
-                      />
+                      <div className="quill-builder-wrapper mb-3">
+                        <ReactQuill theme="snow" value={getPropValue('paragraph1')} onChange={(val) => updateSectionProp('paragraph1', val)} modules={quillModules} />
+                      </div>
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Paragraph 2</label>
-                      <textarea 
-                        value={selectedSection.props.paragraph2 || ""} 
-                        onChange={(e) => updateSectionProp('paragraph2', e.target.value)}
-                        placeholder="Enter second paragraph..."
-                        className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none h-24" 
-                      />
+                      <div className="quill-builder-wrapper">
+                        <ReactQuill theme="snow" value={getPropValue('paragraph2')} onChange={(val) => updateSectionProp('paragraph2', val)} modules={quillModules} />
+                      </div>
                     </div>
                   </>
                 )}
@@ -1045,7 +1310,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">CTA Button Text</label>
                       <input 
                         type="text" 
-                        value={selectedSection.props.ctaText || ""} 
+                        value={getPropValue('ctaText')} 
                         onChange={(e) => updateSectionProp('ctaText', e.target.value)}
                         placeholder="e.g. Apply Now"
                         className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
@@ -1059,7 +1324,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                           <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Background Image URL</label>
                           <input 
                             type="url" 
-                            value={selectedSection.props.bgImageUrl || ""} 
+                            value={getPropValue('bgImageUrl')} 
                             onChange={(e) => updateSectionProp('bgImageUrl', e.target.value)}
                             placeholder="https://images.unsplash.com/..."
                             className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
@@ -1069,7 +1334,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                           <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Background Video URL (Overrides Image)</label>
                           <input 
                             type="url" 
-                            value={selectedSection.props.bgVideoUrl || ""} 
+                            value={getPropValue('bgVideoUrl')} 
                             onChange={(e) => updateSectionProp('bgVideoUrl', e.target.value)}
                             placeholder="https://...mp4"
                             className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
@@ -1078,13 +1343,13 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                         <div>
                           <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1 flex justify-between">
                             <span>Overlay Opacity</span>
-                            <span>{selectedSection.props.overlayOpacity || '40'}%</span>
+                            <span>{(getPropValue('overlayOpacity') || "40")}%</span>
                           </label>
                           <input 
                             type="range" 
                             min="0" 
                             max="100" 
-                            value={selectedSection.props.overlayOpacity || "40"} 
+                            value={(getPropValue('overlayOpacity') || "40")} 
                             onChange={(e) => updateSectionProp('overlayOpacity', e.target.value)}
                             className="w-full accent-blue-600" 
                           />
@@ -1112,7 +1377,7 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                         </div>
                         <input 
                           type="text" 
-                          value={selectedSection.props.primaryColor || "#000000"} 
+                          value={(getPropValue('primaryColor') || "#000000")} 
                           onChange={(e) => updateSectionProp('primaryColor', e.target.value)}
                           placeholder="#000000"
                           className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none uppercase font-mono" 
@@ -1126,19 +1391,19 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                   <>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Stat 1 (Acceptance)</label>
-                      <input type="text" value={selectedSection.props.stat1 || ""} onChange={(e) => updateSectionProp('stat1', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <input type="text" value={getPropValue('stat1')} onChange={(e) => updateSectionProp('stat1', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Stat 2 (Ratio)</label>
-                      <input type="text" value={selectedSection.props.stat2 || ""} onChange={(e) => updateSectionProp('stat2', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <input type="text" value={getPropValue('stat2')} onChange={(e) => updateSectionProp('stat2', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Stat 3 (Extracurriculars)</label>
-                      <input type="text" value={selectedSection.props.stat3 || ""} onChange={(e) => updateSectionProp('stat3', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <input type="text" value={getPropValue('stat3')} onChange={(e) => updateSectionProp('stat3', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Stat 4 (Established)</label>
-                      <input type="text" value={selectedSection.props.stat4 || ""} onChange={(e) => updateSectionProp('stat4', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <input type="text" value={getPropValue('stat4')} onChange={(e) => updateSectionProp('stat4', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                   </>
                 )}
@@ -1148,25 +1413,40 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                   <>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Quote</label>
-                      <textarea value={selectedSection.props.quote || ""} onChange={(e) => updateSectionProp('quote', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none h-24" />
+                      <div className="quill-builder-wrapper">
+                        <ReactQuill theme="snow" value={getPropValue('quote')} onChange={(val) => updateSectionProp('quote', val)} modules={quillModules} />
+                      </div>
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Author Name</label>
-                      <input type="text" value={selectedSection.props.author || ""} onChange={(e) => updateSectionProp('author', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <input type="text" value={getPropValue('author')} onChange={(e) => updateSectionProp('author', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Role / Subtitle</label>
-                      <input type="text" value={selectedSection.props.role || ""} onChange={(e) => updateSectionProp('role', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <input type="text" value={getPropValue('role')} onChange={(e) => updateSectionProp('role', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                   </>
                 )}
 
                 {/* Footer */}
                 {selectedSection.type === 'Footer' && (
-                  <div>
-                    <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">School Name</label>
-                    <input type="text" value={selectedSection.props.schoolName || ""} onChange={(e) => updateSectionProp('schoolName', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
-                  </div>
+                  <>
+                    <div>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">School Name</label>
+                      <input type="text" value={getPropValue('schoolName')} onChange={(e) => updateSectionProp('schoolName', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                    </div>
+                  <details className="mt-4">
+                    <summary className="text-xs font-bold text-zinc-600 dark:text-zinc-400 cursor-pointer mb-2">Edit Footer Details</summary>
+                    <div className="space-y-2">
+                      {['link1', 'link2', 'link3', 'link4', 'address', 'phone', 'email', 'copyrightText'].map(key => (
+                         <div key={key}>
+                           <label className="block text-[10px] uppercase text-zinc-500 mb-1">{key}</label>
+                           <input type="text" value={getPropValue(key)} onChange={(e) => updateSectionProp(key, e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
+                         </div>
+                      ))}
+                    </div>
+                  </details>
+                  </>
                 )}
                 {/* Recruiter Logos */}
                 {selectedSection.type === 'RecruiterLogos' && (
@@ -1182,14 +1462,18 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                       <div key={i} className="pt-2 border-t border-zinc-200 dark:border-zinc-800 mt-2">
                         <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">Event {i}</h4>
                         <div className="space-y-2">
-                          <input type="text" value={selectedSection.props[`event${i}Title`] || ""} onChange={(e) => updateSectionProp(`event${i}Title`, e.target.value)} placeholder="Event Title" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                          <input type="text" value={getPropValue(`event${i}Title`)} onChange={(e) => updateSectionProp(`event${i}Title`, e.target.value)} placeholder="Event Title" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                           <div className="grid grid-cols-2 gap-2">
-                            <input type="text" value={selectedSection.props[`event${i}Date`] || ""} onChange={(e) => updateSectionProp(`event${i}Date`, e.target.value)} placeholder="Date" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
-                            <input type="text" value={selectedSection.props[`event${i}Venue`] || ""} onChange={(e) => updateSectionProp(`event${i}Venue`, e.target.value)} placeholder="Venue" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                            <input type="text" value={getPropValue(`event${i}Date`)} onChange={(e) => updateSectionProp(`event${i}Date`, e.target.value)} placeholder="Date" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                            <input type="text" value={getPropValue(`event${i}Venue`)} onChange={(e) => updateSectionProp(`event${i}Venue`, e.target.value)} placeholder="Venue" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                           </div>
                         </div>
                       </div>
                     ))}
+                    <div className="mt-4">
+                      <label className="block text-[10px] uppercase text-zinc-500 mb-1">Button Text</label>
+                      <input type="text" value={getPropValue('btnText')} onChange={(e) => updateSectionProp('btnText', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
+                    </div>
                   </>
                 )}
 
@@ -1200,11 +1484,15 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                       <div key={i} className="pt-2 border-t border-zinc-200 dark:border-zinc-800 mt-2">
                         <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">News {i}</h4>
                         <div className="space-y-2">
-                          <input type="text" value={selectedSection.props[`news${i}Title`] || ""} onChange={(e) => updateSectionProp(`news${i}Title`, e.target.value)} placeholder="News Headline" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
-                          <input type="text" value={selectedSection.props[`news${i}Date`] || ""} onChange={(e) => updateSectionProp(`news${i}Date`, e.target.value)} placeholder="Date" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                          <input type="text" value={getPropValue(`news${i}Title`)} onChange={(e) => updateSectionProp(`news${i}Title`, e.target.value)} placeholder="News Headline" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                          <input type="text" value={getPropValue(`news${i}Date`)} onChange={(e) => updateSectionProp(`news${i}Date`, e.target.value)} placeholder="Date" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                         </div>
                       </div>
                     ))}
+                    <div className="mt-4">
+                      <label className="block text-[10px] uppercase text-zinc-500 mb-1">Button Text</label>
+                      <input type="text" value={getPropValue('btnText')} onChange={(e) => updateSectionProp('btnText', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
+                    </div>
                   </>
                 )}
 
@@ -1215,11 +1503,11 @@ export default function SiteBuilder({ onExit, pageId = 'home' }: { onExit: () =>
                       <div key={i} className="pt-2 border-t border-zinc-200 dark:border-zinc-800 mt-2">
                         <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">Program {i}</h4>
                         <div className="space-y-2">
-                          <input type="text" value={selectedSection.props[`prog${i}Name`] || ""} onChange={(e) => updateSectionProp(`prog${i}Name`, e.target.value)} placeholder="Program Name" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                          <input type="text" value={getPropValue(`prog${i}Name`)} onChange={(e) => updateSectionProp(`prog${i}Name`, e.target.value)} placeholder="Program Name" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                           <div className="grid grid-cols-3 gap-2">
-                            <input type="text" value={selectedSection.props[`prog${i}Duration`] || ""} onChange={(e) => updateSectionProp(`prog${i}Duration`, e.target.value)} placeholder="Duration" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
-                            <input type="text" value={selectedSection.props[`prog${i}Fee`] || ""} onChange={(e) => updateSectionProp(`prog${i}Fee`, e.target.value)} placeholder="Fee" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
-                            <input type="text" value={selectedSection.props[`prog${i}Seats`] || ""} onChange={(e) => updateSectionProp(`prog${i}Seats`, e.target.value)} placeholder="Seats" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
+                            <input type="text" value={getPropValue(`prog${i}Duration`)} onChange={(e) => updateSectionProp(`prog${i}Duration`, e.target.value)} placeholder="Duration" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
+                            <input type="text" value={getPropValue(`prog${i}Fee`)} onChange={(e) => updateSectionProp(`prog${i}Fee`, e.target.value)} placeholder="Fee" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
+                            <input type="text" value={getPropValue(`prog${i}Seats`)} onChange={(e) => updateSectionProp(`prog${i}Seats`, e.target.value)} placeholder="Seats" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
                           </div>
                         </div>
                       </div>

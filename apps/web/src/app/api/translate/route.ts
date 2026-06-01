@@ -8,27 +8,30 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "texts array is required" }, { status: 400 });
     }
 
-    const translatedTexts = await Promise.all(
-      texts.map(async (text: string) => {
-        if (!text || text.trim() === "") return "";
-        try {
-          // Free unauthenticated Google Translate endpoint (for small scale demo/internal tool use)
-          const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
-          const res = await fetch(url);
-          const data = await res.json();
-          let translated = "";
-          if (data && data[0]) {
-            data[0].forEach((t: any) => {
-              if (t[0]) translated += t[0];
-            });
-          }
-          return translated || text;
-        } catch (e) {
-          console.error("Translation failed for", text, e);
-          return text; // fallback to original
+    const translatedTexts = [];
+    for (const text of texts) {
+        if (!text || text.trim() === "") {
+            translatedTexts.push("");
+            continue;
         }
-      })
-    );
+        try {
+            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            let translated = "";
+            if (data && data[0]) {
+                data[0].forEach((t: any) => {
+                    if (t[0]) translated += t[0];
+                });
+            }
+            translatedTexts.push(translated || text);
+            // wait 300ms to avoid rate limiting
+            await new Promise(resolve => setTimeout(resolve, 300));
+        } catch (e) {
+            console.error("Translation failed for", text, e);
+            translatedTexts.push("");
+        }
+    }
 
     return NextResponse.json({ translated: translatedTexts });
   } catch (error) {

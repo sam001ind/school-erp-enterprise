@@ -1,1 +1,586 @@
-{}
+{
+  "home": {
+    "sections": [
+      {
+        "id": "1",
+        "type": "HeroBanner",
+        "props": {
+          "title": {
+            "en": "Excellence in Education.",
+            "ml": "വിദ്യാഭ്യാസത്തിൽ മികവ്."
+          },
+          "subtitle": {
+            "en": "A world-class curriculum designed to shape the innovators and leaders of tomorrow.",
+            "ml": "നാളത്തെ പുതുമയുള്ളവരെയും നേതാക്കളെയും രൂപപ്പെടുത്താൻ രൂപകൽപ്പന ചെയ്ത ലോകോത്തര പാഠ്യപദ്ധതി."
+          },
+          "ctaText": {
+            "en": "Apply Now",
+            "ml": "ഇപ്പോൾ പ്രയോഗിക്കുക"
+          }
+        }
+      },
+      {
+        "id": "2",
+        "type": "StatsRibbon",
+        "props": {
+          "stat1Label": {
+            "en": "Students Trained",
+            "ml": "വിദ്യാർത്ഥികൾ പരിശീലിപ്പിച്ചു"
+          },
+          "stat1Value": {
+            "en": "10,000+",
+            "ml": "10,000+"
+          },
+          "stat2Label": {
+            "en": "Courses Offered",
+            "ml": "കോഴ്‌സുകൾ വാഗ്ദാനം ചെയ്യുന്നു"
+          },
+          "stat2Value": {
+            "en": "50+",
+            "ml": "50+"
+          },
+          "stat3Label": {
+            "en": "Placement Percentage",
+            "ml": "പ്ലേസ്മെൻ്റ് ശതമാനം"
+          },
+          "stat3Value": {
+            "en": "95%",
+            "ml": "95%"
+          },
+          "stat4Label": {
+            "en": "Industry Partners",
+            "ml": "വ്യവസായ പങ്കാളികൾ"
+          },
+          "stat4Value": {
+            "en": "200+",
+            "ml": "200+"
+          }
+        }
+      },
+      {
+        "id": "3",
+        "type": "AboutSection",
+        "props": {
+          "title": {
+            "en": "Our Vision & Mission",
+            "ml": "ഞങ്ങളുടെ വിഷൻ & മിഷൻ"
+          },
+          "content": {
+            "en": "We are dedicated to providing an enriching environment that fosters intellectual curiosity, emotional intelligence, and a strong sense of community.",
+            "ml": "ബൗദ്ധിക ജിജ്ഞാസ, വൈകാരിക ബുദ്ധി, ശക്തമായ കമ്മ്യൂണിറ്റി ബോധം എന്നിവ വളർത്തുന്ന ഒരു സമ്പന്നമായ അന്തരീക്ഷം നൽകുന്നതിന് ഞങ്ങൾ പ്രതിജ്ഞാബദ്ധരാണ്."
+          },
+          "awardTitle": {
+            "en": "Award Winning Institution",
+            "ml": "അവാർഡ് നേടിയ സ്ഥാപനം"
+          },
+          "awardSubtitle": {
+            "en": "Ranked #1 in Regional Excellence",
+            "ml": "റീജിയണൽ എക്സലൻസിൽ #1 റാങ്ക്"
+          },
+          "description": {
+            "en": "<p></p>",
+            "ml": "<p></p>"
+          }
+        }
+      },
+      {
+        "id": "4",
+        "type": "ProgramsGrid",
+        "props": {
+          "title": {
+            "en": "Featured Courses & Programs",
+            "ml": "തിരഞ്ഞെടുത്ത കോഴ്സുകളും പ്രോഗ്രാമുകളും"
+          },
+          "prog1Name": {
+            "en": "Computer Science B.Tech",
+            "ml": "കമ്പ്യൂട്ടർ സയൻസ് ബി.ടെക്"
+          },
+          "prog1Duration": {
+            "en": "4 Years",
+            "ml": "4 വർഷം"
+          },
+          "prog1Fee": {
+            "en": "$15,000/yr",
+            "ml": "$15,000/വർഷം"
+          },
+          "prog1Seats": {
+            "en": "120 Seats",
+            "ml": "120 സീറ്റുകൾ"
+          },
+          "prog2Name": {
+            "en": "MBA in Finance",
+            "ml": "ധനകാര്യത്തിൽ എം.ബി.എ"
+          },
+          "prog2Duration": {
+            "en": "2 Years",
+            "ml": "2 വർഷം"
+          },
+          "prog2Fee": {
+            "en": "$25,000/yr",
+            "ml": "$25,000/വർഷം"
+          },
+          "prog2Seats": {
+            "en": "60 Seats",
+            "ml": "60 സീറ്റുകൾ"
+          },
+          "prog3Name": {
+            "en": "Data Science Bootcamp",
+            "ml": "ഡാറ്റ സയൻസ് ബൂട്ട്ക്യാമ്പ്"
+          },
+          "prog3Duration": {
+            "en": "6 Months",
+            "ml": "6 മാസം"
+          },
+          "prog3Fee": {
+            "en": "$5,000",
+            "ml": "$5,000"
+          },
+          "prog3Seats": {
+            "en": "30 Seats",
+            "ml": "30 സീറ്റുകൾ"
+          }
+        }
+      },
+      {
+        "id": "5",
+        "type": "RecruiterLogos",
+        "props": {
+          "title": {
+            "en": "Our Top Recruiters",
+            "ml": "ഞങ്ങളുടെ മുൻനിര റിക്രൂട്ടർമാർ"
+          }
+        }
+      },
+      {
+        "id": "6",
+        "type": "UpcomingEvents",
+        "props": {
+          "btnText": {
+            "en": "View All Events",
+            "ml": "എല്ലാ ഇവൻ്റുകളും കാണുക"
+          },
+          "title": {
+            "en": "Upcoming Events",
+            "ml": "വരാനിരിക്കുന്ന ഇവൻ്റുകൾ"
+          },
+          "event1Title": {
+            "en": "",
+            "ml": ""
+          },
+          "event1Date": {
+            "en": "June 15, 2026",
+            "ml": "ജൂൺ 15, 2026"
+          },
+          "event1Venue": {
+            "en": "Main Auditorium",
+            "ml": "പ്രധാന ഓഡിറ്റോറിയം"
+          },
+          "event2Title": {
+            "en": "Alumni Meet",
+            "ml": "പൂർവ്വ വിദ്യാർത്ഥി സംഗമം"
+          },
+          "event2Date": {
+            "en": "July 22, 2026",
+            "ml": "ജൂലൈ 22, 2026"
+          },
+          "event2Venue": {
+            "en": "Virtual",
+            "ml": "വെർച്വൽ"
+          },
+          "event3Title": {
+            "en": "Tech Symposium",
+            "ml": "ടെക് സിമ്പോസിയം"
+          },
+          "event3Date": {
+            "en": "August 10, 2026",
+            "ml": "ഓഗസ്റ്റ് 10, 2026"
+          },
+          "event3Venue": {
+            "en": "Innovation Center",
+            "ml": "ഇന്നൊവേഷൻ സെൻ്റർ"
+          }
+        }
+      },
+      {
+        "id": "7",
+        "type": "LatestNews",
+        "props": {
+          "btnText": {
+            "en": "Read More",
+            "ml": "കൂടുതൽ വായിക്കുക"
+          },
+          "title": {
+            "en": "Latest News & Updates",
+            "ml": "ഏറ്റവും പുതിയ വാർത്തകളും അപ്‌ഡേറ്റുകളും"
+          },
+          "news1Title": {
+            "en": "Institution receives Grade A++ Accreditation",
+            "ml": "സ്ഥാപനത്തിന് ഗ്രേഡ് A++ അക്രഡിറ്റേഷൻ ലഭിക്കുന്നു"
+          },
+          "news1Date": {
+            "en": "May 28, 2026",
+            "ml": "മെയ് 28, 2026"
+          },
+          "news2Title": {
+            "en": "New AI Research Lab inaugurated by the Chief Minister",
+            "ml": "പുതിയ എഐ റിസർച്ച് ലാബ് മുഖ്യമന്ത്രി ഉദ്ഘാടനം ചെയ്തു"
+          },
+          "news2Date": {
+            "en": "May 15, 2026",
+            "ml": "മെയ് 15, 2026"
+          },
+          "news3Title": {
+            "en": "Admissions open for Fall 2026 Batch",
+            "ml": "ഫാൾ 2026 ബാച്ചിലേക്കുള്ള പ്രവേശനം തുറന്നിരിക്കുന്നു"
+          },
+          "news3Date": {
+            "en": "May 10, 2026",
+            "ml": "മെയ് 10, 2026"
+          }
+        }
+      },
+      {
+        "id": "8",
+        "type": "Testimonials",
+        "props": {
+          "title": {
+            "en": "Student Voices",
+            "ml": "വിദ്യാർത്ഥി ശബ്ദങ്ങൾ"
+          },
+          "quote": {
+            "en": "The faculty here goes above and beyond...",
+            "ml": "ഇവിടുത്തെ ഫാക്കൽറ്റി അപ്പുറം പോകുന്നു..."
+          },
+          "author": {
+            "en": "Jane Doe, Class of '24",
+            "ml": "ജെയ്ൻ ഡോ, ക്ലാസ് ഓഫ് '24"
+          },
+          "role": {
+            "en": "Software Engineer at Google",
+            "ml": "ഗൂഗിളിലെ സോഫ്റ്റ്‌വെയർ എഞ്ചിനീയർ"
+          }
+        }
+      },
+      {
+        "id": "9",
+        "type": "LeadCaptureForm",
+        "props": {
+          "title": {
+            "en": "Request Information",
+            "ml": "വിവരങ്ങൾ അഭ്യർത്ഥിക്കുക"
+          },
+          "subtitle": {
+            "en": "Provide your details and our admissions team will be in touch shortly.",
+            "ml": "നിങ്ങളുടെ വിശദാംശങ്ങൾ നൽകുക, ഞങ്ങളുടെ അഡ്മിഷൻ ടീം ഉടൻ ബന്ധപ്പെടും."
+          },
+          "labelName": {
+            "en": "Full Name",
+            "ml": "പൂർണ്ണമായ പേര്"
+          },
+          "labelEmail": {
+            "en": "Email Address",
+            "ml": "ഇമെയിൽ വിലാസം"
+          },
+          "labelProgram": {
+            "en": "Program of Interest",
+            "ml": "താൽപ്പര്യ പരിപാടി"
+          },
+          "opt1": {
+            "en": "Primary School",
+            "ml": "പ്രാഥമിക വിദ്യാലയം"
+          },
+          "opt2": {
+            "en": "Middle School",
+            "ml": "മിഡിൽ സ്കൂൾ"
+          },
+          "opt3": {
+            "en": "High School",
+            "ml": "ഹൈസ്കൂൾ"
+          },
+          "btnText": {
+            "en": "Submit Inquiry",
+            "ml": "അന്വേഷണം സമർപ്പിക്കുക"
+          },
+          "nameLabel": {
+            "en": "Full Name",
+            "ml": "പൂർണ്ണമായ പേര്"
+          },
+          "emailLabel": {
+            "en": "Email Address",
+            "ml": "ഇമെയിൽ വിലാസം"
+          },
+          "programLabel": {
+            "en": "Program of Interest",
+            "ml": "താൽപ്പര്യ പരിപാടി"
+          },
+          "progOption1": {
+            "en": "Primary School",
+            "ml": "പ്രാഥമിക വിദ്യാലയം"
+          },
+          "progOption2": {
+            "en": "Middle School",
+            "ml": "മിഡിൽ സ്കൂൾ"
+          },
+          "progOption3": {
+            "en": "High School",
+            "ml": "ഹൈസ്കൂൾ"
+          }
+        }
+      },
+      {
+        "id": "10",
+        "type": "Footer",
+        "props": {
+          "schoolName": {
+            "en": "Institution Name",
+            "ml": "സ്ഥാപനത്തിൻ്റെ പേര്"
+          },
+          "link1": {
+            "en": "About Us",
+            "ml": "ഞങ്ങളേക്കുറിച്ച്"
+          },
+          "link2": {
+            "en": "Academics",
+            "ml": "അക്കാദമിക്"
+          },
+          "link3": {
+            "en": "Admissions",
+            "ml": "പ്രവേശനം"
+          },
+          "link4": {
+            "en": "Contact Us",
+            "ml": "ഞങ്ങളെ സമീപിക്കുക"
+          },
+          "address": {
+            "en": "123 University Avenue, Knowledge City, ST 12345",
+            "ml": "123 യൂണിവേഴ്സിറ്റി അവന്യൂ, നോളജ് സിറ്റി, ST 12345"
+          },
+          "phone": {
+            "en": "(555) 123-4567",
+            "ml": "(555) 123-4567"
+          },
+          "email": {
+            "en": "admissions@institution.edu",
+            "ml": "admissions@institution.edu"
+          },
+          "copyrightText": {
+            "en": "All rights reserved.",
+            "ml": "എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം."
+          }
+        }
+      }
+    ],
+    "isPublished": true,
+    "lastUpdated": "2026-05-31T17:25:42.518Z"
+  },
+  "academics": {
+    "sections": [
+      {
+        "id": "sec-header",
+        "type": "HeaderNavigation",
+        "props": {
+          "navHome": {
+            "en": "Home",
+            "ml": "വീട്"
+          },
+          "navAbout": {
+            "en": "About Us",
+            "ml": "ഞങ്ങളേക്കുറിച്ച്"
+          },
+          "navOverview": {
+            "en": "Overview",
+            "ml": "അവലോകനം"
+          },
+          "navAcademics": {
+            "en": "Academics",
+            "ml": "അക്കാദമിക്"
+          },
+          "navLeadership": {
+            "en": "Leadership Team",
+            "ml": "ലീഡർഷിപ്പ് ടീം"
+          },
+          "navAdmissions": {
+            "en": "Admissions",
+            "ml": "പ്രവേശനം"
+          },
+          "navContact": {
+            "en": "Contact Us",
+            "ml": "ഞങ്ങളെ സമീപിക്കുക"
+          },
+          "navStudentLife": {
+            "en": "Student Life",
+            "ml": "വിദ്യാർത്ഥി ജീവിതം"
+          },
+          "navCampusTour": {
+            "en": "Campus Tour",
+            "ml": "കാമ്പസ് ടൂർ"
+          },
+          "navClubs": {
+            "en": "Clubs & Activities",
+            "ml": "ക്ലബ്ബുകളും പ്രവർത്തനങ്ങളും"
+          },
+          "navAthletics": {
+            "en": "Athletics",
+            "ml": "അത്ലറ്റിക്സ്"
+          },
+          "navHousing": {
+            "en": "Housing",
+            "ml": "പാർപ്പിടം"
+          },
+          "navAlumni": {
+            "en": "Alumni Network",
+            "ml": "പൂർവ്വ വിദ്യാർത്ഥി നെറ്റ്‌വർക്ക്"
+          },
+          "navGiving": {
+            "en": "Giving",
+            "ml": "കൊടുക്കുന്നു"
+          },
+          "navEvents": {
+            "en": "Events",
+            "ml": "ഇവൻ്റുകൾ"
+          },
+          "navNews": {
+            "en": "News & Updates",
+            "ml": "വാർത്തകളും അപ്ഡേറ്റുകളും"
+          },
+          "navResources": {
+            "en": "Resources",
+            "ml": "വിഭവങ്ങൾ"
+          },
+          "navLibrary": {
+            "en": "Library",
+            "ml": "ലൈബ്രറി"
+          },
+          "navCareerServices": {
+            "en": "Career Services",
+            "ml": "കരിയർ സേവനങ്ങൾ"
+          },
+          "navStudentServices": {
+            "en": "Student Services",
+            "ml": "വിദ്യാർത്ഥി സേവനങ്ങൾ"
+          },
+          "ctaText": {
+            "en": "",
+            "ml": ""
+          }
+        }
+      },
+      {
+        "id": "sec-hero",
+        "type": "HeroBanner",
+        "props": {
+          "title": {
+            "en": "Academic Excellence.",
+            "ml": "അക്കാദമിക് മികവ്."
+          },
+          "subtitle": {
+            "en": "<p>Explore&nbsp;our&nbsp;diverse&nbsp;range&nbsp;of&nbsp;programs&nbsp;and&nbsp;meet&nbsp;our&nbsp;world-class&nbsp;faculty.</p>",
+            "ml": "<p>Explore our diverse range of programs and meet our world-class faculty.</p>"
+          }
+        }
+      },
+      {
+        "id": "sec-progs",
+        "type": "ProgramsGrid",
+        "props": {
+          "title": {
+            "en": "Featured Courses & Programs",
+            "ml": "തിരഞ്ഞെടുത്ത കോഴ്സുകളും പ്രോഗ്രാമുകളും"
+          },
+          "prog1Name": {
+            "en": "Computer Science B.Tech",
+            "ml": "കമ്പ്യൂട്ടർ സയൻസ് ബി.ടെക്"
+          },
+          "prog1Duration": {
+            "en": "4 Years",
+            "ml": "4 വർഷം"
+          },
+          "prog1Fee": {
+            "en": "$15,000/yr",
+            "ml": "$15,000/വർഷം"
+          },
+          "prog1Seats": {
+            "en": "120 Seats",
+            "ml": "120 സീറ്റുകൾ"
+          },
+          "prog2Name": {
+            "en": "MBA in Finance",
+            "ml": "ധനകാര്യത്തിൽ എം.ബി.എ"
+          },
+          "prog2Duration": {
+            "en": "2 Years",
+            "ml": "2 വർഷം"
+          },
+          "prog2Fee": {
+            "en": "$25,000/yr",
+            "ml": "$25,000/വർഷം"
+          },
+          "prog2Seats": {
+            "en": "60 Seats",
+            "ml": "60 സീറ്റുകൾ"
+          },
+          "prog3Name": {
+            "en": "Data Science Bootcamp",
+            "ml": "ഡാറ്റ സയൻസ് ബൂട്ട്ക്യാമ്പ്"
+          },
+          "prog3Duration": {
+            "en": "6 Months",
+            "ml": "6 മാസം"
+          },
+          "prog3Fee": {
+            "en": "$5,000",
+            "ml": "$5,000"
+          },
+          "prog3Seats": {
+            "en": "30 Seats",
+            "ml": "30 സീറ്റുകൾ"
+          }
+        }
+      },
+      {
+        "id": "sec-footer",
+        "type": "Footer",
+        "props": {
+          "schoolName": {
+            "en": "Institution Name",
+            "ml": "സ്ഥാപനത്തിൻ്റെ പേര്"
+          },
+          "link1": {
+            "en": "About Us",
+            "ml": "ഞങ്ങളേക്കുറിച്ച്"
+          },
+          "link2": {
+            "en": "Academics",
+            "ml": "അക്കാദമിക്"
+          },
+          "link3": {
+            "en": "Admissions",
+            "ml": "പ്രവേശനം"
+          },
+          "link4": {
+            "en": "Contact Us",
+            "ml": "ഞങ്ങളെ സമീപിക്കുക"
+          },
+          "address": {
+            "en": "123 University Avenue, Knowledge City, ST 12345",
+            "ml": "123 യൂണിവേഴ്സിറ്റി അവന്യൂ, നോളജ് സിറ്റി, ST 12345"
+          },
+          "phone": {
+            "en": "(555) 123-4567",
+            "ml": "(555) 123-4567"
+          },
+          "email": {
+            "en": "admissions@institution.edu",
+            "ml": "admissions@institution.edu"
+          },
+          "copyrightText": {
+            "en": "All rights reserved.",
+            "ml": "എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം."
+          }
+        }
+      }
+    ],
+    "isPublished": true,
+    "lastUpdated": "2026-05-31T15:50:45.913Z"
+  }
+}
