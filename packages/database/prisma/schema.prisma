@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -84,13 +84,14 @@ model Document {
 
 // Phase 2
 model Attendance {
-  id          String         @id @default(uuid())
-  studentId   String
-  student     StudentProfile @relation(fields: [studentId], references: [id])
-  date        DateTime
-  status      String
-  remarks     String?
-  recordedAt  DateTime       @default(now())
+  id            String         @id @default(uuid())
+  studentId     String
+  student       StudentProfile @relation(fields: [studentId], references: [id])
+  date          DateTime
+  status        String         // "PRESENT", "ABSENT", "LATE"
+  checkInMethod String         @default("MANUAL") // "APP", "MANUAL", "BMD"
+  remarks       String?
+  recordedAt    DateTime       @default(now())
 }
 
 model Examination {
@@ -153,8 +154,22 @@ model Employee {
   baseSalary     Float
   payrolls       Payroll[]
   leaves         LeaveRequest[]
+  attendances    EmployeeAttendance[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
+}
+
+model EmployeeAttendance {
+  id            String    @id @default(uuid())
+  employeeId    String
+  employee      Employee  @relation(fields: [employeeId], references: [id])
+  date          DateTime
+  status        String    // "PRESENT", "ABSENT", "LATE", "HALF_DAY"
+  checkInMethod String    @default("MANUAL") // "APP", "MANUAL", "BMD"
+  checkInTime   DateTime?
+  checkOutTime  DateTime?
+  remarks       String?
+  recordedAt    DateTime  @default(now())
 }
 
 model Payroll {
@@ -240,4 +255,133 @@ model HostelAllocation {
   studentId      String         @unique
   student        StudentProfile @relation(fields: [studentId], references: [id])
   allocatedAt    DateTime       @default(now())
+}
+
+// ==========================================
+// Phase 4: Social Hub & Media Management
+// ==========================================
+
+model Department {
+  id        String   @id @default(cuid())
+  name      String
+  industry  String
+  members   Int      @default(0)
+  connected Int      @default(0)
+  logo      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Channel {
+  id        String   @id @default(cuid())
+  platform  String
+  name      String
+  handle    String
+  color     String
+  bg        String
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  content   String
+  platforms String   // Store as JSON string: '["Facebook", "LinkedIn"]'
+  time      String
+  date      DateTime
+  author    String
+  status    String   // "draft", "scheduled", "published", "failed"
+  color     String
+  likes     Int      @default(0)
+  comments  Int      @default(0)
+  error     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  user      String
+  handle    String
+  platform  String
+  color     String
+  time      String
+  text      String
+  status    String   // "unread", "read", "escalated"
+  replies   String   // Store as JSON string of array
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Stream {
+  id        String   @id @default(cuid())
+  title     String
+  keyword   String
+  platform  String
+  color     String
+  posts     String   // Store as JSON string of array of posts
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ==========================================
+// Phase 5: Academic & Pre-Examination
+// ==========================================
+
+model AcademicClass {
+  id          String        @id @default(uuid())
+  name        String        // e.g. "10-A"
+  grade       Int
+  section     String
+  subjects    Subject[]
+  assignments Assignment[]
+  createdAt   DateTime      @default(now())
+}
+
+model Subject {
+  id             String          @id @default(uuid())
+  name           String          // e.g. "Mathematics"
+  code           String          @unique
+  classId        String
+  academicClass  AcademicClass   @relation(fields: [classId], references: [id])
+  lessonPlans    LessonPlan[]
+  assignments    Assignment[]
+  studyMaterials StudyMaterial[]
+  createdAt      DateTime        @default(now())
+}
+
+model LessonPlan {
+  id          String   @id @default(uuid())
+  subjectId   String
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+  topic       String
+  description String
+  targetDate  DateTime
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Assignment {
+  id            String        @id @default(uuid())
+  title         String
+  description   String
+  subjectId     String
+  subject       Subject       @relation(fields: [subjectId], references: [id])
+  classId       String
+  academicClass AcademicClass @relation(fields: [classId], references: [id])
+  dueDate       DateTime
+  totalMarks    Int
+  createdAt     DateTime      @default(now())
+}
+
+model StudyMaterial {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  fileUrl     String
+  type        String   // "PDF", "VIDEO", "LINK"
+  subjectId   String
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+  uploadedAt  DateTime @default(now())
 }

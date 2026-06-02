@@ -2,9 +2,11 @@ import Link from "next/link";
 
 export default function Home() {
   const modules = [
+    { name: "User Management", path: "/users", icon: "🛡️", color: "from-slate-600 to-zinc-900", stats: "RBAC Active" },
     { name: "Website Builder", path: "/website", icon: "🌐", color: "from-cyan-400 to-blue-600", stats: "3 Pages Live" },
     { name: "Communications", path: "/communications", icon: "💬", color: "from-sky-400 to-blue-600", stats: "API Active" },
     { name: "Admissions", path: "/admissions", icon: "🎓", color: "from-red-500 to-rose-600", stats: "15 Pending" },
+    { name: "Academic", path: "/academic", icon: "📘", color: "from-blue-400 to-indigo-600", stats: "Curriculum Live" },
     { name: "Attendance", path: "/attendance", icon: "📅", color: "from-blue-500 to-indigo-600", stats: "92% Avg" },
     { name: "Examinations", path: "/examinations", icon: "📝", color: "from-indigo-500 to-purple-600", stats: "Mid-Terms Active" },
     { name: "Fee Collection", path: "/fees", icon: "💰", color: "from-emerald-400 to-green-600", stats: "2 Due Invoices" },
@@ -13,7 +15,7 @@ export default function Home() {
     { name: "Library", path: "/library", icon: "📚", color: "from-fuchsia-500 to-pink-600", stats: "0 Borrowed" },
     { name: "Payroll", path: "/payroll", icon: "💵", color: "from-lime-500 to-green-600", stats: "Next: Oct 30" },
     { name: "Transport", path: "/transport", icon: "🚌", color: "from-yellow-400 to-orange-500", stats: "Unallocated" },
-    { name: "SocialHub Enterprise", path: "http://localhost:3001", icon: "📱", color: "from-indigo-400 to-purple-600", stats: "SMMP Active" },
+    { name: "SocialHub", path: "/social", icon: "📱", color: "from-indigo-400 to-purple-600", stats: "SMMP Active" },
   ];
 
   return (
