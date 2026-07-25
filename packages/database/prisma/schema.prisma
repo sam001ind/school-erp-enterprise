@@ -3,20 +3,36 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Tenant {
+  id        String   @id @default(uuid())
+  name      String
+  domain    String?  @unique
+  logoUrl   String?
+  status    String   @default("Active")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+  roles Role[]
 }
 
 model User {
-  id              String         @id @default(uuid())
-  email           String         @unique
-  password        String
-  name            String
-  roleId          String
-  role            Role           @relation(fields: [roleId], references: [id])
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  roleId    String
+  role      Role     @relation(fields: [roleId], references: [id])
+  tenantId  String?
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   studentProfile  StudentProfile?
   guardianProfile Guardian?
   employeeProfile Employee?
@@ -27,6 +43,8 @@ model Role {
   id          String       @id @default(uuid())
   name        String       @unique
   description String?
+  tenantId    String?
+  tenant      Tenant?      @relation(fields: [tenantId], references: [id])
   users       User[]
   permissions Permission[]
   createdAt   DateTime     @default(now())
@@ -42,18 +60,18 @@ model Permission {
 }
 
 model StudentProfile {
-  id                  String               @id @default(uuid())
-  userId              String               @unique
-  user                User                 @relation(fields: [userId], references: [id])
-  admissionNo         String               @unique
-  dateOfBirth         DateTime
-  gender              String
-  bloodGroup          String?
-  guardianId          String?
-  guardian            Guardian?            @relation(fields: [guardianId], references: [id])
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @updatedAt
-  
+  id          String    @id @default(uuid())
+  userId      String    @unique
+  user        User      @relation(fields: [userId], references: [id])
+  admissionNo String    @unique
+  dateOfBirth DateTime
+  gender      String
+  bloodGroup  String?
+  guardianId  String?
+  guardian    Guardian? @relation(fields: [guardianId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
   documents           Document[]
   attendances         Attendance[]
   examResults         ExamResult[]
@@ -63,23 +81,23 @@ model StudentProfile {
 }
 
 model Guardian {
-  id             String           @id @default(uuid())
-  userId         String           @unique
-  user           User             @relation(fields: [userId], references: [id])
-  phone          String
-  relation       String
-  students       StudentProfile[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  id        String           @id @default(uuid())
+  userId    String           @unique
+  user      User             @relation(fields: [userId], references: [id])
+  phone     String
+  relation  String
+  students  StudentProfile[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 }
 
 model Document {
-  id             String         @id @default(uuid())
-  studentId      String
-  student        StudentProfile @relation(fields: [studentId], references: [id])
-  documentType   String
-  fileUrl        String
-  uploadedAt     DateTime       @default(now())
+  id           String         @id @default(uuid())
+  studentId    String
+  student      StudentProfile @relation(fields: [studentId], references: [id])
+  documentType String
+  fileUrl      String
+  uploadedAt   DateTime       @default(now())
 }
 
 // Phase 2
@@ -88,20 +106,20 @@ model Attendance {
   studentId     String
   student       StudentProfile @relation(fields: [studentId], references: [id])
   date          DateTime
-  status        String         // "PRESENT", "ABSENT", "LATE"
+  status        String // "PRESENT", "ABSENT", "LATE"
   checkInMethod String         @default("MANUAL") // "APP", "MANUAL", "BMD"
   remarks       String?
   recordedAt    DateTime       @default(now())
 }
 
 model Examination {
-  id          String       @id @default(uuid())
-  name        String
-  term        String
-  startDate   DateTime
-  endDate     DateTime
-  results     ExamResult[]
-  createdAt   DateTime     @default(now())
+  id        String       @id @default(uuid())
+  name      String
+  term      String
+  startDate DateTime
+  endDate   DateTime
+  results   ExamResult[]
+  createdAt DateTime     @default(now())
 }
 
 model ExamResult {
@@ -118,13 +136,13 @@ model ExamResult {
 }
 
 model FeeStructure {
-  id          String       @id @default(uuid())
-  name        String
-  amount      Float
-  dueDate     DateTime
-  term        String
-  payments    FeePayment[]
-  createdAt   DateTime     @default(now())
+  id        String       @id @default(uuid())
+  name      String
+  amount    Float
+  dueDate   DateTime
+  term      String
+  payments  FeePayment[]
+  createdAt DateTime     @default(now())
 }
 
 model FeePayment {
@@ -144,19 +162,26 @@ model FeePayment {
 // ==========================================
 
 model Employee {
-  id             String         @id @default(uuid())
-  userId         String         @unique
-  user           User           @relation(fields: [userId], references: [id])
-  employeeId     String         @unique
-  department     String
-  designation    String
-  joiningDate    DateTime
-  baseSalary     Float
-  payrolls       Payroll[]
-  leaves         LeaveRequest[]
-  attendances    EmployeeAttendance[]
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id              String               @id @default(uuid())
+  userId          String               @unique
+  user            User                 @relation(fields: [userId], references: [id])
+  employeeId      String               @unique
+  department      String
+  designation     String
+  joiningDate     DateTime
+  baseSalary      Float
+  bankName        String?
+  accountNo       String?
+  ifscCode        String?
+  taxId           String? // SSN/PAN
+  status          String               @default("ACTIVE") // ACTIVE, ON_LEAVE, TERMINATED
+  payrolls        Payroll[]
+  leaves          LeaveRequest[]
+  leaveBalances   LeaveBalance[]
+  attendances     EmployeeAttendance[]
+  salaryStructure SalaryStructure?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
 }
 
 model EmployeeAttendance {
@@ -164,7 +189,7 @@ model EmployeeAttendance {
   employeeId    String
   employee      Employee  @relation(fields: [employeeId], references: [id])
   date          DateTime
-  status        String    // "PRESENT", "ABSENT", "LATE", "HALF_DAY"
+  status        String // "PRESENT", "ABSENT", "LATE", "HALF_DAY"
   checkInMethod String    @default("MANUAL") // "APP", "MANUAL", "BMD"
   checkInTime   DateTime?
   checkOutTime  DateTime?
@@ -173,88 +198,126 @@ model EmployeeAttendance {
 }
 
 model Payroll {
-  id             String    @id @default(uuid())
-  employeeId     String
-  employee       Employee  @relation(fields: [employeeId], references: [id])
-  month          Int
-  year           Int
-  basicPay       Float
-  allowances     Float
-  deductions     Float
-  netPay         Float
-  status         String    // "PROCESSED", "PAID"
-  processedAt    DateTime  @default(now())
+  id                String           @id @default(uuid())
+  employeeId        String
+  employee          Employee         @relation(fields: [employeeId], references: [id])
+  month             Int
+  year              Int
+  basicPay          Float
+  allowances        Float
+  deductions        Float
+  netPay            Float
+  status            String // "PROCESSED", "PAID"
+  salaryStructureId String?
+  salaryStructure   SalaryStructure? @relation(fields: [salaryStructureId], references: [id])
+  processedAt       DateTime         @default(now())
 }
 
 model LeaveRequest {
-  id             String    @id @default(uuid())
-  employeeId     String
-  employee       Employee  @relation(fields: [employeeId], references: [id])
-  leaveType      String    // "SICK", "CASUAL", "ANNUAL"
-  startDate      DateTime
-  endDate        DateTime
-  reason         String
-  status         String    // "PENDING", "APPROVED", "REJECTED"
-  appliedAt      DateTime  @default(now())
+  id               String   @id @default(uuid())
+  employeeId       String
+  employee         Employee @relation(fields: [employeeId], references: [id])
+  leaveType        String // "SICK", "CASUAL", "ANNUAL"
+  startDate        DateTime
+  endDate          DateTime
+  reason           String
+  status           String // "PENDING", "APPROVED", "REJECTED"
+  reviewerComments String?
+  appliedAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model LeaveBalance {
+  id         String   @id @default(uuid())
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  year       Int
+  leaveType  String // "SICK", "CASUAL", "ANNUAL"
+  totalDays  Float
+  usedDays   Float    @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([employeeId, year, leaveType])
+}
+
+model SalaryStructure {
+  id         String            @id @default(uuid())
+  employeeId String            @unique
+  employee   Employee          @relation(fields: [employeeId], references: [id])
+  components SalaryComponent[]
+  payrolls   Payroll[]
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+}
+
+model SalaryComponent {
+  id                String          @id @default(uuid())
+  salaryStructureId String
+  salaryStructure   SalaryStructure @relation(fields: [salaryStructureId], references: [id])
+  name              String
+  type              String // "EARNING", "DEDUCTION"
+  amount            Float
+  createdAt         DateTime        @default(now())
 }
 
 model Book {
-  id             String        @id @default(uuid())
-  isbn           String        @unique
-  title          String
-  author         String
-  totalCopies    Int
+  id              String        @id @default(uuid())
+  isbn            String        @unique
+  title           String
+  author          String
+  totalCopies     Int
   availableCopies Int
-  circulations   Circulation[]
-  createdAt      DateTime      @default(now())
+  circulations    Circulation[]
+  createdAt       DateTime      @default(now())
 }
 
 model Circulation {
-  id             String    @id @default(uuid())
-  bookId         String
-  book           Book      @relation(fields: [bookId], references: [id])
-  userId         String    // Borrowed by user (student or employee)
-  user           User      @relation(fields: [userId], references: [id])
-  issueDate      DateTime  @default(now())
-  dueDate        DateTime
-  returnDate     DateTime?
-  status         String    // "ISSUED", "RETURNED", "OVERDUE"
+  id         String    @id @default(uuid())
+  bookId     String
+  book       Book      @relation(fields: [bookId], references: [id])
+  userId     String // Borrowed by user (student or employee)
+  user       User      @relation(fields: [userId], references: [id])
+  issueDate  DateTime  @default(now())
+  dueDate    DateTime
+  returnDate DateTime?
+  status     String // "ISSUED", "RETURNED", "OVERDUE"
 }
 
 model TransportRoute {
-  id             String                @id @default(uuid())
-  routeName      String                @unique
-  driverName     String
-  vehicleNumber  String
-  capacity       Int
-  allocations    TransportAllocation[]
+  id            String                @id @default(uuid())
+  routeName     String                @unique
+  driverName    String
+  vehicleNumber String
+  capacity      Int
+  allocations   TransportAllocation[]
 }
 
 model TransportAllocation {
-  id             String         @id @default(uuid())
-  routeId        String
-  route          TransportRoute @relation(fields: [routeId], references: [id])
-  studentId      String         @unique
-  student        StudentProfile @relation(fields: [studentId], references: [id])
-  pickupPoint    String
-  allocatedAt    DateTime       @default(now())
+  id          String         @id @default(uuid())
+  routeId     String
+  route       TransportRoute @relation(fields: [routeId], references: [id])
+  studentId   String         @unique
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  pickupPoint String
+  allocatedAt DateTime       @default(now())
 }
 
 model HostelRoom {
-  id             String             @id @default(uuid())
-  roomNumber     String             @unique
-  capacity       Int
-  occupancy      Int                @default(0)
-  allocations    HostelAllocation[]
+  id          String             @id @default(uuid())
+  roomNumber  String             @unique
+  capacity    Int
+  occupancy   Int                @default(0)
+  allocations HostelAllocation[]
 }
 
 model HostelAllocation {
-  id             String         @id @default(uuid())
-  roomId         String
-  room           HostelRoom     @relation(fields: [roomId], references: [id])
-  studentId      String         @unique
-  student        StudentProfile @relation(fields: [studentId], references: [id])
-  allocatedAt    DateTime       @default(now())
+  id          String         @id @default(uuid())
+  roomId      String
+  room        HostelRoom     @relation(fields: [roomId], references: [id])
+  studentId   String         @unique
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  allocatedAt DateTime       @default(now())
 }
 
 // ==========================================
@@ -287,11 +350,11 @@ model Channel {
 model Post {
   id        String   @id @default(cuid())
   content   String
-  platforms String   // Store as JSON string: '["Facebook", "LinkedIn"]'
+  platforms String // Store as JSON string: '["Facebook", "LinkedIn"]'
   time      String
   date      DateTime
   author    String
-  status    String   // "draft", "scheduled", "published", "failed"
+  status    String // "draft", "scheduled", "published", "failed"
   color     String
   likes     Int      @default(0)
   comments  Int      @default(0)
@@ -308,8 +371,8 @@ model Message {
   color     String
   time      String
   text      String
-  status    String   // "unread", "read", "escalated"
-  replies   String   // Store as JSON string of array
+  status    String // "unread", "read", "escalated"
+  replies   String // Store as JSON string of array
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -320,7 +383,7 @@ model Stream {
   keyword   String
   platform  String
   color     String
-  posts     String   // Store as JSON string of array of posts
+  posts     String // Store as JSON string of array of posts
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -330,18 +393,18 @@ model Stream {
 // ==========================================
 
 model AcademicClass {
-  id          String        @id @default(uuid())
-  name        String        // e.g. "10-A"
+  id          String       @id @default(uuid())
+  name        String // e.g. "10-A"
   grade       Int
   section     String
   subjects    Subject[]
   assignments Assignment[]
-  createdAt   DateTime      @default(now())
+  createdAt   DateTime     @default(now())
 }
 
 model Subject {
   id             String          @id @default(uuid())
-  name           String          // e.g. "Mathematics"
+  name           String // e.g. "Mathematics"
   code           String          @unique
   classId        String
   academicClass  AcademicClass   @relation(fields: [classId], references: [id])
@@ -380,8 +443,40 @@ model StudyMaterial {
   title       String
   description String
   fileUrl     String
-  type        String   // "PDF", "VIDEO", "LINK"
+  type        String // "PDF", "VIDEO", "LINK"
   subjectId   String
   subject     Subject  @relation(fields: [subjectId], references: [id])
   uploadedAt  DateTime @default(now())
+}
+
+// ==========================================
+// Phase 6: Website Management
+// ==========================================
+
+model WebsiteTheme {
+  id              String   @id @default(uuid())
+  tenantId        String   @default("default") // For multi-tenant support
+  siteName        String
+  tagline         String?
+  logoUrl         String?
+  primaryColor    String   @default("#3b82f6")
+  secondaryColor  String   @default("#1e40af")
+  headingFont     String   @default("Inter")
+  bodyFont        String   @default("Inter")
+  roundedCorners  Boolean  @default(true)
+  darkModeDefault Boolean  @default(false)
+  navLayout       String   @default("centered")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model WebsiteAuditLog {
+  id           String   @id @default(uuid())
+  action       String
+  resource     String
+  resourceType String
+  user         String
+  status       String
+  details      String?
+  timestamp    DateTime @default(now())
 }

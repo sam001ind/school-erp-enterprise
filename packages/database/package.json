@@ -1,5 +1,5 @@
 {
-  "name": "database",
+  "name": "@repo/database",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
@@ -14,7 +14,10 @@
     "@prisma/client": "^6.19.3"
   },
   "devDependencies": {
+    "@types/node": "^25.9.1",
     "dotenv": "^17.4.2",
-    "prisma": "^6.19.3"
+    "prisma": "^6.19.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
   }
 }

@@ -49,7 +49,7 @@ interface Section {
 // --- Block Renderers (Premium Template) ---
 export const Blocks: Record<string, React.FC<{ props: any }>> = {
   HeaderNavigation: ({ props }: { props: any }) => (
-    <header className="bg-white dark:bg-black border-b border-zinc-100 dark:border-zinc-900 sticky top-0 z-50">
+    <header className="bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black border-b border-zinc-100 dark:border-zinc-900 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3 cursor-pointer">
@@ -63,52 +63,52 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
-          <a href="/site/home" className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors">{props.navHome || "Home"}</a>
+          <a href="/site/home" className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 hover:text-blue-600 dark:text-zinc-300 transition-colors">{props.navHome || "Home"}</a>
           
           <div className="relative group cursor-pointer py-8">
-            <span className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
+            <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
               {props.navAbout || "About Us"} <span className="text-[10px]">▼</span>
             </span>
-            <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
-              <a href="/site/about" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAbout1 || "Overview"}</a>
-              <a href="/site/about-leadership" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAbout2 || "Leadership Team"}</a>
-              <a href="/site/about-history" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAbout3 || "History & Mission"}</a>
+            <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
+              <a href="/site/about" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAbout1 || "Overview"}</a>
+              <a href="/site/about-leadership" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAbout2 || "Leadership Team"}</a>
+              <a href="/site/about-history" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAbout3 || "History & Mission"}</a>
             </div>
           </div>
 
           <div className="relative group cursor-pointer py-8">
-            <span className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
+            <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
               {props.navAcad || "Academics"} <span className="text-[10px]">▼</span>
             </span>
-            <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
-              <a href="/site/academics" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAcad1 || "Overview"}</a>
-              <a href="/site/academics-programs" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAcad2 || "Programs & Courses"}</a>
-              <a href="/site/academics-faculty" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAcad3 || "Faculty"}</a>
+            <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
+              <a href="/site/academics" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAcad1 || "Overview"}</a>
+              <a href="/site/academics-programs" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAcad2 || "Programs & Courses"}</a>
+              <a href="/site/academics-faculty" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAcad3 || "Faculty"}</a>
             </div>
           </div>
 
           <div className="relative group cursor-pointer py-8">
-            <span className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
+            <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
               {props.navAdm || "Admissions"} <span className="text-[10px]">▼</span>
             </span>
-            <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
-              <a href="/site/admissions-info" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAdm1 || "Overview"}</a>
-              <a href="/site/admissions-fees" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAdm2 || "Fee Structure"}</a>
-              <a href="/site/admissions-apply" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAdm3 || "Apply Now"}</a>
+            <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
+              <a href="/site/admissions-info" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navAdm1 || "Overview"}</a>
+              <a href="/site/admissions-fees" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navAdm2 || "Fee Structure"}</a>
+              <a href="/site/admissions-apply" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-b-xl">{props.navAdm3 || "Apply Now"}</a>
             </div>
           </div>
 
           <div className="relative group cursor-pointer py-8">
-            <span className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
+            <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 hover:text-blue-600 dark:text-zinc-300 transition-colors flex items-center gap-1">
               {props.navCampus || "Campus Life"} <span className="text-[10px]">▼</span>
             </span>
-            <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
-              <a href="/site/campus-life" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navCampus1 || "Overview"}</a>
-              <a href="/site/campus-events" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navCampus2 || "Events & News"}</a>
+            <div className="absolute top-20 left-0 w-48 bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-100 dark:border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
+              <a href="/site/campus-life" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors rounded-t-xl">{props.navCampus1 || "Overview"}</a>
+              <a href="/site/campus-events" className="block px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 hover:text-blue-600 transition-colors">{props.navCampus2 || "Events & News"}</a>
             </div>
           </div>
           
-          <a href="/site/student-services" className="text-sm font-semibold text-zinc-600 hover:text-blue-600 dark:text-zinc-300 transition-colors">{props.navStudent || "Student Services"}</a>
+          <a href="/site/student-services" className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 hover:text-blue-600 dark:text-zinc-300 transition-colors">{props.navStudent || "Student Services"}</a>
         </nav>
 
         {/* CTA & Mobile Menu */}
@@ -116,7 +116,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
           <a href="/site/admissions-apply" className="hidden md:block px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors shadow-sm cursor-pointer">
             {props.ctaText || "Apply Now"}
           </a>
-          <button className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 bg-zinc-50 dark:bg-zinc-900 rounded-lg">
+          <button className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-zinc-900 rounded-lg">
             <span className="w-5 h-0.5 bg-zinc-600 dark:bg-zinc-400"></span>
             <span className="w-5 h-0.5 bg-zinc-600 dark:bg-zinc-400"></span>
             <span className="w-5 h-0.5 bg-zinc-600 dark:bg-zinc-400"></span>
@@ -153,7 +153,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
         <div className="text-lg md:text-2xl text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed" dangerouslySetInnerHTML={{ __html: props.subtitle || "A world-class curriculum designed to shape the innovators and leaders of tomorrow." }} />
         <a 
           href="/site/admissions-apply"
-          className="mt-8 px-8 py-4 bg-white text-black rounded-full font-semibold text-sm hover:scale-105 transition-transform inline-block"
+          className="mt-8 px-8 py-4 bg-white dark:bg-zinc-900/50 backdrop-blur-md text-black rounded-full font-semibold text-sm hover:scale-105 transition-transform inline-block"
         >
           {props.ctaText || "Apply Now"}
         </a>
@@ -161,8 +161,8 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   StatsRibbon: ({ props }: { props: any }) => (
-    <div className={`py-12 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black ${props.typographyClass || ''}`}>
-      <div className="max-w-6xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x-0 md:divide-x divide-y md:divide-y-0 divide-zinc-100 dark:divide-zinc-900">
+    <div className={`py-12 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black ${props.typographyClass || ''}`}>
+      <div className="max-w-6xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x-0 md:divide-x divide-y md:divide-y-0 divide-zinc-100 dark:divide-zinc-800 dark:divide-zinc-800 dark:divide-zinc-900">
         {[
           { label: props.stat1Label || "Students Trained", value: props.stat1Value || "10,000+" },
           { label: props.stat2Label || "Courses Offered", value: props.stat2Value || "50+" },
@@ -171,28 +171,28 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
         ].map((stat, i) => (
           <div key={i} className="text-center py-4 md:py-0">
             <div className="text-4xl font-bold mb-2 tracking-tight" style={{ color: props.primaryColor || '#2563eb' }}>{stat.value}</div>
-            <div className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">{stat.label}</div>
+            <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-widest">{stat.label}</div>
           </div>
         ))}
       </div>
     </div>
   ),
   AboutSection: ({ props }: { props: any }) => (
-    <div className={`py-24 bg-white dark:bg-black ${props.typographyClass || ''}`}>
+    <div className={`py-24 bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black ${props.typographyClass || ''}`}>
       <div className="max-w-6xl mx-auto px-8 flex flex-col md:flex-row gap-16 items-center">
         <div className="flex-1">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">{props.title || "Our Vision & Mission"}</h2>
-          <div className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: props.content || "We are dedicated to providing an enriching environment that fosters intellectual curiosity, emotional intelligence, and a strong sense of community." }} />
+          <div className="text-lg text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: props.content || "We are dedicated to providing an enriching environment that fosters intellectual curiosity, emotional intelligence, and a strong sense of community." }} />
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-xl">🏆</div>
             <div>
               <h4 className="font-bold">{props.awardTitle || "Award Winning Institution"}</h4>
-              <p className="text-sm text-zinc-500">{props.awardSubtitle || "Ranked #1 in Regional Excellence"}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 dark:text-zinc-400">{props.awardSubtitle || "Ranked #1 in Regional Excellence"}</p>
             </div>
           </div>
         </div>
         <div className="flex-1 w-full">
-          <div className="aspect-square md:aspect-video rounded-3xl overflow-hidden shadow-2xl bg-zinc-100 dark:bg-zinc-900">
+          <div className="aspect-square md:aspect-video rounded-3xl overflow-hidden shadow-2xl bg-zinc-100 dark:bg-zinc-800 dark:bg-zinc-900">
              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80" alt="Campus" className="w-full h-full object-cover" />
           </div>
         </div>
@@ -200,7 +200,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   ProgramsGrid: ({ props }: { props: any }) => (
-    <div className="py-24 bg-zinc-50 dark:bg-zinc-950">
+    <div className="py-24 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-zinc-950">
       <div className="max-w-6xl mx-auto px-8">
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12 text-center">{props.title || "Featured Courses & Programs"}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -209,11 +209,11 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
             { name: props.prog2Name || "MBA in Finance", duration: props.prog2Duration || "2 Years", fee: props.prog2Fee || "$25,000/yr", seats: props.prog2Seats || "60 Seats" },
             { name: props.prog3Name || "Data Science Bootcamp", duration: props.prog3Duration || "6 Months", fee: props.prog3Fee || "$5,000", seats: props.prog3Seats || "30 Seats" }
           ].map((prog, i) => (
-            <div key={i} className="bg-white dark:bg-black rounded-3xl p-8 shadow-sm border border-zinc-100 dark:border-zinc-800 hover:shadow-xl transition-shadow group cursor-pointer flex flex-col h-full">
-              <div className="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-900 mb-6 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📚</div>
+            <div key={i} className="bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black rounded-3xl p-8 shadow-sm border border-zinc-100 dark:border-zinc-800 hover:shadow-xl transition-shadow group cursor-pointer flex flex-col h-full">
+              <div className="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800 dark:bg-zinc-900 mb-6 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📚</div>
               <h3 className="text-xl font-bold mb-4">{prog.name}</h3>
               
-              <div className="mt-auto pt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-4 text-xs font-medium text-zinc-500">
+              <div className="mt-auto pt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-4 text-xs font-medium text-zinc-500 dark:text-zinc-400 dark:text-zinc-400">
                 <span className="flex items-center gap-1">⏱️ {prog.duration}</span>
                 <span className="flex items-center gap-1">💰 {prog.fee}</span>
                 <span className="flex items-center gap-1">🪑 {prog.seats}</span>
@@ -225,33 +225,33 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   Testimonials: ({ props }: { props: any }) => (
-    <div className={`py-24 bg-white dark:bg-black ${props.typographyClass || ''}`}>
+    <div className={`py-24 bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black ${props.typographyClass || ''}`}>
       <div className="max-w-4xl mx-auto px-8 text-center">
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-16">{props.title || "Student Voices"}</h2>
-        <div className="text-xl md:text-3xl font-serif italic text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: props.quote ? `"${props.quote}"` : "\"The faculty and facilities here are unparalleled. It truly prepared me for my career in ways I couldn't have imagined.\"" }} />
+        <div className="text-xl md:text-3xl font-serif italic text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: props.quote ? `"${props.quote}"` : "\"The faculty and facilities here are unparalleled. It truly prepared me for my career in ways I couldn't have imagined.\"" }} />
         <div className="font-bold text-lg">{props.author || "Jane Doe, Class of '24"}</div>
       </div>
     </div>
   ),
   LeadCaptureForm: ({ props }: { props: any }) => (
-    <div className="py-24 bg-zinc-50 dark:bg-zinc-950">
+    <div className="py-24 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-zinc-950">
       <div className="max-w-4xl mx-auto px-8 flex flex-col lg:flex-row gap-16 items-center">
         <div className="flex-1 text-center lg:text-left">
            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{props.title || "Ready to Join Us?"}</h2>
-           <div className="text-zinc-500 dark:text-zinc-400 font-light text-lg" dangerouslySetInnerHTML={{ __html: props.subtitle || "Provide your details and our admissions team will be in touch shortly." }} />
+           <div className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 dark:text-zinc-400 font-light text-lg" dangerouslySetInnerHTML={{ __html: props.subtitle || "Provide your details and our admissions team will be in touch shortly." }} />
         </div>
-        <div className="flex-1 w-full space-y-5 bg-white dark:bg-zinc-900 p-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl">
+        <div className="flex-1 w-full space-y-5 bg-white dark:bg-zinc-900/50 backdrop-blur-md p-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl">
           <div>
-            <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">{props.labelName || "Full Name"}</label>
-            <input type="text" className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors" />
+            <label className="block text-xs font-semibold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-widest mb-2">{props.labelName || "Full Name"}</label>
+            <input type="text" className="w-full bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors" />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">{props.labelEmail || "Email Address"}</label>
-            <input type="email" className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors" />
+            <label className="block text-xs font-semibold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-widest mb-2">{props.labelEmail || "Email Address"}</label>
+            <input type="email" className="w-full bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors" />
           </div>
           <div>
-             <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">{props.labelProgram || "Program of Interest"}</label>
-             <select className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors text-zinc-700 dark:text-zinc-300">
+             <label className="block text-xs font-semibold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-widest mb-2">{props.labelProgram || "Program of Interest"}</label>
+             <select className="w-full bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-zinc-400 transition-colors text-zinc-700 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-300">
                 <option>{props.opt1 || "Primary School"}</option>
                 <option>{props.opt2 || "Middle School"}</option>
                 <option>{props.opt3 || "High School"}</option>
@@ -268,7 +268,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   UpcomingEvents: ({ props }: { props: any }) => (
-    <div className="py-24 bg-zinc-50 dark:bg-zinc-950">
+    <div className="py-24 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-zinc-950">
       <div className="max-w-6xl mx-auto px-8">
         <h2 className="text-4xl font-bold tracking-tight mb-12 text-center">{props.title || "Upcoming Events"}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -277,15 +277,15 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
             { title: props.event2Title || "Alumni Meet", date: props.event2Date || "July 22, 2026", venue: props.event2Venue || "Virtual" },
             { title: props.event3Title || "Tech Symposium", date: props.event3Date || "August 10, 2026", venue: props.event3Venue || "Innovation Center" }
           ].map((event, i) => (
-            <div key={i} className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+            <div key={i} className="bg-white dark:bg-zinc-900/50 backdrop-blur-md rounded-2xl p-6 border border-zinc-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
               <div>
                 <div className="text-sm font-bold text-blue-600 dark:text-blue-400 mb-2">{event.date}</div>
                 <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                <div className="text-zinc-500 text-sm flex items-center gap-2 mb-6">
+                <div className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 text-sm flex items-center gap-2 mb-6">
                   📍 {event.venue}
                 </div>
               </div>
-              <button className="text-sm font-bold border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors w-full">
+              <button className="text-sm font-bold border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 px-4 py-2 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800/40 dark:bg-zinc-950 dark:hover:bg-zinc-800 transition-colors w-full">
                 Register Now
               </button>
             </div>
@@ -295,7 +295,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   RecruiterLogos: ({ props }: { props: any }) => (
-    <div className={`py-16 bg-white dark:bg-black border-y border-zinc-100 dark:border-zinc-900 overflow-hidden ${props.typographyClass || ''}`}>
+    <div className={`py-16 bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black border-y border-zinc-100 dark:border-zinc-900 overflow-hidden ${props.typographyClass || ''}`}>
       <div className="max-w-6xl mx-auto px-8 text-center mb-8">
         <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">{props.title || "Our Top Recruiters"}</h3>
       </div>
@@ -310,7 +310,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   LatestNews: ({ props }: { props: any }) => (
-    <div className="py-24 bg-white dark:bg-black">
+    <div className="py-24 bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black">
       <div className="max-w-4xl mx-auto px-8">
         <h2 className="text-4xl font-bold tracking-tight mb-12">{props.title || "Latest News & Announcements"}</h2>
         <div className="space-y-6">
@@ -344,7 +344,7 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
         </div>
         <div>
           <h3 className="font-semibold mb-4 text-zinc-300">Quick Links</h3>
-          <ul className="space-y-2 text-sm text-zinc-500">
+          <ul className="space-y-2 text-sm text-zinc-500 dark:text-zinc-400 dark:text-zinc-400">
             <li className="hover:text-white cursor-pointer transition-colors">Admissions</li>
             <li className="hover:text-white cursor-pointer transition-colors">Academics</li>
             <li className="hover:text-white cursor-pointer transition-colors">Campus Life</li>
@@ -353,14 +353,14 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
         </div>
         <div>
           <h3 className="font-semibold mb-4 text-zinc-300">Connect</h3>
-          <ul className="space-y-2 text-sm text-zinc-500">
+          <ul className="space-y-2 text-sm text-zinc-500 dark:text-zinc-400 dark:text-zinc-400">
             <li className="hover:text-white cursor-pointer transition-colors">Twitter</li>
             <li className="hover:text-white cursor-pointer transition-colors">Instagram</li>
             <li className="hover:text-white cursor-pointer transition-colors">LinkedIn</li>
           </ul>
         </div>
       </div>
-      <div className="max-w-6xl mx-auto px-8 mt-16 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center text-xs text-zinc-500">
+      <div className="max-w-6xl mx-auto px-8 mt-16 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center text-xs text-zinc-500 dark:text-zinc-400 dark:text-zinc-400">
          <p>© {new Date().getFullYear()} {props.schoolName || "Institution Name"}. {props.copyrightText || "All rights reserved."}</p>
          <div className="flex gap-4 mt-4 md:mt-0">
            <a href="#" className="hover:text-white">Privacy Policy</a>
@@ -370,29 +370,29 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </footer>
   ),
   PricingTable: ({ props }: { props: any }) => (
-    <div className={`py-24 bg-zinc-50 dark:bg-zinc-950 px-6 ${props.typographyClass || ''}`}>
+    <div className={`py-24 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-zinc-950 px-6 ${props.typographyClass || ''}`}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 dark:text-white">{props.title || "Fee Structure"}</h2>
-          <div className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed" dangerouslySetInnerHTML={{ __html: props.subtitle || "Transparent pricing with no hidden costs. Invest in a world-class education." }} />
+          <div className="text-xl text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 leading-relaxed" dangerouslySetInnerHTML={{ __html: props.subtitle || "Transparent pricing with no hidden costs. Invest in a world-class education." }} />
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {[1, 2, 3].map((tier) => (
-            <div key={tier} className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-100 dark:border-zinc-800 shadow-sm hover:shadow-xl transition-shadow relative">
+            <div key={tier} className="bg-white dark:bg-zinc-900/50 backdrop-blur-md rounded-3xl p-8 border border-zinc-100 dark:border-zinc-800 shadow-sm hover:shadow-xl transition-shadow relative">
               {tier === 2 && (
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-bold tracking-wider uppercase">
                   Most Popular
                 </div>
               )}
               <h3 className="text-xl font-bold dark:text-white mb-2">{props[`tier${tier}Name`] || `Tier ${tier}`}</h3>
-              <p className="text-sm text-zinc-500 mb-6">{props[`tier${tier}Desc`] || "Perfect for standard enrollment."}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 mb-6">{props[`tier${tier}Desc`] || "Perfect for standard enrollment."}</p>
               <div className="mb-6">
                 <span className="text-4xl font-bold dark:text-white">{props[`tier${tier}Price`] || "$5,000"}</span>
-                <span className="text-zinc-500">/year</span>
+                <span className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-400">/year</span>
               </div>
               <ul className="space-y-4 mb-8">
                 {[1, 2, 3, 4].map((feature) => (
-                  <li key={feature} className="flex items-center text-sm text-zinc-600 dark:text-zinc-400">
+                  <li key={feature} className="flex items-center text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400">
                     <span className="text-blue-500 mr-3">✓</span> {props[`tier${tier}Feature${feature}`] || `Included Feature ${feature}`}
                   </li>
                 ))}
@@ -407,10 +407,10 @@ export const Blocks: Record<string, React.FC<{ props: any }>> = {
     </div>
   ),
   TextContent: ({ props }: { props: any }) => (
-    <div className={`py-24 bg-white dark:bg-black px-6 ${props.typographyClass || ''}`}>
+    <div className={`py-24 bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black px-6 ${props.typographyClass || ''}`}>
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-5xl font-bold mb-8 dark:text-white">{props.title || "Our Story"}</h2>
-        <div className="prose prose-lg dark:prose-invert max-w-none text-zinc-600 dark:text-zinc-400">
+        <div className="prose prose-lg dark:prose-invert max-w-none text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400">
           <div className="mb-6 leading-relaxed" dangerouslySetInnerHTML={{ __html: props.paragraph1 || "Founded with a vision to redefine education, we have consistently pushed the boundaries of what is possible. Our commitment to excellence is reflected in our state-of-the-art facilities, world-class faculty, and innovative curriculum." }}></div>
           <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: props.paragraph2 || "We believe in fostering an environment where curiosity thrives and potential is realized. Our graduates go on to become leaders in their respective fields, equipped with the knowledge and skills necessary to make a lasting impact on the world." }}></div>
         </div>
@@ -448,7 +448,7 @@ function SortableSection({ section, isActive, onSelect, onRemove, onToggleVisibi
       className={`relative group border-2 ${isActive ? 'border-blue-500' : 'border-transparent hover:border-blue-200'} rounded-xl transition-colors cursor-pointer mb-4 ${section.isHidden ? 'grayscale' : ''}`}
     >
       <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex gap-2">
-        <button {...attributes} {...listeners} className="bg-white text-gray-600 p-2 rounded-lg shadow-md cursor-grab active:cursor-grabbing hover:bg-gray-50">
+        <button {...attributes} {...listeners} className="bg-white dark:bg-zinc-900/50 backdrop-blur-md text-slate-600 dark:text-slate-300 p-2 rounded-lg shadow-md cursor-grab active:cursor-grabbing hover:bg-slate-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-900/40">
            ☰
         </button>
         <button onClick={(e) => { e.stopPropagation(); onToggleVisibility(); }} className="bg-amber-500 text-white p-2 rounded-lg shadow-md hover:bg-amber-600">
@@ -946,7 +946,7 @@ localStorage.setItem('site_language', 'ml');
   };
 
   return (
-    <div className="flex h-screen bg-zinc-100 dark:bg-black overflow-hidden font-sans">
+    <div className="flex h-screen bg-zinc-100 dark:bg-zinc-800 dark:bg-black overflow-hidden font-sans">
       <style>{`
         .quill-builder-wrapper {
           background: #fafafa;
@@ -987,13 +987,13 @@ localStorage.setItem('site_language', 'ml');
         }
       `}</style>
       {/* LEFT SIDEBAR: Layers / Sections */}
-      <div className="w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col z-10">
+      <div className="w-64 bg-white dark:bg-zinc-900/50 backdrop-blur-md border-r border-zinc-200 dark:border-zinc-800 flex flex-col z-10">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center gap-3">
-           <button onClick={onExit} className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg">←</button>
+           <button onClick={onExit} className="p-2 hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-800 rounded-lg">←</button>
            <h2 className="font-bold text-lg truncate">Edit: {pageId.replace('-', ' ')}</h2>
         </div>
         <div className="p-4 flex-1 overflow-y-auto">
-          <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-4">Page Sections</h3>
+          <h3 className="text-xs font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-wider mb-4">Page Sections</h3>
           <div className="space-y-2">
             {sections.map((section, index) => (
               <button 
@@ -1002,12 +1002,12 @@ localStorage.setItem('site_language', 'ml');
                 className={`w-full p-3 rounded-xl text-left transition-all flex items-center justify-between group shadow-sm border ${
                   selectedSectionId === section.id 
                     ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500 ring-1 ring-blue-500 ring-opacity-50' 
-                    : 'bg-zinc-50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700 hover:border-blue-400 hover:shadow'
+                    : 'bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 hover:border-blue-400 hover:shadow'
                 }`}
               >
                 <span className="text-sm font-semibold flex items-center gap-3">
                   <span className={`text-lg w-8 h-8 flex items-center justify-center rounded-lg shadow-sm border ${
-                    selectedSectionId === section.id ? 'bg-blue-100 dark:bg-blue-800 border-blue-200 dark:border-blue-700' : 'bg-white dark:bg-zinc-700 border-zinc-100 dark:border-zinc-600'
+                    selectedSectionId === section.id ? 'bg-blue-100 dark:bg-blue-800 border-blue-200 dark:border-blue-700' : 'bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-700 border-zinc-100 dark:border-zinc-600'
                   }`}>
                     {section.type === 'HeroBanner' ? '🖼️' : 
                      section.type === 'StatsRibbon' ? '📊' : 
@@ -1034,12 +1034,12 @@ localStorage.setItem('site_language', 'ml');
       {/* CENTER: Canvas */}
       <div className="flex-1 flex flex-col">
         {/* Topbar */}
-        <div className="h-16 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-6 z-10 shadow-sm">
+        <div className="h-16 bg-white dark:bg-zinc-900/50 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-6 z-10 shadow-sm">
            <div className="flex items-center gap-6">
              <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-lg">
-               <button onClick={() => setViewport('desktop')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'desktop' ? 'bg-white dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}>Desktop</button>
-               <button onClick={() => setViewport('tablet')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'tablet' ? 'bg-white dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}>Tablet</button>
-               <button onClick={() => setViewport('mobile')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'mobile' ? 'bg-white dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}>Mobile</button>
+               <button onClick={() => setViewport('desktop')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'desktop' ? 'bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 dark:text-zinc-300 dark:hover:text-zinc-300'}`}>Desktop</button>
+               <button onClick={() => setViewport('tablet')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'tablet' ? 'bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 dark:text-zinc-300 dark:hover:text-zinc-300'}`}>Tablet</button>
+               <button onClick={() => setViewport('mobile')} className={`px-4 py-1.5 rounded-md text-sm font-medium ${viewport === 'mobile' ? 'bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-white' : 'text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 dark:text-zinc-300 dark:hover:text-zinc-300'}`}>Mobile</button>
              </div>
              
              <div className="h-8 w-px bg-zinc-200 dark:bg-zinc-700 hidden md:block"></div>
@@ -1047,11 +1047,11 @@ localStorage.setItem('site_language', 'ml');
              <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-lg">
   <button
     onClick={() => { setSiteLanguage('en'); localStorage.setItem('site_language', 'en'); }}
-    className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${siteLanguage === "en" ? "bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"}`}
+    className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${siteLanguage === "en" ? "bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 dark:text-zinc-300 dark:hover:text-zinc-300"}`}
   >🇬🇧 English</button>
   <button
     onClick={() => { setSiteLanguage('ml'); localStorage.setItem('site_language', 'ml'); }}
-    className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${siteLanguage === 'ml' ? 'bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
+    className={`px-4 py-1.5 rounded-md text-sm font-bold transition-all ${siteLanguage === 'ml' ? 'bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400' : 'text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 dark:text-zinc-300 dark:hover:text-zinc-300'}`}
   >🇮🇳 Malayalam Mode</button>
 </div>
            </div>
@@ -1075,20 +1075,20 @@ localStorage.setItem('site_language', 'ml');
         {/* Live Preview Area */}
         <div className="flex-1 overflow-y-auto p-4 lg:p-8 flex justify-center bg-[url('https://raw.githubusercontent.com/tailwindlabs/tailwindcss/master/.github/logo.svg')] bg-[length:100px] bg-center bg-repeat bg-opacity-5">
            <div 
-             className={`bg-white dark:bg-zinc-950 shadow-2xl rounded-2xl overflow-hidden flex flex-col transition-all duration-500 mx-auto h-[calc(100vh-140px)] ${
+             className={`bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-950 shadow-2xl rounded-2xl overflow-hidden flex flex-col transition-all duration-500 mx-auto h-[calc(100vh-140px)] ${
                viewport === 'desktop' ? 'w-full max-w-5xl' : viewport === 'tablet' ? 'w-[768px] shrink-0' : 'w-[375px] shrink-0'
              }`}
            >
              {/* Mock Browser Header */}
-             <div className="h-10 bg-zinc-100 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center px-4 gap-2">
+             <div className="h-10 bg-zinc-100 dark:bg-zinc-800 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center px-4 gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-400"></div>
                 <div className="w-3 h-3 rounded-full bg-amber-400"></div>
                 <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                <div className="ml-4 flex-1 bg-white dark:bg-black h-6 rounded-md border border-zinc-200 dark:border-zinc-700 flex items-center px-3 text-xs text-zinc-500">myinstitution.edu</div>
+                <div className="ml-4 flex-1 bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black h-6 rounded-md border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 flex items-center px-3 text-xs text-zinc-500 dark:text-zinc-400 dark:text-zinc-400">myinstitution.edu</div>
              </div>
 
              {/* Page Content */}
-             <div className="flex-1 p-4 overflow-y-auto bg-gray-50/50 dark:bg-black/20">
+             <div className="flex-1 p-4 overflow-y-auto bg-slate-50 dark:bg-zinc-900/40/50 dark:bg-black/20">
                 <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
                   <SortableContext items={sections.map(s => s.id)} strategy={verticalListSortingStrategy}>
                     {sections.map((section) => (
@@ -1119,7 +1119,7 @@ localStorage.setItem('site_language', 'ml');
                 
                 {/* Floating Chatbot UI (SRS Alignment) */}
                 <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-                  <div className="bg-white dark:bg-zinc-900 shadow-2xl rounded-2xl p-4 w-72 mb-4 border border-zinc-200 dark:border-zinc-800 hidden group-hover:block transition-all transform translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100">
+                  <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md shadow-2xl rounded-2xl p-4 w-72 mb-4 border border-zinc-200 dark:border-zinc-800 hidden group-hover:block transition-all transform translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100">
                     <div className="flex items-center gap-3 mb-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
                       <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400">🤖</div>
                       <div>
@@ -1127,10 +1127,10 @@ localStorage.setItem('site_language', 'ml');
                         <p className="text-[10px] text-green-500">Online</p>
                       </div>
                     </div>
-                    <div className="text-sm text-zinc-600 dark:text-zinc-400 mb-4 bg-zinc-50 dark:bg-zinc-800/50 p-3 rounded-lg">
+                    <div className="text-sm text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-4 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-zinc-800/50 p-3 rounded-lg">
                       Hi! I can help you with Admission FAQs, Course Searches, and Event queries. How can I help?
                     </div>
-                    <input type="text" placeholder="Type a message..." className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-xs outline-none" />
+                    <input type="text" placeholder="Type a message..." className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-xs outline-none" />
                   </div>
                   <button className="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center text-2xl transition-transform hover:scale-110 group">
                     💬
@@ -1143,7 +1143,7 @@ localStorage.setItem('site_language', 'ml');
       </div>
 
       {/* RIGHT SIDEBAR: Property Inspector */}
-      <div className="w-[420px] shrink-0 bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-800 z-20 flex flex-col shadow-xl">
+      <div className="w-[420px] shrink-0 bg-white dark:bg-zinc-900/50 backdrop-blur-md border-l border-zinc-200 dark:border-zinc-800 z-20 flex flex-col shadow-xl">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
            <h2 className="font-bold text-lg">Inspector</h2>
         </div>
@@ -1152,7 +1152,7 @@ localStorage.setItem('site_language', 'ml');
             <div className="space-y-6">
               <div className="bg-blue-50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/30">
                 <div className="flex items-center gap-2 mb-1">
-                   <span className="text-blue-600 bg-white dark:bg-blue-900/50 p-1 rounded-md shadow-sm">⚙️</span>
+                   <span className="text-blue-600 bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-blue-900/50 p-1 rounded-md shadow-sm">⚙️</span>
                    <h3 className="text-sm font-bold text-blue-900 dark:text-blue-300">{selectedSection.type.replace(/([A-Z])/g, ' $1').trim()}</h3>
                 </div>
                 <p className="text-xs text-blue-600/70 dark:text-blue-400">Edit properties for this block.</p>
@@ -1163,13 +1163,13 @@ localStorage.setItem('site_language', 'ml');
                 {/* Shared Title */}
                 {(selectedSection.type === 'HeroBanner' || selectedSection.type === 'AboutSection' || selectedSection.type === 'ProgramsGrid' || selectedSection.type === 'LeadCaptureForm') && (
                   <div>
-                    <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Title</label>
+                    <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Title</label>
                     <input 
                       type="text" 
                       value={getPropValue('title')} 
                       onChange={(e) => updateSectionProp('title', e.target.value)}
                       placeholder="Enter title..."
-                      className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
+                      className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
                     />
                   </div>
                 )}
@@ -1177,7 +1177,7 @@ localStorage.setItem('site_language', 'ml');
                 {/* Hero / Lead Capture Subtitle */}
                 {(selectedSection.type === 'HeroBanner' || selectedSection.type === 'LeadCaptureForm') && (
                   <div>
-                    <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Subtitle</label>
+                    <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Subtitle</label>
                     <div className="quill-builder-wrapper">
                       <ReactQuill theme="snow" value={getPropValue('subtitle')} onChange={(val) => updateSectionProp('subtitle', val)} modules={quillModules} />
                     </div>
@@ -1188,12 +1188,12 @@ localStorage.setItem('site_language', 'ml');
                 
                 {selectedSection.type === 'LeadCaptureForm' && (
                   <details className="mt-4">
-                    <summary className="text-xs font-bold text-zinc-600 dark:text-zinc-400 cursor-pointer mb-2">Edit Form Labels</summary>
+                    <summary className="text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 cursor-pointer mb-2">Edit Form Labels</summary>
                     <div className="space-y-2">
                       {['labelName', 'labelEmail', 'labelProgram', 'opt1', 'opt2', 'opt3', 'btnText'].map(key => (
                          <div key={key}>
-                           <label className="block text-[10px] uppercase text-zinc-500 mb-1">{key}</label>
-                           <input type="text" value={getPropValue(key)} onChange={(e) => updateSectionProp(key, e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
+                           <label className="block text-[10px] uppercase text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 mb-1">{key}</label>
+                           <input type="text" value={getPropValue(key)} onChange={(e) => updateSectionProp(key, e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
                          </div>
                       ))}
                     </div>
@@ -1202,19 +1202,19 @@ localStorage.setItem('site_language', 'ml');
 {selectedSection.type === 'AboutSection' && (
                   <>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Description</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Description</label>
                       <div className="quill-builder-wrapper">
                         <ReactQuill theme="snow" value={getPropValue('description')} onChange={(val) => updateSectionProp('description', val)} modules={quillModules} />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Image URL</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Image URL</label>
                       <input 
                         type="url" 
                         value={getPropValue('imageUrl')} 
                         onChange={(e) => updateSectionProp('imageUrl', e.target.value)}
                         placeholder="https://images.unsplash.com/..."
-                        className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
+                        className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
                       />
                     </div>
                   </>
@@ -1224,33 +1224,33 @@ localStorage.setItem('site_language', 'ml');
                 {selectedSection.type === 'HeaderNavigation' && (
                   <>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Logo Text</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Logo Text</label>
                       <input 
                         type="text" 
                         value={getPropValue('logoText')} 
                         onChange={(e) => updateSectionProp('logoText', e.target.value)}
                         placeholder="e.g. Institution"
-                        className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none mb-3" 
+                        className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none mb-3" 
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Logo Icon / Emoji</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Logo Icon / Emoji</label>
                       <input 
                         type="text" 
                         value={getPropValue('logoIcon')} 
                         onChange={(e) => updateSectionProp('logoIcon', e.target.value)}
                         placeholder="e.g. 🏛️"
-                        className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none mb-3" 
+                        className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none mb-3" 
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">CTA Button Text</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">CTA Button Text</label>
                       <input 
                         type="text" 
                         value={getPropValue('ctaText')} 
                         onChange={(e) => updateSectionProp('ctaText', e.target.value)}
                         placeholder="e.g. Apply Now"
-                        className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
+                        className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
                       />
                     </div>
                   </>
@@ -1260,24 +1260,24 @@ localStorage.setItem('site_language', 'ml');
                 {selectedSection.type === 'PricingTable' && (
                   <>
                     <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                      <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">Tiers</h4>
+                      <h4 className="text-xs font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-wider mb-3">Tiers</h4>
                       {[1, 2, 3].map(tier => (
-                        <div key={tier} className="mb-4 bg-zinc-50 dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800">
-                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Tier {tier} Name</label>
+                        <div key={tier} className="mb-4 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800">
+                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Tier {tier} Name</label>
                           <input 
                             type="text" 
                             value={getPropValue(`tier${tier}Name`)} 
                             onChange={(e) => updateSectionProp(`tier${tier}Name`, e.target.value)}
                             placeholder={`e.g. Tier ${tier}`}
-                            className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-1.5 text-sm outline-none mb-2" 
+                            className="w-full bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-1.5 text-sm outline-none mb-2" 
                           />
-                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Price</label>
+                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Price</label>
                           <input 
                             type="text" 
                             value={getPropValue(`tier${tier}Price`)} 
                             onChange={(e) => updateSectionProp(`tier${tier}Price`, e.target.value)}
                             placeholder="e.g. $5,000"
-                            className="w-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-1.5 text-sm outline-none" 
+                            className="w-full bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-1.5 text-sm outline-none" 
                           />
                         </div>
                       ))}
@@ -1289,13 +1289,13 @@ localStorage.setItem('site_language', 'ml');
                 {selectedSection.type === 'TextContent' && (
                   <>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Paragraph 1</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Paragraph 1</label>
                       <div className="quill-builder-wrapper mb-3">
                         <ReactQuill theme="snow" value={getPropValue('paragraph1')} onChange={(val) => updateSectionProp('paragraph1', val)} modules={quillModules} />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Paragraph 2</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Paragraph 2</label>
                       <div className="quill-builder-wrapper">
                         <ReactQuill theme="snow" value={getPropValue('paragraph2')} onChange={(val) => updateSectionProp('paragraph2', val)} modules={quillModules} />
                       </div>
@@ -1307,41 +1307,41 @@ localStorage.setItem('site_language', 'ml');
                 {selectedSection.type === 'HeroBanner' && (
                   <>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">CTA Button Text</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">CTA Button Text</label>
                       <input 
                         type="text" 
                         value={getPropValue('ctaText')} 
                         onChange={(e) => updateSectionProp('ctaText', e.target.value)}
                         placeholder="e.g. Apply Now"
-                        className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
+                        className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
                       />
                     </div>
                     <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                      <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">Media & Background</h4>
+                      <h4 className="text-xs font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-wider mb-3">Media & Background</h4>
                       
                       <div className="space-y-3">
                         <div>
-                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Background Image URL</label>
+                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Background Image URL</label>
                           <input 
                             type="url" 
                             value={getPropValue('bgImageUrl')} 
                             onChange={(e) => updateSectionProp('bgImageUrl', e.target.value)}
                             placeholder="https://images.unsplash.com/..."
-                            className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
+                            className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Background Video URL (Overrides Image)</label>
+                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Background Video URL (Overrides Image)</label>
                           <input 
                             type="url" 
                             value={getPropValue('bgVideoUrl')} 
                             onChange={(e) => updateSectionProp('bgVideoUrl', e.target.value)}
                             placeholder="https://...mp4"
-                            className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
+                            className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none" 
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1 flex justify-between">
+                          <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1 flex justify-between">
                             <span>Overlay Opacity</span>
                             <span>{(getPropValue('overlayOpacity') || "40")}%</span>
                           </label>
@@ -1362,9 +1362,9 @@ localStorage.setItem('site_language', 'ml');
                 {/* Global Styling Controls */}
                 {(selectedSection.type === 'HeroBanner' || selectedSection.type === 'LeadCaptureForm') && (
                    <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                      <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">Styling</h4>
+                      <h4 className="text-xs font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-wider mb-3">Styling</h4>
                       <div>
-                        <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-2">Primary Color (Buttons)</label>
+                        <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-2">Primary Color (Buttons)</label>
                         <div className="flex gap-2 mb-2">
                            {['#000000', '#2563eb', '#dc2626', '#16a34a', '#d97706'].map(color => (
                              <button
@@ -1380,7 +1380,7 @@ localStorage.setItem('site_language', 'ml');
                           value={(getPropValue('primaryColor') || "#000000")} 
                           onChange={(e) => updateSectionProp('primaryColor', e.target.value)}
                           placeholder="#000000"
-                          className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none uppercase font-mono" 
+                          className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm focus:border-blue-500 outline-none uppercase font-mono" 
                         />
                       </div>
                    </div>
@@ -1390,20 +1390,20 @@ localStorage.setItem('site_language', 'ml');
                 {selectedSection.type === 'StatsRibbon' && (
                   <>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Stat 1 (Acceptance)</label>
-                      <input type="text" value={getPropValue('stat1')} onChange={(e) => updateSectionProp('stat1', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Stat 1 (Acceptance)</label>
+                      <input type="text" value={getPropValue('stat1')} onChange={(e) => updateSectionProp('stat1', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Stat 2 (Ratio)</label>
-                      <input type="text" value={getPropValue('stat2')} onChange={(e) => updateSectionProp('stat2', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Stat 2 (Ratio)</label>
+                      <input type="text" value={getPropValue('stat2')} onChange={(e) => updateSectionProp('stat2', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Stat 3 (Extracurriculars)</label>
-                      <input type="text" value={getPropValue('stat3')} onChange={(e) => updateSectionProp('stat3', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Stat 3 (Extracurriculars)</label>
+                      <input type="text" value={getPropValue('stat3')} onChange={(e) => updateSectionProp('stat3', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Stat 4 (Established)</label>
-                      <input type="text" value={getPropValue('stat4')} onChange={(e) => updateSectionProp('stat4', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Stat 4 (Established)</label>
+                      <input type="text" value={getPropValue('stat4')} onChange={(e) => updateSectionProp('stat4', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                   </>
                 )}
@@ -1412,18 +1412,18 @@ localStorage.setItem('site_language', 'ml');
                 {selectedSection.type === 'Testimonials' && (
                   <>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Quote</label>
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Quote</label>
                       <div className="quill-builder-wrapper">
                         <ReactQuill theme="snow" value={getPropValue('quote')} onChange={(val) => updateSectionProp('quote', val)} modules={quillModules} />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Author Name</label>
-                      <input type="text" value={getPropValue('author')} onChange={(e) => updateSectionProp('author', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Author Name</label>
+                      <input type="text" value={getPropValue('author')} onChange={(e) => updateSectionProp('author', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">Role / Subtitle</label>
-                      <input type="text" value={getPropValue('role')} onChange={(e) => updateSectionProp('role', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">Role / Subtitle</label>
+                      <input type="text" value={getPropValue('role')} onChange={(e) => updateSectionProp('role', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                   </>
                 )}
@@ -1432,16 +1432,16 @@ localStorage.setItem('site_language', 'ml');
                 {selectedSection.type === 'Footer' && (
                   <>
                     <div>
-                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">School Name</label>
-                      <input type="text" value={getPropValue('schoolName')} onChange={(e) => updateSectionProp('schoolName', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                      <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 mb-1">School Name</label>
+                      <input type="text" value={getPropValue('schoolName')} onChange={(e) => updateSectionProp('schoolName', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                     </div>
                   <details className="mt-4">
-                    <summary className="text-xs font-bold text-zinc-600 dark:text-zinc-400 cursor-pointer mb-2">Edit Footer Details</summary>
+                    <summary className="text-xs font-bold text-zinc-600 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-400 cursor-pointer mb-2">Edit Footer Details</summary>
                     <div className="space-y-2">
                       {['link1', 'link2', 'link3', 'link4', 'address', 'phone', 'email', 'copyrightText'].map(key => (
                          <div key={key}>
-                           <label className="block text-[10px] uppercase text-zinc-500 mb-1">{key}</label>
-                           <input type="text" value={getPropValue(key)} onChange={(e) => updateSectionProp(key, e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
+                           <label className="block text-[10px] uppercase text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 mb-1">{key}</label>
+                           <input type="text" value={getPropValue(key)} onChange={(e) => updateSectionProp(key, e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
                          </div>
                       ))}
                     </div>
@@ -1451,7 +1451,7 @@ localStorage.setItem('site_language', 'ml');
                 {/* Recruiter Logos */}
                 {selectedSection.type === 'RecruiterLogos' && (
                   <div>
-                    <p className="text-xs text-zinc-500 mb-2">Note: Individual logos will be dynamically managed in the CMS. You can edit the section title here.</p>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 mb-2">Note: Individual logos will be dynamically managed in the CMS. You can edit the section title here.</p>
                   </div>
                 )}
                 
@@ -1460,19 +1460,19 @@ localStorage.setItem('site_language', 'ml');
                   <>
                     {[1, 2, 3].map(i => (
                       <div key={i} className="pt-2 border-t border-zinc-200 dark:border-zinc-800 mt-2">
-                        <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">Event {i}</h4>
+                        <h4 className="text-xs font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-wider mb-3">Event {i}</h4>
                         <div className="space-y-2">
-                          <input type="text" value={getPropValue(`event${i}Title`)} onChange={(e) => updateSectionProp(`event${i}Title`, e.target.value)} placeholder="Event Title" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                          <input type="text" value={getPropValue(`event${i}Title`)} onChange={(e) => updateSectionProp(`event${i}Title`, e.target.value)} placeholder="Event Title" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                           <div className="grid grid-cols-2 gap-2">
-                            <input type="text" value={getPropValue(`event${i}Date`)} onChange={(e) => updateSectionProp(`event${i}Date`, e.target.value)} placeholder="Date" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
-                            <input type="text" value={getPropValue(`event${i}Venue`)} onChange={(e) => updateSectionProp(`event${i}Venue`, e.target.value)} placeholder="Venue" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                            <input type="text" value={getPropValue(`event${i}Date`)} onChange={(e) => updateSectionProp(`event${i}Date`, e.target.value)} placeholder="Date" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                            <input type="text" value={getPropValue(`event${i}Venue`)} onChange={(e) => updateSectionProp(`event${i}Venue`, e.target.value)} placeholder="Venue" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                           </div>
                         </div>
                       </div>
                     ))}
                     <div className="mt-4">
-                      <label className="block text-[10px] uppercase text-zinc-500 mb-1">Button Text</label>
-                      <input type="text" value={getPropValue('btnText')} onChange={(e) => updateSectionProp('btnText', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
+                      <label className="block text-[10px] uppercase text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 mb-1">Button Text</label>
+                      <input type="text" value={getPropValue('btnText')} onChange={(e) => updateSectionProp('btnText', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
                     </div>
                   </>
                 )}
@@ -1482,16 +1482,16 @@ localStorage.setItem('site_language', 'ml');
                   <>
                     {[1, 2, 3].map(i => (
                       <div key={i} className="pt-2 border-t border-zinc-200 dark:border-zinc-800 mt-2">
-                        <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">News {i}</h4>
+                        <h4 className="text-xs font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-wider mb-3">News {i}</h4>
                         <div className="space-y-2">
-                          <input type="text" value={getPropValue(`news${i}Title`)} onChange={(e) => updateSectionProp(`news${i}Title`, e.target.value)} placeholder="News Headline" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
-                          <input type="text" value={getPropValue(`news${i}Date`)} onChange={(e) => updateSectionProp(`news${i}Date`, e.target.value)} placeholder="Date" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                          <input type="text" value={getPropValue(`news${i}Title`)} onChange={(e) => updateSectionProp(`news${i}Title`, e.target.value)} placeholder="News Headline" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                          <input type="text" value={getPropValue(`news${i}Date`)} onChange={(e) => updateSectionProp(`news${i}Date`, e.target.value)} placeholder="Date" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                         </div>
                       </div>
                     ))}
                     <div className="mt-4">
-                      <label className="block text-[10px] uppercase text-zinc-500 mb-1">Button Text</label>
-                      <input type="text" value={getPropValue('btnText')} onChange={(e) => updateSectionProp('btnText', e.target.value)} className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
+                      <label className="block text-[10px] uppercase text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 mb-1">Button Text</label>
+                      <input type="text" value={getPropValue('btnText')} onChange={(e) => updateSectionProp('btnText', e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-2 py-1 text-sm outline-none" />
                     </div>
                   </>
                 )}
@@ -1501,13 +1501,13 @@ localStorage.setItem('site_language', 'ml');
                   <>
                     {[1, 2, 3].map(i => (
                       <div key={i} className="pt-2 border-t border-zinc-200 dark:border-zinc-800 mt-2">
-                        <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">Program {i}</h4>
+                        <h4 className="text-xs font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-400 uppercase tracking-wider mb-3">Program {i}</h4>
                         <div className="space-y-2">
-                          <input type="text" value={getPropValue(`prog${i}Name`)} onChange={(e) => updateSectionProp(`prog${i}Name`, e.target.value)} placeholder="Program Name" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
+                          <input type="text" value={getPropValue(`prog${i}Name`)} onChange={(e) => updateSectionProp(`prog${i}Name`, e.target.value)} placeholder="Program Name" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none" />
                           <div className="grid grid-cols-3 gap-2">
-                            <input type="text" value={getPropValue(`prog${i}Duration`)} onChange={(e) => updateSectionProp(`prog${i}Duration`, e.target.value)} placeholder="Duration" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
-                            <input type="text" value={getPropValue(`prog${i}Fee`)} onChange={(e) => updateSectionProp(`prog${i}Fee`, e.target.value)} placeholder="Fee" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
-                            <input type="text" value={getPropValue(`prog${i}Seats`)} onChange={(e) => updateSectionProp(`prog${i}Seats`, e.target.value)} placeholder="Seats" className="w-full bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
+                            <input type="text" value={getPropValue(`prog${i}Duration`)} onChange={(e) => updateSectionProp(`prog${i}Duration`, e.target.value)} placeholder="Duration" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
+                            <input type="text" value={getPropValue(`prog${i}Fee`)} onChange={(e) => updateSectionProp(`prog${i}Fee`, e.target.value)} placeholder="Fee" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
+                            <input type="text" value={getPropValue(`prog${i}Seats`)} onChange={(e) => updateSectionProp(`prog${i}Seats`, e.target.value)} placeholder="Seats" className="w-full bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 rounded-lg px-2 py-2 text-xs outline-none" />
                           </div>
                         </div>
                       </div>

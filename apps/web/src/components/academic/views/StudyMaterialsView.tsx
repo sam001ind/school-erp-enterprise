@@ -22,7 +22,7 @@ export default function StudyMaterialsView() {
   return (
     <div className="space-y-6 pb-12">
       {/* Top Controls */}
-      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="flex gap-4 w-full md:w-auto">
           <select 
             value={activeClassId}
@@ -33,7 +33,7 @@ export default function StudyMaterialsView() {
                 setActiveSubjectId(newClass.subjects[0].id);
               }
             }}
-            className="bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-indigo-500"
+            className="bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-800 dark:border-zinc-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-indigo-500"
           >
             {classes.map(c => (
               <option key={c.id} value={c.id}>{c.name}</option>
@@ -42,7 +42,7 @@ export default function StudyMaterialsView() {
           <select 
             value={activeSubjectId}
             onChange={(e) => setActiveSubjectId(e.target.value)}
-            className="bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-indigo-500"
+            className="bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-800 dark:border-zinc-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-indigo-500"
           >
             {activeClass?.subjects.map(s => (
               <option key={s.id} value={s.id}>{s.name} ({s.code})</option>
@@ -58,16 +58,16 @@ export default function StudyMaterialsView() {
       {/* Materials Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {materials.map(mat => (
-          <div key={mat.id} className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all group overflow-hidden flex flex-col">
+          <div key={mat.id} className="bg-white dark:bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all group overflow-hidden flex flex-col">
             <div className="p-6 flex-1">
-              <div className="bg-slate-50 dark:bg-zinc-800 h-12 w-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className="bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-800 h-12 w-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 {getIcon(mat.type)}
               </div>
               <h4 className="font-bold text-slate-900 dark:text-white mb-1 line-clamp-1" title={mat.title}>{mat.title}</h4>
               <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">{mat.description}</p>
             </div>
-            <div className="border-t border-slate-100 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/30 p-3 flex justify-between items-center">
-               <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{mat.type}</span>
+            <div className="border-t border-slate-100 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-800/30 p-3 flex justify-between items-center">
+               <span className="text-xs font-bold text-slate-400 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500">{mat.type}</span>
                <button className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 p-1.5 rounded-lg transition-colors">
                  <Download className="h-4 w-4" />
                </button>

@@ -109,15 +109,15 @@ export default function ComposerModal() {
 
   return (
     <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-          <h2 className="font-bold text-slate-900 text-lg">{editingPost ? 'Edit Post' : 'Create New Post'}</h2>
+      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="p-4 border-b border-slate-100 dark:border-zinc-800 flex justify-between items-center bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40">
+          <h2 className="font-bold text-slate-900 dark:text-white text-lg">{editingPost ? 'Edit Post' : 'Create New Post'}</h2>
           <button 
             onClick={() => {
               setComposerOpen(false);
               setEditingPost(null);
             }}
-            className="text-slate-400 hover:text-slate-600 transition-colors p-1"
+            className="text-slate-400 dark:text-slate-500 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 transition-colors p-1"
           >
             <X className="h-5 w-5" />
           </button>
@@ -125,7 +125,7 @@ export default function ComposerModal() {
         
         <div className="p-6">
           <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-700 mb-2">Select Platforms</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Select Platforms</label>
             <div className="flex gap-3">
               {platforms.map(p => (
                 <button
@@ -134,10 +134,10 @@ export default function ComposerModal() {
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-sm font-medium transition-colors ${
                     selectedPlatforms.includes(p.name) 
                       ? 'border-indigo-600 bg-indigo-50 text-indigo-700' 
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      : 'border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-900/40 dark:hover:bg-zinc-800/40 dark:bg-zinc-900/40'
                   }`}
                 >
-                  <p.icon className={`h-4 w-4 ${selectedPlatforms.includes(p.name) ? p.color : 'text-slate-400'}`} />
+                  <p.icon className={`h-4 w-4 ${selectedPlatforms.includes(p.name) ? p.color : 'text-slate-400 dark:text-slate-500 dark:text-slate-500'}`} />
                   {p.name}
                 </button>
               ))}
@@ -149,7 +149,7 @@ export default function ComposerModal() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="What do you want to share with your audience?"
-              className="w-full h-40 p-4 border border-slate-200 rounded-xl resize-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-slate-700"
+              className="w-full h-40 p-4 border border-slate-200 dark:border-zinc-800 rounded-xl resize-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-slate-700 dark:text-slate-300"
             />
           </div>
           
@@ -163,7 +163,7 @@ export default function ComposerModal() {
             />
             <button 
               onClick={() => fileInputRef.current?.click()}
-              className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors tooltip-trigger" 
+              className="p-2 text-slate-400 dark:text-slate-500 dark:text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors tooltip-trigger" 
               title="Add Image"
             >
               <ImageIcon className="h-5 w-5" />
@@ -172,7 +172,7 @@ export default function ComposerModal() {
 
           {selectedImage && (
             <div className="mt-4 relative inline-block">
-              <img src={selectedImage} alt="Preview" className="h-32 w-auto rounded-lg border border-slate-200 object-cover" />
+              <img src={selectedImage} alt="Preview" className="h-32 w-auto rounded-lg border border-slate-200 dark:border-zinc-800 object-cover" />
               <button 
                 onClick={() => setSelectedImage(null)}
                 className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-sm transition-colors"
@@ -183,21 +183,21 @@ export default function ComposerModal() {
           )}
           
           <div className="mt-4 flex items-center gap-3">
-             <label className="text-sm font-medium text-slate-700">Schedule (optional):</label>
+             <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Schedule (optional):</label>
              <input 
                type="datetime-local" 
                value={scheduledDate}
                onChange={(e) => setScheduledDate(e.target.value)}
-               className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+               className="border border-slate-200 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
              />
           </div>
         </div>
         
-        <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
+        <div className="p-4 bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 border-t border-slate-100 dark:border-zinc-800 flex justify-end gap-3">
           <button 
             onClick={() => handlePublish('scheduled')}
             disabled={isPublishing || !content.trim() || selectedPlatforms.length === 0}
-            className="px-4 py-2 text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-50"
+            className="px-4 py-2 text-slate-600 dark:text-slate-300 bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800/40 dark:bg-zinc-900/40 dark:hover:bg-zinc-800/40 dark:bg-zinc-900/40 rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-50"
           >
             <Calendar className="h-4 w-4" /> Schedule
           </button>

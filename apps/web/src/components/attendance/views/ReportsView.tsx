@@ -25,7 +25,7 @@ export default function ReportsView() {
       
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Total Present Today</h3>
             <Users className="h-5 w-5 text-indigo-500" />
@@ -36,7 +36,7 @@ export default function ReportsView() {
           </div>
         </div>
         
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Average Attendance</h3>
             <TrendingUp className="h-5 w-5 text-emerald-500" />
@@ -47,7 +47,7 @@ export default function ReportsView() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Total Defaulters</h3>
             <AlertCircle className="h-5 w-5 text-red-500" />
@@ -58,24 +58,24 @@ export default function ReportsView() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Working Days</h3>
             <Calendar className="h-5 w-5 text-amber-500" />
           </div>
           <div>
             <p className="text-3xl font-bold text-slate-900 dark:text-white">22</p>
-            <p className="text-xs text-slate-400 font-medium mt-1">This month</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 dark:text-slate-500 font-medium mt-1">This month</p>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Attendance Trend Chart */}
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-6 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-6 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">Monthly Attendance Trend</h2>
-            <select className="bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white rounded text-xs px-2 py-1 outline-none">
+            <select className="bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-800 dark:border-zinc-700 text-slate-900 dark:text-white rounded text-xs px-2 py-1 outline-none">
               <option>This Month</option>
               <option>Last Month</option>
             </select>
@@ -102,7 +102,7 @@ export default function ReportsView() {
         </div>
 
         {/* Class-wise Bar Chart */}
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-6 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-6 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">Attendance by Class/Dept</h2>
           </div>

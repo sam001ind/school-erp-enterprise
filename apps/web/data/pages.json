@@ -10,8 +10,8 @@
             "ml": "വിദ്യാഭ്യാസത്തിൽ മികവ്."
           },
           "subtitle": {
-            "en": "A world-class curriculum designed to shape the innovators and leaders of tomorrow.",
-            "ml": "നാളത്തെ പുതുമയുള്ളവരെയും നേതാക്കളെയും രൂപപ്പെടുത്താൻ രൂപകൽപ്പന ചെയ്ത ലോകോത്തര പാഠ്യപദ്ധതി."
+            "en": "<p>A&nbsp;world-class&nbsp;curriculum&nbsp;designed&nbsp;to&nbsp;shape&nbsp;the&nbsp;innovators&nbsp;and&nbsp;leaders&nbsp;of&nbsp;tomorrow.</p>",
+            "ml": "<p>നാളത്തെ&nbsp;നൂതന&nbsp;പ്രവർത്തകരെയും&nbsp;നേതാക്കളെയും&nbsp;രൂപപ്പെടുത്താൻ&nbsp;രൂപകൽപ്പന&nbsp;ചെയ്ത&nbsp;ഒരു&nbsp;ലോകോത്തര&nbsp;പാഠ്യപദ്ധതി.</p>"
           },
           "ctaText": {
             "en": "Apply Now",
@@ -248,8 +248,8 @@
             "ml": "വിദ്യാർത്ഥി ശബ്ദങ്ങൾ"
           },
           "quote": {
-            "en": "The faculty here goes above and beyond...",
-            "ml": "ഇവിടുത്തെ ഫാക്കൽറ്റി അപ്പുറം പോകുന്നു..."
+            "en": "<p>The&nbsp;faculty&nbsp;here&nbsp;goes&nbsp;above&nbsp;and&nbsp;beyond...</p>",
+            "ml": "<p>ഇവിടെയുള്ള&nbsp;അധ്യാപകസംഘം&nbsp;മുകളിലും&nbsp;അപ്പുറവും&nbsp;പോകുന്നു...</p>"
           },
           "author": {
             "en": "Jane Doe, Class of '24",
@@ -371,7 +371,7 @@
       }
     ],
     "isPublished": true,
-    "lastUpdated": "2026-05-31T17:25:42.518Z"
+    "lastUpdated": "2026-07-25T11:19:31.940Z"
   },
   "academics": {
     "sections": [
@@ -582,5 +582,85 @@
     ],
     "isPublished": true,
     "lastUpdated": "2026-05-31T15:50:45.913Z"
+  },
+  "about": {
+    "sections": [
+      {
+        "id": "sec-header",
+        "type": "HeaderNavigation",
+        "props": {
+          "logoIcon": "🏛️",
+          "logoText": "Institution",
+          "ctaText": "Apply Now",
+          "navHome": "Home",
+          "navAbout": "About Us",
+          "navAbout1": "Overview",
+          "navAbout2": "Leadership Team",
+          "navAbout3": "History & Mission",
+          "navAcad": "Academics",
+          "navAcad1": "Overview",
+          "navAcad2": "Programs & Courses",
+          "navAcad3": "Faculty",
+          "navAdm": "Admissions",
+          "navAdm1": "Overview",
+          "navAdm2": "Fee Structure",
+          "navAdm3": "Apply Now",
+          "navCampus": "Campus Life",
+          "navCampus1": "Overview",
+          "navCampus2": "Events & News",
+          "navStudent": "Student Services"
+        }
+      },
+      {
+        "id": "sec-hero",
+        "type": "HeroBanner",
+        "props": {
+          "title": {
+            "en": "About Our Institution.",
+            "ml": "ഞങ്ങളുടെ സ്ഥാപനത്തെക്കുറിച്ച്."
+          },
+          "subtitle": {
+            "en": "<p>Discover&nbsp;our&nbsp;history,&nbsp;mission,&nbsp;and&nbsp;the&nbsp;leadership&nbsp;driving&nbsp;us&nbsp;forward.</p>",
+            "ml": "<p>Discover our history, mission, and the leadership driving us forward.</p>"
+          }
+        }
+      },
+      {
+        "id": "sec-text",
+        "type": "TextContent",
+        "props": {
+          "title": "Our Story",
+          "paragraph1": "Founded with a vision to redefine education, we have consistently pushed the boundaries of what is possible. Our commitment to excellence is reflected in our state-of-the-art facilities, world-class faculty, and innovative curriculum.",
+          "paragraph2": "We believe in fostering an environment where curiosity thrives and potential is realized. Our graduates go on to become leaders in their respective fields, equipped with the knowledge and skills necessary to make a lasting impact on the world."
+        }
+      },
+      {
+        "id": "sec-test",
+        "type": "Testimonials",
+        "props": {
+          "title": "Student Voices",
+          "quote": "The faculty here goes above and beyond...",
+          "author": "Jane Doe, Class of '24",
+          "role": "Software Engineer at Google"
+        }
+      },
+      {
+        "id": "sec-footer",
+        "type": "Footer",
+        "props": {
+          "schoolName": "Institution Name",
+          "link1": "About Us",
+          "link2": "Academics",
+          "link3": "Admissions",
+          "link4": "Contact Us",
+          "address": "123 University Avenue, Knowledge City, ST 12345",
+          "phone": "(555) 123-4567",
+          "email": "admissions@institution.edu",
+          "copyrightText": "All rights reserved."
+        }
+      }
+    ],
+    "isPublished": true,
+    "lastUpdated": "2026-06-02T11:28:41.662Z"
   }
 }

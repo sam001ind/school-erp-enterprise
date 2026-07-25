@@ -6,6 +6,7 @@ import { AttendanceProvider } from "@/lib/AttendanceContext";
 import MyAttendanceView from "@/components/attendance/views/MyAttendanceView";
 import MarkAttendanceView from "@/components/attendance/views/MarkAttendanceView";
 import ReportsView from "@/components/attendance/views/ReportsView";
+import AuditLogView from "@/components/users/views/AuditLogView";
 
 function AttendanceModuleContent() {
   const searchParams = useSearchParams();
@@ -21,6 +22,9 @@ function AttendanceModuleContent() {
       break;
     case "reports":
       content = <ReportsView />;
+      break;
+    case "audit":
+      content = <AuditLogView resourceFilter="Attendance" />;
       break;
     default:
       content = <MyAttendanceView />;
@@ -44,7 +48,7 @@ function AttendanceModuleContent() {
 export default function AttendancePage() {
   return (
     <AttendanceProvider>
-      <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading module...</div>}>
+      <Suspense fallback={<div className="p-8 text-center text-slate-500 dark:text-slate-400">Loading module...</div>}>
         <AttendanceModuleContent />
       </Suspense>
     </AttendanceProvider>

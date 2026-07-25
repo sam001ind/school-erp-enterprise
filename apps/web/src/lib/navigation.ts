@@ -6,9 +6,7 @@ export type ModuleMenu = {
 export const moduleMenus: Record<string, ModuleMenu[]> = {
   "/website": [
     { title: "Pages & Routing", id: "pages" },
-    { title: "Theme & Appearance", id: "theme" },
-    { title: "Media Library", id: "media" },
-    { title: "Site Settings", id: "settings" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/communications": [
     { title: "Hub Dashboard", id: "dashboard" },
@@ -17,6 +15,7 @@ export const moduleMenus: Record<string, ModuleMenu[]> = {
     { title: "Message Templates", id: "templates" },
     { title: "Chatbots & Flows", id: "chatbots" },
     { title: "API Settings", id: "settings" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/social": [
     { title: "Dashboard", id: "dashboard" },
@@ -28,7 +27,8 @@ export const moduleMenus: Record<string, ModuleMenu[]> = {
     { title: "Inbox", id: "inbox" },
     { title: "Monitoring", id: "monitoring" },
     { title: "Analytics", id: "analytics" },
-    { title: "Reports", id: "reports" }
+    { title: "Reports", id: "reports" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/admissions": [
     { title: "Dashboard & Analytics", id: "dashboard" },
@@ -41,11 +41,13 @@ export const moduleMenus: Record<string, ModuleMenu[]> = {
     { title: "Fee Collection", id: "fees" },
     { title: "Enrollment & Allocation", id: "enrollment" },
     { title: "Reports & Configuration", id: "reports" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/attendance": [
     { title: "My Attendance", id: "my" },
     { title: "Mark Attendance", id: "mark" },
     { title: "Reports", id: "reports" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/academic": [
     { title: "Dashboard", id: "dashboard" },
@@ -63,43 +65,58 @@ export const moduleMenus: Record<string, ModuleMenu[]> = {
     { title: "Academic Resources", id: "resources" },
     { title: "Academic Monitoring", id: "monitoring" },
     { title: "Analytics & Reports", id: "analytics" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/examinations": [
     { title: "Upcoming Exams", id: "upcoming" },
     { title: "My Results & Grades", id: "results" },
     { title: "Download Admit Card", id: "admit" },
+    { title: "Audit Logs", id: "audit" },
   ],
-  "/fees": [
+  "/finance": [
     { title: "Current Dues & Pay", id: "dues" },
     { title: "Payment History", id: "history" },
     { title: "Fee Structure", id: "structure" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/hostel": [
     { title: "My Room", id: "my-room" },
     { title: "Apply for Hostel", id: "apply" },
     { title: "Complaints & Requests", id: "complaints" },
+    { title: "Audit Logs", id: "audit" },
   ],
-  "/leave": [
-    { title: "My Leaves", id: "my" },
-    { title: "Apply for Leave", id: "apply" },
+  "/hrms": [
+    { title: "Employee Directory", id: "directory" },
+    { title: "My Leaves", id: "my-leaves" },
+    { title: "Apply for Leave", id: "apply-leave" },
     { title: "Pending Approvals", id: "approvals" },
+    { title: "My Payslips", id: "slips" },
+    { title: "Process Payroll", id: "process" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/library": [
     { title: "My Borrowed Books", id: "borrowed" },
     { title: "Search Catalogue", id: "search" },
     { title: "Overdue Fines", id: "fines" },
-  ],
-  "/payroll": [
-    { title: "My Payslips", id: "slips" },
-    { title: "Process Payroll", id: "process" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/transport": [
     { title: "My Bus Route", id: "my" },
     { title: "Live Tracking", id: "track" },
     { title: "Apply for Transport", id: "apply" },
+    { title: "Audit Logs", id: "audit" },
   ],
   "/users": [
     { title: "User Directory", id: "directory" },
     { title: "Role Management", id: "roles" },
-  ]
+    { title: "Audit Logs", id: "audit" },
+    { title: "Security Settings", id: "security" },
+  ],
+  "/saas": [
+    { title: "Dashboard", id: "dashboard" },
+    { title: "Tenants (Schools)", id: "tenants" },
+    { title: "Provisioning Wizard", id: "provisioning" },
+    { title: "Security Policies", id: "security" },
+  ],
 };
+

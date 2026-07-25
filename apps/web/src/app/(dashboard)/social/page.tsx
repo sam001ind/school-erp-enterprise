@@ -11,6 +11,7 @@ import InboxView from "@/components/social/views/InboxView";
 import MonitoringView from "@/components/social/views/MonitoringView";
 import AnalyticsView from "@/components/social/views/AnalyticsView";
 import ReportsView from "@/components/social/views/ReportsView";
+import AuditLogView from "@/components/users/views/AuditLogView";
 
 function SocialModuleContent() {
   const searchParams = useSearchParams();
@@ -28,6 +29,9 @@ function SocialModuleContent() {
     case "monitoring": content = <MonitoringView />; break;
     case "analytics": content = <AnalyticsView />; break;
     case "reports": content = <ReportsView />; break;
+    case "audit":
+      content = <AuditLogView resourceFilter="Social" />;
+      break;
     default: content = <DashboardView />; break;
   }
 

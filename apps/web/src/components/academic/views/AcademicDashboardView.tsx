@@ -26,18 +26,18 @@ export default function AcademicDashboardView() {
     <div className="space-y-6 pb-12">
       {/* Top KPI row */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Total Classes</h3>
             <Users className="h-5 w-5 text-blue-500" />
           </div>
           <div>
             <p className="text-3xl font-bold text-slate-900 dark:text-white">48</p>
-            <p className="text-xs text-slate-500 font-medium mt-1">Across 4 programs</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Across 4 programs</p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Overall Syllabus</h3>
             <CheckCircle2 className="h-5 w-5 text-emerald-500" />
@@ -48,18 +48,18 @@ export default function AcademicDashboardView() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Active Faculty</h3>
             <BookOpen className="h-5 w-5 text-indigo-500" />
           </div>
           <div>
             <p className="text-3xl font-bold text-slate-900 dark:text-white">112</p>
-            <p className="text-xs text-slate-500 font-medium mt-1">Full allocation</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Full allocation</p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Upcoming Exams</h3>
             <Calendar className="h-5 w-5 text-amber-500" />
@@ -73,7 +73,7 @@ export default function AcademicDashboardView() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Syllabus Completion Chart */}
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">Syllabus Completion by Class</h2>
           </div>
@@ -94,7 +94,7 @@ export default function AcademicDashboardView() {
         </div>
 
         {/* Faculty Workload Pie Chart */}
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">Faculty Workload Distribution</h2>
           </div>
@@ -126,7 +126,7 @@ export default function AcademicDashboardView() {
                 <div key={entry.name} className="flex items-center gap-2 text-sm">
                   <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index] }}></span>
                   <span className="text-slate-700 dark:text-slate-300 font-medium">{entry.name}</span>
-                  <span className="ml-auto text-slate-500">{entry.value}h</span>
+                  <span className="ml-auto text-slate-500 dark:text-slate-400">{entry.value}h</span>
                 </div>
               ))}
             </div>
@@ -135,7 +135,7 @@ export default function AcademicDashboardView() {
       </div>
       
       {/* Alerts and Action items */}
-      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
         <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Academic Alerts</h2>
         <div className="space-y-3">
           <div className="flex items-center gap-4 p-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-900/30 rounded-xl">

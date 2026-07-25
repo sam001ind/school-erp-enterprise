@@ -14,7 +14,7 @@ export default function AssignmentsView() {
   return (
     <div className="space-y-6 pb-12">
       {/* Top Controls */}
-      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="flex gap-4 w-full md:w-auto">
           <select 
             value={activeClassId}
@@ -25,7 +25,7 @@ export default function AssignmentsView() {
                 setActiveSubjectId(newClass.subjects[0].id);
               }
             }}
-            className="bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-indigo-500"
+            className="bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-800 dark:border-zinc-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-indigo-500"
           >
             {classes.map(c => (
               <option key={c.id} value={c.id}>{c.name}</option>
@@ -34,7 +34,7 @@ export default function AssignmentsView() {
           <select 
             value={activeSubjectId}
             onChange={(e) => setActiveSubjectId(e.target.value)}
-            className="bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-indigo-500"
+            className="bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-800 dark:border-zinc-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-indigo-500"
           >
             {activeClass?.subjects.map(s => (
               <option key={s.id} value={s.id}>{s.name} ({s.code})</option>
@@ -56,7 +56,7 @@ export default function AssignmentsView() {
           </h3>
           
           {assignments.filter(a => a.dueDate.getTime() >= Date.now()).map(assignment => (
-            <div key={assignment.id} className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+            <div key={assignment.id} className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all cursor-pointer group">
               <div className="flex justify-between items-start mb-3">
                 <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 p-2 rounded-lg">
                   <FileText className="h-5 w-5" />
@@ -91,12 +91,12 @@ export default function AssignmentsView() {
           </h3>
           
           {assignments.filter(a => a.dueDate.getTime() < Date.now()).map(assignment => (
-            <div key={assignment.id} className="bg-slate-50 dark:bg-zinc-900/30 backdrop-blur-xl p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+            <div key={assignment.id} className="bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-900/30 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
               <h4 className="font-bold text-slate-700 dark:text-slate-300 mb-1">{assignment.title}</h4>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-1">{assignment.description}</p>
               <div className="flex justify-between items-center">
-                <span className="text-xs font-medium text-slate-500 dark:text-slate-500 bg-slate-200 dark:bg-zinc-800 px-2 py-1 rounded">Closed</span>
-                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">Grade Submissions</span>
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500 bg-slate-200 dark:bg-zinc-800 px-2 py-1 rounded">Closed</span>
+                <span className="text-xs text-slate-600 dark:text-slate-300 dark:text-slate-400 font-medium">Grade Submissions</span>
               </div>
             </div>
           ))}
@@ -111,7 +111,7 @@ export default function AssignmentsView() {
         {/* Analytics Summary */}
         <div className="space-y-4">
            <h3 className="font-bold text-slate-900 dark:text-white mb-4">Class Performance</h3>
-           <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col items-center justify-center text-center">
+           <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col items-center justify-center text-center">
               <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Average Submission Rate</p>
               <h4 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">84%</h4>
               <p className="text-xs text-emerald-500 font-medium">↑ 5% from last semester</p>

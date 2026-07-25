@@ -1,6 +1,16 @@
 import Link from "next/link";
+import { prisma } from "@repo/database";
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  const user = await prisma.user.findFirst({
+    where: { email: "abhijiththirutheri@gmail.com" },
+    include: { tenant: true }
+  });
+
+  const tenantName = user?.tenant?.name || "Enterprise Edition 2.0";
+
   const modules = [
     { name: "User Management", path: "/users", icon: "🛡️", color: "from-slate-600 to-zinc-900", stats: "RBAC Active" },
     { name: "Website Builder", path: "/website", icon: "🌐", color: "from-cyan-400 to-blue-600", stats: "3 Pages Live" },
@@ -9,24 +19,47 @@ export default function Home() {
     { name: "Academic", path: "/academic", icon: "📘", color: "from-blue-400 to-indigo-600", stats: "Curriculum Live" },
     { name: "Attendance", path: "/attendance", icon: "📅", color: "from-blue-500 to-indigo-600", stats: "92% Avg" },
     { name: "Examinations", path: "/examinations", icon: "📝", color: "from-indigo-500 to-purple-600", stats: "Mid-Terms Active" },
-    { name: "Fee Collection", path: "/fees", icon: "💰", color: "from-emerald-400 to-green-600", stats: "2 Due Invoices" },
+    { name: "Finance", path: "/finance", icon: "💰", color: "from-emerald-400 to-green-600", stats: "2 Due Invoices" },
     { name: "Hostel", path: "/hostel", icon: "🏨", color: "from-orange-400 to-amber-600", stats: "Room 204" },
-    { name: "Leave", path: "/leave", icon: "🏖️", color: "from-teal-400 to-cyan-600", stats: "0 Pending" },
+    { name: "HRMS", path: "/hrms", icon: "💼", color: "from-teal-400 to-cyan-600", stats: "Payroll & Leaves" },
     { name: "Library", path: "/library", icon: "📚", color: "from-fuchsia-500 to-pink-600", stats: "0 Borrowed" },
-    { name: "Payroll", path: "/payroll", icon: "💵", color: "from-lime-500 to-green-600", stats: "Next: Oct 30" },
     { name: "Transport", path: "/transport", icon: "🚌", color: "from-yellow-400 to-orange-500", stats: "Unallocated" },
     { name: "SocialHub", path: "/social", icon: "📱", color: "from-indigo-400 to-purple-600", stats: "SMMP Active" },
+    { name: "SaaS Admin", path: "/saas", icon: "☁️", color: "from-slate-700 to-black", stats: "Multi-Tenant" },
   ];
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-black p-8 sm:p-20 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-black font-sans relative overflow-hidden flex flex-col custom-scrollbar">
       {/* Background decoration */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-500/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-500/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-500/10 blur-3xl opacity-30 pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-500/10 blur-3xl opacity-30 pointer-events-none" />
 
-      <header className="max-w-6xl mx-auto mb-16 text-center relative z-10">
-        <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold text-sm mb-6 border border-blue-100 dark:border-blue-800">
-          Enterprise Edition 2.0
+      {/* Top Navigation / User Profile */}
+      <div className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-end items-center relative z-20">
+        <div className="flex items-center gap-4 bg-white/70 dark:bg-zinc-900/50 backdrop-blur-md px-4 py-2 rounded-2xl border border-white dark:border-zinc-800 shadow-sm">
+          <div className="flex flex-col text-right hidden sm:flex">
+            <span className="text-sm font-bold text-zinc-900 dark:text-white">Abhijith Thirutheri</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">Super Admin</span>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-blue-500/20">
+            A
+          </div>
+          <div className="w-px h-8 bg-zinc-200 dark:bg-zinc-800 mx-2"></div>
+          <Link 
+            href="/login" 
+            className="text-sm font-semibold text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors flex items-center gap-1 bg-rose-50 dark:bg-rose-900/20 px-3 py-1.5 rounded-xl border border-rose-100 dark:border-rose-900/50"
+          >
+            Logout
+          </Link>
+        </div>
+      </div>
+
+      <header className="max-w-7xl mx-auto mb-16 text-center relative z-10">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold text-sm mb-6 border border-blue-100 dark:border-blue-800">
+          {user?.tenant?.logoUrl && (
+            <img src={user.tenant.logoUrl} alt={tenantName} className="w-5 h-5 rounded-full object-cover border border-blue-200 dark:border-blue-700" />
+          )}
+          {tenantName}
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white mb-6">
           My Institution
@@ -36,8 +69,8 @@ export default function Home() {
         </p>
       </header>
 
-      <main className="max-w-6xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <main className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {modules.map((mod) => (
             <Link 
               key={mod.name} 

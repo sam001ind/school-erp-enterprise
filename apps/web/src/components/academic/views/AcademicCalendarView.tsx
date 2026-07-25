@@ -19,12 +19,12 @@ export default function AcademicCalendarView() {
   return (
     <div className="space-y-6 pb-12">
       {/* Header */}
-      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex justify-between items-center">
+      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-6 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm flex justify-between items-center">
         <div className="flex gap-2 bg-slate-100 dark:bg-zinc-800 p-1 rounded-xl">
-          <button onClick={() => setViewMode("list")} className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-white dark:bg-zinc-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}>
+          <button onClick={() => setViewMode("list")} className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 dark:text-slate-400'}`}>
             <List className="h-5 w-5" />
           </button>
-          <button onClick={() => setViewMode("grid")} className={`p-2 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-white dark:bg-zinc-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}>
+          <button onClick={() => setViewMode("grid")} className={`p-2 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-white dark:bg-zinc-900/50 backdrop-blur-md dark:bg-zinc-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 dark:text-slate-400'}`}>
             <Grid className="h-5 w-5" />
           </button>
         </div>
@@ -38,14 +38,14 @@ export default function AcademicCalendarView() {
       </div>
 
       {/* Content */}
-      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-xl p-8 rounded-3xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+      <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md p-8 rounded-3xl border border-slate-200 dark:border-zinc-800 shadow-sm">
         {viewMode === "list" ? (
           <div className="space-y-4">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Upcoming Events</h2>
             {events.sort((a, b) => a.date.getTime() - b.date.getTime()).map(event => (
-              <div key={event.id} className="flex items-center gap-6 p-4 rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/30 hover:shadow-md transition-shadow">
-                <div className="flex flex-col items-center justify-center w-16 h-16 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 shrink-0">
-                  <span className="text-xs font-bold text-slate-500 uppercase">{event.date.toLocaleString('default', { month: 'short' })}</span>
+              <div key={event.id} className="flex items-center gap-6 p-4 rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/40 dark:bg-zinc-900/40 dark:bg-zinc-800/30 hover:shadow-md transition-shadow">
+                <div className="flex flex-col items-center justify-center w-16 h-16 rounded-xl bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-slate-200 dark:border-zinc-800 dark:border-zinc-700 shrink-0">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">{event.date.toLocaleString('default', { month: 'short' })}</span>
                   <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400">{event.date.getDate()}</span>
                 </div>
                 

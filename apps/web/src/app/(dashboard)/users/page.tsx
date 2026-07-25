@@ -2,10 +2,11 @@
 
 import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { UserManagementProvider } from "@/lib/UserManagementContext";
 
 import UserDirectoryView from "@/components/users/views/UserDirectoryView";
 import RoleManagementView from "@/components/users/views/RoleManagementView";
+import AuditLogView from "@/components/users/views/AuditLogView";
+import SecuritySettingsView from "@/components/users/views/SecuritySettingsView";
 
 function UsersModuleContent() {
   const searchParams = useSearchParams();
@@ -18,6 +19,12 @@ function UsersModuleContent() {
       break;
     case "roles":
       content = <RoleManagementView />;
+      break;
+    case "audit":
+      content = <AuditLogView />;
+      break;
+    case "security":
+      content = <SecuritySettingsView />;
       break;
     default:
       content = <UserDirectoryView />;
@@ -40,10 +47,8 @@ function UsersModuleContent() {
 
 export default function UsersPage() {
   return (
-    <UserManagementProvider>
-      <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading module...</div>}>
-        <UsersModuleContent />
-      </Suspense>
-    </UserManagementProvider>
+    <Suspense fallback={<div className="p-8 text-center text-slate-500 dark:text-slate-400">Loading module...</div>}>
+      <UsersModuleContent />
+    </Suspense>
   );
 }
