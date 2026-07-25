@@ -4,113 +4,108 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = "postgresql://postgres.iqllfzqkrdtipsxeunow:cByt6QQdm3fWTTZ1@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres"
 }
 
 model Tenant {
   id        String   @id @default(uuid())
   name      String
   domain    String?  @unique
-  logoUrl   String?
   status    String   @default("Active")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  users User[]
-  roles Role[]
+  logoUrl   String?
+  roles     Role[]
+  users     User[]
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String
-  roleId    String
-  role      Role     @relation(fields: [roleId], references: [id])
-  tenantId  String?
-  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  studentProfile  StudentProfile?
-  guardianProfile Guardian?
-  employeeProfile Employee?
+  id              String          @id @default(uuid())
+  email           String          @unique
+  createdAt       DateTime        @default(now())
+  name            String
+  password        String
+  roleId          String
+  updatedAt       DateTime        @updatedAt
+  tenantId        String?
   circulations    Circulation[]
+  employeeProfile Employee?
+  guardianProfile Guardian?
+  studentProfile  StudentProfile?
+  role            Role            @relation(fields: [roleId], references: [id])
+  tenant          Tenant?         @relation(fields: [tenantId], references: [id])
 }
 
 model Role {
   id          String       @id @default(uuid())
   name        String       @unique
   description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   tenantId    String?
   tenant      Tenant?      @relation(fields: [tenantId], references: [id])
   users       User[]
-  permissions Permission[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  permissions Permission[] @relation("PermissionToRole")
 }
 
 model Permission {
   id        String   @id @default(uuid())
   action    String   @unique
-  roles     Role[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  roles     Role[]   @relation("PermissionToRole")
 }
 
 model StudentProfile {
-  id          String    @id @default(uuid())
-  userId      String    @unique
-  user        User      @relation(fields: [userId], references: [id])
-  admissionNo String    @unique
-  dateOfBirth DateTime
-  gender      String
-  bloodGroup  String?
-  guardianId  String?
-  guardian    Guardian? @relation(fields: [guardianId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  documents           Document[]
+  id                  String               @id @default(uuid())
+  userId              String               @unique
+  admissionNo         String               @unique
+  dateOfBirth         DateTime
+  gender              String
+  bloodGroup          String?
+  guardianId          String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
   attendances         Attendance[]
+  documents           Document[]
   examResults         ExamResult[]
   feePayments         FeePayment[]
-  transportAllocation TransportAllocation?
   hostelAllocation    HostelAllocation?
+  guardian            Guardian?            @relation(fields: [guardianId], references: [id])
+  user                User                 @relation(fields: [userId], references: [id])
+  transportAllocation TransportAllocation?
 }
 
 model Guardian {
   id        String           @id @default(uuid())
   userId    String           @unique
-  user      User             @relation(fields: [userId], references: [id])
   phone     String
   relation  String
-  students  StudentProfile[]
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
+  user      User             @relation(fields: [userId], references: [id])
+  students  StudentProfile[]
 }
 
 model Document {
   id           String         @id @default(uuid())
   studentId    String
-  student      StudentProfile @relation(fields: [studentId], references: [id])
   documentType String
   fileUrl      String
   uploadedAt   DateTime       @default(now())
+  student      StudentProfile @relation(fields: [studentId], references: [id])
 }
 
-// Phase 2
 model Attendance {
   id            String         @id @default(uuid())
   studentId     String
-  student       StudentProfile @relation(fields: [studentId], references: [id])
   date          DateTime
-  status        String // "PRESENT", "ABSENT", "LATE"
-  checkInMethod String         @default("MANUAL") // "APP", "MANUAL", "BMD"
+  status        String
+  checkInMethod String         @default("MANUAL")
   remarks       String?
   recordedAt    DateTime       @default(now())
+  student       StudentProfile @relation(fields: [studentId], references: [id])
 }
 
 model Examination {
@@ -119,21 +114,21 @@ model Examination {
   term      String
   startDate DateTime
   endDate   DateTime
-  results   ExamResult[]
   createdAt DateTime     @default(now())
+  results   ExamResult[]
 }
 
 model ExamResult {
   id            String         @id @default(uuid())
   examinationId String
-  examination   Examination    @relation(fields: [examinationId], references: [id])
   studentId     String
-  student       StudentProfile @relation(fields: [studentId], references: [id])
   subject       String
   marksObtained Float
   totalMarks    Float
   grade         String?
   recordedAt    DateTime       @default(now())
+  examination   Examination    @relation(fields: [examinationId], references: [id])
+  student       StudentProfile @relation(fields: [studentId], references: [id])
 }
 
 model FeeStructure {
@@ -142,102 +137,98 @@ model FeeStructure {
   amount    Float
   dueDate   DateTime
   term      String
-  payments  FeePayment[]
   createdAt DateTime     @default(now())
+  payments  FeePayment[]
 }
 
 model FeePayment {
   id             String         @id @default(uuid())
   studentId      String
-  student        StudentProfile @relation(fields: [studentId], references: [id])
   feeStructureId String
-  feeStructure   FeeStructure   @relation(fields: [feeStructureId], references: [id])
   amountPaid     Float
   paymentDate    DateTime       @default(now())
   status         String
   receiptNo      String         @unique
+  feeStructure   FeeStructure   @relation(fields: [feeStructureId], references: [id])
+  student        StudentProfile @relation(fields: [studentId], references: [id])
 }
-
-// ==========================================
-// Phase 3: Secondary Operations
-// ==========================================
 
 model Employee {
   id              String               @id @default(uuid())
   userId          String               @unique
-  user            User                 @relation(fields: [userId], references: [id])
   employeeId      String               @unique
   department      String
   designation     String
   joiningDate     DateTime
   baseSalary      Float
-  bankName        String?
-  accountNo       String?
-  ifscCode        String?
-  taxId           String? // SSN/PAN
-  status          String               @default("ACTIVE") // ACTIVE, ON_LEAVE, TERMINATED
-  payrolls        Payroll[]
-  leaves          LeaveRequest[]
-  leaveBalances   LeaveBalance[]
-  attendances     EmployeeAttendance[]
-  salaryStructure SalaryStructure?
   createdAt       DateTime             @default(now())
   updatedAt       DateTime             @updatedAt
+  accountNo       String?
+  bankName        String?
+  ifscCode        String?
+  status          String               @default("ACTIVE")
+  taxId           String?
+  user            User                 @relation(fields: [userId], references: [id])
+  attendances     EmployeeAttendance[]
+  leaveBalances   LeaveBalance[]
+  leaves          LeaveRequest[]
+  payrolls        Payroll[]
+  salaryStructure SalaryStructure?
 }
 
 model EmployeeAttendance {
   id            String    @id @default(uuid())
   employeeId    String
-  employee      Employee  @relation(fields: [employeeId], references: [id])
   date          DateTime
-  status        String // "PRESENT", "ABSENT", "LATE", "HALF_DAY"
-  checkInMethod String    @default("MANUAL") // "APP", "MANUAL", "BMD"
+  status        String
+  checkInMethod String    @default("MANUAL")
   checkInTime   DateTime?
   checkOutTime  DateTime?
   remarks       String?
   recordedAt    DateTime  @default(now())
+  employee      Employee  @relation(fields: [employeeId], references: [id])
 }
 
 model Payroll {
   id                String           @id @default(uuid())
   employeeId        String
-  employee          Employee         @relation(fields: [employeeId], references: [id])
   month             Int
   year              Int
   basicPay          Float
   allowances        Float
   deductions        Float
   netPay            Float
-  status            String // "PROCESSED", "PAID"
-  salaryStructureId String?
-  salaryStructure   SalaryStructure? @relation(fields: [salaryStructureId], references: [id])
+  status            String
   processedAt       DateTime         @default(now())
+  salaryStructureId String?
+  employee          Employee         @relation(fields: [employeeId], references: [id])
+  salaryStructure   SalaryStructure? @relation(fields: [salaryStructureId], references: [id])
 }
 
 model LeaveRequest {
   id               String   @id @default(uuid())
   employeeId       String
-  employee         Employee @relation(fields: [employeeId], references: [id])
-  leaveType        String // "SICK", "CASUAL", "ANNUAL"
+  leaveType        String
   startDate        DateTime
   endDate          DateTime
   reason           String
-  status           String // "PENDING", "APPROVED", "REJECTED"
-  reviewerComments String?
+  status           String
   appliedAt        DateTime @default(now())
+  reviewerComments String?
   updatedAt        DateTime @updatedAt
+  employee         Employee @relation(fields: [employeeId], references: [id])
 }
 
 model LeaveBalance {
   id         String   @id @default(uuid())
   employeeId String
-  employee   Employee @relation(fields: [employeeId], references: [id])
   year       Int
-  leaveType  String // "SICK", "CASUAL", "ANNUAL"
+  leaveType  String
   totalDays  Float
   usedDays   Float    @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  employee   Employee @relation(fields: [employeeId], references: [id])
 
   @@unique([employeeId, year, leaveType])
 }
@@ -245,21 +236,21 @@ model LeaveBalance {
 model SalaryStructure {
   id         String            @id @default(uuid())
   employeeId String            @unique
-  employee   Employee          @relation(fields: [employeeId], references: [id])
-  components SalaryComponent[]
-  payrolls   Payroll[]
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @updatedAt
+  payrolls   Payroll[]
+  components SalaryComponent[]
+  employee   Employee          @relation(fields: [employeeId], references: [id])
 }
 
 model SalaryComponent {
   id                String          @id @default(uuid())
   salaryStructureId String
-  salaryStructure   SalaryStructure @relation(fields: [salaryStructureId], references: [id])
   name              String
-  type              String // "EARNING", "DEDUCTION"
+  type              String
   amount            Float
   createdAt         DateTime        @default(now())
+  salaryStructure   SalaryStructure @relation(fields: [salaryStructureId], references: [id])
 }
 
 model Book {
@@ -269,20 +260,20 @@ model Book {
   author          String
   totalCopies     Int
   availableCopies Int
-  circulations    Circulation[]
   createdAt       DateTime      @default(now())
+  circulations    Circulation[]
 }
 
 model Circulation {
   id         String    @id @default(uuid())
   bookId     String
-  book       Book      @relation(fields: [bookId], references: [id])
-  userId     String // Borrowed by user (student or employee)
-  user       User      @relation(fields: [userId], references: [id])
+  userId     String
   issueDate  DateTime  @default(now())
   dueDate    DateTime
   returnDate DateTime?
-  status     String // "ISSUED", "RETURNED", "OVERDUE"
+  status     String
+  book       Book      @relation(fields: [bookId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
 }
 
 model TransportRoute {
@@ -297,11 +288,11 @@ model TransportRoute {
 model TransportAllocation {
   id          String         @id @default(uuid())
   routeId     String
-  route       TransportRoute @relation(fields: [routeId], references: [id])
   studentId   String         @unique
-  student     StudentProfile @relation(fields: [studentId], references: [id])
   pickupPoint String
   allocatedAt DateTime       @default(now())
+  route       TransportRoute @relation(fields: [routeId], references: [id])
+  student     StudentProfile @relation(fields: [studentId], references: [id])
 }
 
 model HostelRoom {
@@ -315,15 +306,11 @@ model HostelRoom {
 model HostelAllocation {
   id          String         @id @default(uuid())
   roomId      String
-  room        HostelRoom     @relation(fields: [roomId], references: [id])
   studentId   String         @unique
-  student     StudentProfile @relation(fields: [studentId], references: [id])
   allocatedAt DateTime       @default(now())
+  room        HostelRoom     @relation(fields: [roomId], references: [id])
+  student     StudentProfile @relation(fields: [studentId], references: [id])
 }
-
-// ==========================================
-// Phase 4: Social Hub & Media Management
-// ==========================================
 
 model Department {
   id        String   @id @default(cuid())
@@ -351,11 +338,11 @@ model Channel {
 model Post {
   id        String   @id @default(cuid())
   content   String
-  platforms String // Store as JSON string: '["Facebook", "LinkedIn"]'
+  platforms String
   time      String
   date      DateTime
   author    String
-  status    String // "draft", "scheduled", "published", "failed"
+  status    String
   color     String
   likes     Int      @default(0)
   comments  Int      @default(0)
@@ -372,8 +359,8 @@ model Message {
   color     String
   time      String
   text      String
-  status    String // "unread", "read", "escalated"
-  replies   String // Store as JSON string of array
+  status    String
+  replies   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -384,46 +371,42 @@ model Stream {
   keyword   String
   platform  String
   color     String
-  posts     String // Store as JSON string of array of posts
+  posts     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ==========================================
-// Phase 5: Academic & Pre-Examination
-// ==========================================
-
 model AcademicClass {
   id          String       @id @default(uuid())
-  name        String // e.g. "10-A"
+  name        String
   grade       Int
   section     String
-  subjects    Subject[]
-  assignments Assignment[]
   createdAt   DateTime     @default(now())
+  assignments Assignment[]
+  subjects    Subject[]
 }
 
 model Subject {
   id             String          @id @default(uuid())
-  name           String // e.g. "Mathematics"
+  name           String
   code           String          @unique
   classId        String
-  academicClass  AcademicClass   @relation(fields: [classId], references: [id])
-  lessonPlans    LessonPlan[]
-  assignments    Assignment[]
-  studyMaterials StudyMaterial[]
   createdAt      DateTime        @default(now())
+  assignments    Assignment[]
+  lessonPlans    LessonPlan[]
+  studyMaterials StudyMaterial[]
+  academicClass  AcademicClass   @relation(fields: [classId], references: [id])
 }
 
 model LessonPlan {
   id          String   @id @default(uuid())
   subjectId   String
-  subject     Subject  @relation(fields: [subjectId], references: [id])
   topic       String
   description String
   targetDate  DateTime
   completed   Boolean  @default(false)
   createdAt   DateTime @default(now())
+  subject     Subject  @relation(fields: [subjectId], references: [id])
 }
 
 model Assignment {
@@ -431,12 +414,12 @@ model Assignment {
   title         String
   description   String
   subjectId     String
-  subject       Subject       @relation(fields: [subjectId], references: [id])
   classId       String
-  academicClass AcademicClass @relation(fields: [classId], references: [id])
   dueDate       DateTime
   totalMarks    Int
   createdAt     DateTime      @default(now())
+  academicClass AcademicClass @relation(fields: [classId], references: [id])
+  subject       Subject       @relation(fields: [subjectId], references: [id])
 }
 
 model StudyMaterial {
@@ -444,19 +427,15 @@ model StudyMaterial {
   title       String
   description String
   fileUrl     String
-  type        String // "PDF", "VIDEO", "LINK"
+  type        String
   subjectId   String
-  subject     Subject  @relation(fields: [subjectId], references: [id])
   uploadedAt  DateTime @default(now())
+  subject     Subject  @relation(fields: [subjectId], references: [id])
 }
-
-// ==========================================
-// Phase 6: Website Management
-// ==========================================
 
 model WebsiteTheme {
   id              String   @id @default(uuid())
-  tenantId        String   @default("default") // For multi-tenant support
+  tenantId        String   @default("default")
   siteName        String
   tagline         String?
   logoUrl         String?
@@ -480,4 +459,18 @@ model WebsiteAuditLog {
   status       String
   details      String?
   timestamp    DateTime @default(now())
+}
+
+model AdmissionLead {
+  id              String   @id @default(uuid())
+  studentName     String
+  parentName      String
+  email           String
+  phone           String
+  gradeApplied    String
+  status          String   @default("New") // "New", "Contacted", "Interview", "Waitlisted", "Admitted", "Rejected"
+  source          String   @default("Website")
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

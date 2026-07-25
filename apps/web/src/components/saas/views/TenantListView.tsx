@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useSaaS } from "@/lib/SaaSContext";
 import { Server, ShieldCheck, Activity, Trash2, Globe, Database, Search, MoreVertical, PauseCircle, PlayCircle, Settings, ExternalLink, X } from "lucide-react";
-import { updateTenant } from "@/actions/saas";
+import { updateTenant } from "@/app/actions/tenant";
+import { LogoUploader } from "@/components/LogoUploader";
 
 export default function TenantListView() {
   const { tenants, removeTenant, updateTenantStatus, updateTenantDetails } = useSaaS();
@@ -202,13 +203,10 @@ export default function TenantListView() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Logo URL</label>
-                <input 
-                  type="text" 
-                  value={editingTenant.logoUrl} 
-                  onChange={e => setEditingTenant({ ...editingTenant, logoUrl: e.target.value })}
-                  placeholder="https://..."
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                <LogoUploader 
+                  tenantId={editingTenant.id} 
+                  currentLogoUrl={editingTenant.logoUrl || null} 
+                  onUploadSuccess={(url) => setEditingTenant({ ...editingTenant, logoUrl: url })}
                 />
               </div>
             </div>

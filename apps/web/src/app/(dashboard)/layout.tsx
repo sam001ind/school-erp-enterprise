@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { getTenant } from "@/app/actions/tenant";
 
 import { moduleMenus } from "@/lib/navigation";
 import { useGlobalSystem } from "@/lib/GlobalSystemContext";
@@ -52,7 +53,16 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
+  const [tenantLogo, setTenantLogo] = React.useState<string | null>(null);
   const { academicYears, activeYearId, setActiveYearId, getActiveYear } = useGlobalSystem();
+  
+  React.useEffect(() => {
+    getTenant().then(res => {
+      if (res.success && res.tenant?.logoUrl) {
+        setTenantLogo(res.tenant.logoUrl);
+      }
+    });
+  }, []);
   
   // Determine current active module and its menus
   const activeModulePath = Object.keys(moduleMenus).find(path => pathname.startsWith(path)) || "";
@@ -75,15 +85,24 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
           <div className="absolute top-0 right-0 w-32 h-32 bg-white dark:bg-zinc-900/50 backdrop-blur-md/10 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2"></div>
           
           {!isSidebarCollapsed ? (
-            <div className="relative z-10">
-              <h2 className="text-xl font-bold tracking-tight truncate w-full drop-shadow-sm">My Institution</h2>
-              <p className="text-blue-100 text-xs font-medium mt-1 uppercase tracking-wider truncate w-full opacity-90">
-                {activeModulePath.replace("/", "") || "Module"}
-              </p>
+            <div className="relative z-10 flex items-center gap-3">
+              {tenantLogo && (
+                <img src={tenantLogo} alt="Logo" className="w-8 h-8 rounded-full object-cover border border-white/30 bg-white/10" />
+              )}
+              <div>
+                <h2 className="text-xl font-bold tracking-tight truncate w-full drop-shadow-sm">My Institution</h2>
+                <p className="text-blue-100 text-xs font-medium mt-0.5 uppercase tracking-wider truncate w-full opacity-90">
+                  {activeModulePath.replace("/", "") || "Module"}
+                </p>
+              </div>
             </div>
           ) : (
-            <div className="font-bold text-2xl tracking-tighter relative z-10">
-              MI
+            <div className="font-bold text-2xl tracking-tighter relative z-10 flex items-center justify-center">
+              {tenantLogo ? (
+                <img src={tenantLogo} alt="Logo" className="w-8 h-8 rounded-full object-cover border border-white/30 bg-white/10" />
+              ) : (
+                "MI"
+              )}
             </div>
           )}
         </div>

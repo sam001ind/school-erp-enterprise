@@ -3,6 +3,7 @@
 import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import AuditLogView from "@/components/users/views/AuditLogView";
+import { LeadsBoard } from "@/components/admissions/LeadsBoard";
 
 function AdmissionsContent() {
   const searchParams = useSearchParams();
@@ -80,56 +81,7 @@ function AdmissionsContent() {
 
       {activeTab === "enquiry" && (
         <div className="animate-in fade-in duration-500">
-           <header className="mb-8 flex justify-between items-center">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Enquiry Management</h1>
-              <p className="text-slate-500 dark:text-slate-400 mt-2">Log and track prospective student inquiries.</p>
-            </div>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-medium shadow-lg shadow-blue-500/30">
-              + New Enquiry
-            </button>
-          </header>
-          
-          <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-slate-100 dark:border-zinc-800 shadow-sm p-8">
-            <h2 className="text-xl font-bold mb-6 dark:text-white">Create Enquiry</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Student Info */}
-              <div className="space-y-4">
-                <h3 className="font-bold text-zinc-700 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-300 border-b border-zinc-100 dark:border-zinc-800 pb-2">Student Information</h3>
-                <div><label className="block text-sm font-medium mb-1">Student Name</label><input type="text" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2" /></div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div><label className="block text-sm font-medium mb-1">Gender</label><select className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2"><option>Select</option></select></div>
-                  <div><label className="block text-sm font-medium mb-1">DOB</label><input type="date" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2" /></div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div><label className="block text-sm font-medium mb-1">Current School</label><input type="text" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2" /></div>
-                  <div><label className="block text-sm font-medium mb-1">Current Grade</label><select className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2"><option>Select</option></select></div>
-                </div>
-              </div>
-
-              {/* Parent Info & Prefs */}
-              <div className="space-y-4">
-                <h3 className="font-bold text-zinc-700 dark:text-zinc-300 dark:text-zinc-300 dark:text-zinc-300 border-b border-zinc-100 dark:border-zinc-800 pb-2">Parent Information & Preferences</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div><label className="block text-sm font-medium mb-1">Parent Name</label><input type="text" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2" /></div>
-                  <div><label className="block text-sm font-medium mb-1">Mobile</label><input type="tel" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2" /></div>
-                </div>
-                <div><label className="block text-sm font-medium mb-1">Email</label><input type="email" className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2" /></div>
-                
-                <div className="grid grid-cols-2 gap-4 mt-4">
-                  <div><label className="block text-sm font-medium mb-1">Academic Year</label><select className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2"><option>2026-2027</option></select></div>
-                  <div><label className="block text-sm font-medium mb-1">Grade Seeking</label><select className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2"><option>Grade 5</option></select></div>
-                </div>
-                <div><label className="block text-sm font-medium mb-1">Lead Source (CRM)</label><select className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 dark:bg-zinc-950 dark:bg-black px-4 py-2"><option>Facebook Ads (UTM tracked)</option><option>Walk-in</option></select></div>
-              </div>
-            </div>
-
-            <div className="mt-8 flex gap-4 justify-end">
-              <button className="px-6 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 dark:border-zinc-700 font-medium">Save & Schedule Follow-Up</button>
-              <button className="px-6 py-2.5 rounded-xl bg-blue-600 text-white font-medium shadow-lg shadow-blue-500/30">Convert to Application</button>
-            </div>
-          </div>
+           <LeadsBoard />
         </div>
       )}
 
